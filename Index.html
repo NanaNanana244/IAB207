@@ -1,0 +1,311 @@
+<html>
+    <head>
+        <title>Home Page</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Bootstrap css -->
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+        <!-- Custom css -->
+        <link rel="stylesheet" href="Static/Style/IndexStyle.css">
+    </head>
+    <body>
+        <!-- Navigation bar -->
+        <header>
+            <nav class="navbar sticky-top">
+                <div class="container-fluid d-flex justify-content-between align-items-center">
+                <!-- Left side: Logo -->
+                <a class="navbar-brand" href="Index.html"><strong>KPOP EVENT TICKET</strong></a>
+                <!-- Right side: Icons (large screen stay unchanged) -->
+                <ul class="nav d-none d-lg-flex align-items-center">
+                    <!-- Search bar -->
+                    <div class="search-bar d-flex">
+                        <form class="d-flex mx-3 align-items-center flex-grow-1" role="search" style="margin-bottom:0px">
+                            <img src="Static/Image/search.png" height="25px" class="me-2" style="filter: invert(1); transition: filter 0.2s">
+                            <input class="form-control flex-grow-1" type="search" placeholder="Search" aria-label="Search">
+                        </form>
+                    </div>
+                    <!-- Add Event -->
+                    <li class="nav-item mx-2">
+                    <a href="EventCreation.html"><img src="Static/Image/add.png" height="25px"></a>
+                    </li>
+                    <!-- Cart -->
+                    <li class="nav-item mx-2 position-relative">
+                    <a href="BookingHistory.html">
+                        <img src="Static/Image/grocery-store.png" height="25px">
+                    </a>
+                    </li>
+                    <!-- Profile Dropdown -->
+                    <li class="nav-item dropdown mx-2">
+                    <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                        <img src="Static/Image/account.png" height="25px">
+                    </a>
+                    <ul class="dropdown-menu dropdown-menu-end">
+                        <li><a class="dropdown-item" href="#" style="color: black">Register</a></li>
+                        <li><a class="dropdown-item" href="#" style="color: black">Log in</a></li>
+                    </ul>
+                    </li>
+                </ul>
+                <!-- Hamburger dropdown only for small screens -->
+                <div class="d-lg-none ms-auto">
+                    <div class="btn-group">
+                        <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" style="background-color: #cd98fb; border: none; font-size: 25px; padding: 0px">
+                            ☰
+                        </button>
+                        <ul class="dropdown-menu dropdown-menu-end p-2" style="background-color: #cd98fb; width: 250px; border: none; position: fixed; top: 50; right: 0;">
+                            <!-- Search bar -->
+                            <li class="nav-item my-2">
+                                <form class="d-flex align-items-center bg-clear rounded px-2 w-100">
+                                    <img src="Static/Image/search.png" height="20px" class="me-2">
+                                    <input class="form-control border-0 flex-grow-1" type="search" placeholder="Search" aria-label="Search">
+                                </form>
+                            </li>
+                            <!-- Add Event -->
+                            <li class="nav-item">
+                                <a class="dropdown-item text-white" href="EventCreation.html">
+                                    <img src="Static/Image/add.png" height="20px" class="me-2">
+                                    Add Event
+                                </a>
+                            </li>
+                            <!-- Booking History -->
+                            <li class="nav-item">
+                                <a class="dropdown-item text-white position-relative" href="BookingHistory.html">
+                                    <img src="Static/Image/grocery-store.png" height="20px" class="me-2">
+                                    Booking History
+                                </a>
+                            </li>
+                            <!-- Profile -->
+                            <li class="nav-item">
+                                <a class="dropdown-item text-white" href="#">
+                                    <img src="Static/Image/account.png" height="20px" class="me-2">
+                                    Register / Log in
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+        <!-- Advertisement Slideshow -->
+        <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
+            <!-- Indicators (dots) -->
+            <div class="carousel-indicators">
+                <button type="button" data-bs-target="#eventCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+                <button type="button" data-bs-target="#eventCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
+                <button type="button" data-bs-target="#eventCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
+                <button type="button" data-bs-target="#eventCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+            </div>
+            <!-- Slides -->
+            <div class="carousel-inner">
+                <div class="carousel-item active position-relative">
+                    <img src="Static/Image/Twice concert.png" class="d-block w-100">
+                    <!-- Buy Now button -->
+                    <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="z-index: 10">
+                        Buy Now
+                    </a>
+                </div>
+                <div class="carousel-item position-relative">
+                    <img src="Static/Image/SKZ concert.png" class="d-block w-100">
+                    <!-- Buy Now button -->
+                    <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="z-index: 10">
+                        Buy Now
+                    </a>
+                </div>
+                <div class="carousel-item position-relative">
+                    <img src="Static/Image/IVE concert.png" class="d-block w-100">
+                    <!-- Buy Now button -->
+                    <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="z-index: 10">
+                        Buy Now
+                    </a>
+                </div>
+                <div class="carousel-item position-relative">
+                    <img src="Static/Image/BTS concert.png" class="d-block w-100">
+                    <!-- Buy Now button overlay -->
+                    <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="z-index: 10"> 
+                        Buy Now
+                    </a>
+                </div>
+            </div>
+            <!-- Controls -->
+            <button class="carousel-control-prev" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#eventCarousel" data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+        <!-- Categories --> 
+        <div class="container g-0 my-4">
+            <div class="d-flex justify-content-start gap-4 ps-4">
+                <!-- America -->
+                <div class="text-center">
+                    <img src="Static/Image/united-states.png" class="category-icon rounded-20px" style="height:50px; width:50px;">
+                    <p class="mb-0 mt-2">America</p>
+                </div>
+                <!-- Australia -->
+                <div class="text-center">
+                    <img src="Static/Image/australia.png" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                    <p class="mb-0 mt-2">Australia</p>
+                </div>
+                <!-- Canada -->
+                <div class="text-center">
+                    <img src="Static/Image/canada.png" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                    <p class="mb-0 mt-2">Canada</p>
+                </div>
+            </div>
+        </div>
+        <!-- All events -->
+        <div class="container my-4">
+            <h2 class="mb-4">Upcoming Events</h2>
+            <!-- Row with 3-unit gutter between cards -->
+            <div class="row g-3">
+                <!-- Event Card 1 -->
+                <div class="col-12 col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100 border-radius-20px" style="border-radius:20px; overflow: hidden">
+                        <img src="Static/Image/Twice concert.png" class="card-img-top event-img">
+                        <div class="card-body">
+                            <h5 class="card-title">Twice Concert</h5>
+                            <p class="card-text" style="max-height: 100px; height: 100px">Twice Concert</p>
+                            <!-- Buttons row -->
+                            <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
+                                <!-- Status Button -->
+                                <button class="btn btn-outline-success flex-fill" disabled>Available</button>
+                                <!-- Buy Ticket Button -->
+                                <a href="EventDetail.html" class="btn btn-success flex-fill">Buy Tickets</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Event Card 2 -->
+                <div class="col-12 col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100"  style="border-radius:20px; overflow: hidden">
+                        <img src="Static/Image/IVE concert.png" class="card-img-top event-img">
+                        <div class="card-body">
+                            <h5 class="card-title">IVE Concert</h5>
+                            <p class="card-text" style="max-height: 100px; height: 100px">IVE Concert</p>
+                            <!-- Buttons row -->
+                            <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
+                                <!-- Status Button -->
+                                <button class="btn btn-outline-info flex-fill" disabled>Sold out</button>
+                                <!-- Buy Ticket Button -->
+                                <button class="btn btn-success flex-fill" disabled>Buy Tickets</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Event Card 3 -->
+                <div class="col-12 col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100" style="border-radius:20px; overflow: hidden">
+                        <img src="Static/Image/KATSEYE concert.png" class="card-img-top event-img">
+                        <div class="card-body">
+                            <h5 class="card-title">KATSEYE Fansign</h5>
+                            <p class="card-text" style="max-height: 100px; height: 100px">KATSEYE Fansign</p>
+                            <!-- Buttons row -->
+                            <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
+                                <!-- Status Button -->
+                                <button class="btn btn-outline-info flex-fill" disabled>Sold out</button>
+                                <!-- Buy Ticket Button -->
+                                <button class="btn btn-success flex-fill" disabled>Buy Tickets</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Event Card 4 -->
+                <div class="col-12 col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100"  style="border-radius:20px; overflow: hidden">
+                        <img src="Static/Image/BTS concert.png" class="card-img-top event-img">
+                        <div class="card-body">
+                            <h5 class="card-title">BTS Concert</h5>
+                            <p class="card-text" style="max-height: 100px; height: 100px">BTS Concert</p>
+                            <!-- Buttons row -->
+                            <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
+                                <!-- Status Button -->
+                                <button class="btn btn-outline-danger flex-fill" disabled>Cancelled</button>
+                                <!-- Buy Ticket Button -->
+                                <button class="btn btn-success flex-fill" disabled>Buy Tickets</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Event Card 5 -->
+                <div class="col-12 col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100"  style="border-radius:20px; overflow: hidden">
+                        <img src="Static/Image/NEWJEANS concert.png" class="card-img-top event-img">
+                        <div class="card-body">
+                            <h5 class="card-title">NEWJEANS Fansign</h5>
+                            <p class="card-text" style="max-height: 100px; height: 100px">NEWJEANS Fansign</p>
+                            <!-- Buttons row -->
+                            <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
+                                <!-- Status Button -->
+                                <button class="btn btn-outline-danger flex-fill" disabled>Cancelled</button>
+                                <!-- Buy Ticket Button -->
+                                <button class="btn btn-success flex-fill" disabled>Buy Tickets</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Event Card 6 -->
+                <div class="col-12 col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100"  style="border-radius:20px; overflow: hidden">
+                        <img src="Static/Image/SKZ concert.png" class="card-img-top event-img">
+                        <div class="card-body">
+                            <h5 class="card-title">SKZ Concert</h5>
+                            <p class="card-text" style="max-height: 100px; height: 100px">SKZ Concert</p>
+                            <!-- Buttons row -->
+                            <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
+                                <!-- Status Button -->
+                                <button class="btn btn-outline-secondary flex-fill" disabled>Inactive</button>
+                                <!-- Buy Ticket Button -->
+                                <button class="btn btn-success flex-fill" disabled>Buy Tickets</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Event Card 7 -->
+                <div class="col-12 col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100"  style="border-radius:20px; overflow: hidden">
+                        <img src="Static/Image/EXO concert.png" class="card-img-top event-img">
+                        <div class="card-body">
+                            <h5 class="card-title">EXO Fanmeeting</h5>
+                            <p class="card-text" style="max-height: 100px; height: 100px">EXO Fanmeeting</p>
+                            <!-- Buttons row -->
+                            <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
+                                <!-- Status Button -->
+                                <button class="btn btn-outline-secondary flex-fill" disabled>Inactive</button>
+                                <!-- Buy Ticket Button -->
+                                <button class="btn btn-success flex-fill" disabled>Buy Tickets</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!-- Create Events -->
+                <div class="col-12 col-md-4 col-lg-3 mb-4">
+                    <div class="card h-100"  style="border-radius:20px; overflow: hidden">
+                        <a href="EventCreation.html">
+                            <img src="Static/Image/more.png" class="card-img-top" style="height: 125px; object-fit: contain; padding-top: 20px">
+                        </a>
+                        <div class="card-body text-center">
+                            <h5 class="card-title">Create your own event!</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+    </body>
+    <footer>
+        <div class="text-light py-3">
+            <div class="container d-flex justify-content-between align-items-center">
+                <!-- Left side: text -->
+                <p class="mb-0 fs-6">©2025 EVENT MANAGEMENT ALL RIGHTS RESERVED</p>
+                <!-- Right side: icons -->
+                <div class="footer-icons">
+                    <img src="Static/Image/facebook.png" height="25px" class="me-2">
+                    <img src="Static/Image/instagram.png" height="25px" class="me-2">
+                    <img src="Static/Image/email.png" height="25px" class="me-2">
+                </div>
+            </div>
+        </div>
+    </footer>
+</html>
