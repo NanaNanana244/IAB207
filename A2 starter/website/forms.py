@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
-from wtforms.fields import TextAreaField, SubmitField, StringField, PasswordField
-from wtforms.validators import InputRequired, Length, Email, EqualTo
+from wtforms import StringField, TextAreaField, FileField, DecimalField, SubmitField, TimeField, DateField, PasswordField
+from wtforms.validators import InputRequired, length, EqualTo, Email
 
 # creates the login information
 class LoginForm(FlaskForm):
@@ -19,3 +19,19 @@ class RegisterForm(FlaskForm):
 
     # submit button
     submit = SubmitField("Register")
+
+class CreateEvent(FlaskForm):
+#event creation
+    title = StringField('Enter event name', [InputRequired()])
+    image = FileField('Enter image that you would like to use', [InputRequired()])
+    date = DateField('Enter the date of event', [InputRequired()])
+    time = TimeField('Enter the starting time of event', [InputRequired()])
+    venue = StringField('Enter venue name', [InputRequired()])
+    normalPrice = DecimalField('Enter normal ticket price', [InputRequired()])
+    vipPrice = DecimalField('Enter VIP ticket price', [InputRequired()])
+    normalAvail = DecimalField('Enter number of normal tickets', [InputRequired()])
+    vipAvail = DecimalField('Enter number of VIP tickets', [InputRequired()])
+    description = TextAreaField('Enter event description', [InputRequired()])
+    submit = SubmitField('Submit')
+
+
