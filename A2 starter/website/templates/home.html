@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 
-{% block title %}Home Page{% endblock %}
+{% block head %}
+<link rel="stylesheet"  href="{{ url_for('static', filename='style/IndexStyle.css') }}">
+{% endblock %}
 
 <!-- Advertisement Slideshow -->
 {% block content %}
@@ -217,3 +219,4 @@
     </div>
 </div>
 {% endblock %}
+
