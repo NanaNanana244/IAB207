@@ -1,0 +1,101 @@
+/* Nav Bar */
+    /* Profile */
+    .dropdown-toggle::after {
+    display: none;
+    }
+    .nav-item img {
+        filter: invert(1);
+        transition: filter 0.2s;
+    } 
+    .navbar {
+        background-color: #cd98fb;
+    }
+    /* Remove highlight and focus styles for hamburger dropdown links */
+    .dropdown-menu a.dropdown-item {
+        background-color: transparent; 
+        color: white;                  
+    }
+    .dropdown-menu a.dropdown-item:hover,
+    .dropdown-menu a.dropdown-item:focus,
+    .dropdown-menu a.dropdown-item:active {
+        background-color: transparent;  
+        color: white;               
+        box-shadow: none;             
+    }
+
+
+/* Carousel */
+    /* Carousel image height */
+    .carousel-item img {
+    width: 100%;
+    object-fit: cover;
+    height: 300px; /* mobile default */
+    }
+    @media (min-width: 768px) {
+    .carousel-item img {
+        height: 400px; /* tablets and up */
+    }
+    }
+    @media (min-width: 1200px) {
+    .carousel-item img {
+        height: 500px; /* large screens */
+    }
+    }
+    /* Buy Ticket button */
+    /* Small screens */
+    .carousel-buy-btn {
+        position: absolute;
+        bottom: 25px;
+        right: 10px;
+        white-space: nowrap;
+    }
+    /* Medium screens*/
+    @media (min-width: 768px) {
+        .carousel-buy-btn {
+            bottom: 30px; 
+            right: 30px; 
+        }
+    }
+    /* Large screens */
+    @media (min-width: 1200px) {
+        .carousel-buy-btn {
+            bottom: 50px; 
+            right: 50px; 
+        }
+    }
+
+/* Category */
+    .category-icon {
+    cursor: pointer;
+    transition: filter 0.2s; /* smooth effect */
+    }
+    /* Darken on hover */
+    .category-icon:hover {
+    filter: brightness(70%);
+    }
+
+
+/* Event card */
+    /* For small screens */
+    .event-img {
+    object-fit: cover;
+    width: 100%;
+    height: 200px;   
+    }
+    /* For desktop screens and larger */
+    @media (min-width: 992px) {
+    .event-img {
+        height: 125px;
+    }
+    }
+
+
+/* Footer */
+    .footer-icons img {
+        filter: invert(1);
+        transition: filter 0.2s;
+    }   
+    footer {
+        position: sticky;
+        background-color: #cd98fb;
+    }
