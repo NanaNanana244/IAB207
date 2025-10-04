@@ -34,8 +34,5 @@ class CreateEvent(FlaskForm):
     normalAvail = DecimalField('Enter number of normal tickets', [InputRequired()])
     vipAvail = DecimalField('Enter number of VIP tickets', [InputRequired()])
     description = TextAreaField('Enter event description', [InputRequired()])
-    tags = TextAreaField('Enter any words that will be helpful for users to search. This could include: genre, common mispellings, band members, popular songs etc.')
+    tags = TextAreaField('Enter keywords to help users find this event. Examples: genre, common mispellings, band members, popular songs, etc.')
     submit = SubmitField('Submit')
-
-
-

@@ -32,9 +32,11 @@ i've added 4 main content blocks if we need more than that we can add more if we
                     <ul class="nav d-none d-lg-flex align-items-center">
                         <!-- Search bar -->
                         <div class="search-bar d-flex">
-                            <form class="d-flex mx-3 align-items-center flex-grow-1" role="search" style="margin-bottom:0px">
+                            <form class="d-flex mx-3 align-items-center flex-grow-1" role="search" style="margin-bottom:0px"
+                                method="GET" action="{{ url_for('main.search') }}">
                                 <img src="{{ url_for('static', filename='Image/search.png') }}" height="25px" class="me-2" style="filter: invert(1); transition: filter 0.2s">
-                                <input class="form-control flex-grow-1" type="search" placeholder="Search" aria-label="Search">
+                                <input class="form-control flex-grow-1" type="search" name="q" 
+                                    placeholder="Search events..." aria-label="Search">
                             </form>
                         </div>
                         <!-- Add Event -->
@@ -67,9 +69,11 @@ i've added 4 main content blocks if we need more than that we can add more if we
                             <ul class="dropdown-menu dropdown-menu-end p-2" style="background-color: #cd98fb; width: 250px; border: none; position: fixed; top: 50; right: 0;">
                                 <!-- Search bar -->
                                 <li class="nav-item my-2">
-                                    <form class="d-flex align-items-center bg-clear rounded px-2 w-100">
+                                    <form class="d-flex align-items-center bg-clear rounded px-2 w-100" 
+                                        method="GET" action="{{ url_for('main.search') }}">
                                         <img src="{{ url_for('static', filename='Image/search.png') }}" height="20px" class="me-2">
-                                        <input class="form-control border-0 flex-grow-1" type="search" placeholder="Search" aria-label="Search">
+                                        <input class="form-control border-0 flex-grow-1" type="search" name="q" 
+                                            placeholder="Search" aria-label="Search">
                                     </form>
                                 </li>
                                 <!-- Add Event -->
