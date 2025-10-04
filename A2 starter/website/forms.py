@@ -29,6 +29,7 @@ class CreateEvent(FlaskForm):
     date = DateField('Enter the date of event', [InputRequired()])
     startTime = TimeField('Enter the starting time of event', [InputRequired()])
     location = StringField('Enter venue name', [InputRequired()])
+    country = StringField('Enter the country show is taking place', [InputRequired()])
     normalPrice = DecimalField('Enter normal ticket price', [InputRequired()])
     vipPrice = DecimalField('Enter VIP ticket price', [InputRequired()])
     normalAvail = DecimalField('Enter number of normal tickets', [InputRequired()])
@@ -36,3 +37,4 @@ class CreateEvent(FlaskForm):
     description = TextAreaField('Enter event description', [InputRequired()])
     tags = TextAreaField('Enter keywords to help users find this event. Examples: genre, common mispellings, band members, popular songs, etc.')
     submit = SubmitField('Submit')
+
