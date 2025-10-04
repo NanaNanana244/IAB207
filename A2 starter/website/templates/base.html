@@ -16,6 +16,7 @@ i've added 4 main content blocks if we need more than that we can add more if we
         <!-- Bootstrap css -->
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
         <!-- Custom css -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='Style/IndexStyle.css') }}">
         {% block head %}
 
         {% endblock %}
@@ -41,18 +42,23 @@ i've added 4 main content blocks if we need more than that we can add more if we
                         </div>
                         <!-- Add Event -->
                         <li class="nav-item mx-2">
-                            <a href="{{ url_for('create.create') }}"><img src="{{ url_for('static', filename='Image/add.png') }}" height="25px"></a>
+                            <a href="{{ url_for('create.create') }}">
+                                <img src="{{ url_for('static', filename='Image/add.png') }}" height="25px">
+                                <span class="nav-tooltip">Create Event</span>
+                            </a>
                         </li>
                         <!-- Cart -->
                         <li class="nav-item mx-2 position-relative">
                             <a href="BookingHistory.html">
                                 <img src="{{ url_for('static', filename='Image/grocery-store.png') }}" height="25px">
+                                <span class="nav-tooltip">Booking History</span>
                             </a>
                         </li>
                         <!-- Profile Dropdown -->
                         <li class="nav-item dropdown mx-2">
                             <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
                                 <img src="{{ url_for('static', filename='Image/account.png') }}" height="25px">
+                                <span class="nav-tooltip">Account</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li><a class="dropdown-item" href="#" style="color: black">Register</a></li>

@@ -4,8 +4,8 @@
 <link rel="stylesheet"  href="{{ url_for('static', filename='style/IndexStyle.css') }}">
 {% endblock %}
 
-<!-- Advertisement Slideshow -->
 {% block content %}
+<!-- Advertisement Slideshow -->
 <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
     <!-- Indicators (dots) -->
     <div class="carousel-indicators">
@@ -57,33 +57,71 @@
 </div>
 {% endblock %}
 
-<!-- Categories --> 
 {% block content2 %}
-<div class="container g-0 my-4">
-    <div class="d-flex justify-content-start gap-4 ps-4">
-        <!-- America -->
-        <div class="text-center">
-            <img src="{{ url_for('static', filename='Image/united-states.png') }}" class="category-icon rounded-20px" style="height:50px; width:50px;">
-            <p class="mb-0 mt-2">America</p>
-        </div>
-        <!-- Australia -->
-        <div class="text-center">
-            <img src="{{ url_for('static', filename='Image/australia.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-            <p class="mb-0 mt-2">Australia</p>
-        </div>
-        <!-- Canada -->
-        <div class="text-center">
-            <img src="{{ url_for('static', filename='Image/canada.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-            <p class="mb-0 mt-2">Canada</p>
+<!-- Page intro -->
+<div class="container text-center py-3">
+    <div class="row">
+        <div class="col-12">
+            <h1 class="display-5 mb-0">Welcome to KPOP Event Ticket</h1>
+            <p class="lead mb-0">Your ultimate destination for KPOP concerts, fan meetings, and exclusive events worldwide</p>
+            <p>Find tickets for your favorite artists, discover new events, and create unforgettable KPOP memories</p>
         </div>
     </div>
 </div>
 {% endblock %}
 
-<!-- All events -->
 {% block content3 %}
-<div class="container my-4">
-    <h2 class="mb-4">Upcoming Events</h2>
+<!-- Categories --> 
+<div class="container">  <!-- Removed g-0 -->
+    <!-- Add a clear heading -->
+    <div class="row">
+        <div class="col-12">
+            <h3 class="text my-1">Find Events by Location</h3>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-start mt-3 gap-5 ps-3"> 
+                <!-- America -->
+                <div class="text-center category-item" style="cursor: pointer;">
+                    <img src="{{ url_for('static', filename='Image/united-states.png') }}" class="category-icon rounded-20px" style="height:50px; width:50px;">
+                    <p class="mb-0 mt-2">America</p>
+                </div>
+                <!-- Australia -->
+                <div class="text-center category-item" style="cursor: pointer;">
+                    <img src="{{ url_for('static', filename='Image/australia.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                    <p class="mb-0 mt-2">Australia</p>
+                </div>
+                <!-- Canada -->
+                <div class="text-center category-item" style="cursor: pointer;">
+                    <img src="{{ url_for('static', filename='Image/canada.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                    <p class="mb-0 mt-2">Canada</p>
+                </div>
+                <!-- China -->
+                <div class="text-center category-item" style="cursor: pointer;">
+                    <img src="{{ url_for('static', filename='Image/china.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                    <p class="mb-0 mt-2">China</p>
+                </div>
+                <!-- Japan -->
+                <div class="text-center category-item" style="cursor: pointer;">
+                    <img src="{{ url_for('static', filename='Image/japan.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                    <p class="mb-0 mt-2">Japan</p>
+                </div>
+                <!-- Korea -->
+                <div class="text-center category-item" style="cursor: pointer;">
+                    <img src="{{ url_for('static', filename='Image/south-korea.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                    <p class="mb-0 mt-2">Korea</p>
+                </div>
+            </div>
+        </div>
+    </div>  
+</div>
+{% endblock %}
+
+{% block content4 %}
+<!-- All events -->
+<div class="container my-3">
+    <h3 class="mb-3">Upcoming Events</h3>
     <!-- Row with 3-unit gutter between cards -->
     <div class="row g-3">
         <!-- Event Card 1 -->
