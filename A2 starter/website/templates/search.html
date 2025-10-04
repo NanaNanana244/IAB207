@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<div class="container my-4">
+    <!-- Results Header -->
+    <div class="row mb-4">
+        <div class="col-12">
+            <h2 class="mb-4">
+                {% if results_count == 1 %}
+                    1 result for "{{ query }}"
+                {% else %}
+                    {{ results_count }} results for "{{ query }}"
+                {% endif %}
+            </h2>
+        </div>
+    </div>
+    
+    <!-- Search Results Grid -->
+    <div class="row g-3">
+        {% for event in events %}
+        <!-- Event Card -->
+        <div class="col-12 col-md-4 col-lg-3 mb-4">
+            <div class="card h-100 border-radius-20px" style="border-radius:20px; overflow: hidden">
+                <img src="{{ url_for('static', filename='Image/' + event.image_filename) if event.image_filename else url_for('static', filename='Image/event-placeholder.png') }}" 
+                     class="card-img-top event-img" 
+                     alt="{{ event.name }}">
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.name }}</h5>
+                    <p class="card-text" style="max-height: 100px; height: 100px">{{ event.description }}</p>
+                    <!-- Buttons row -->
+                    <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
+                        <!-- Status Button -->
+                        {% if event.status == 'Available' %}
+                            <button class="btn btn-outline-success flex-fill" disabled>Available</button>
+                        {% elif event.status == 'Sold out' %}
+                            <button class="btn btn-outline-info flex-fill" disabled>Sold out</button>
+                        {% elif event.status == 'Cancelled' %}
+                            <button class="btn btn-outline-danger flex-fill" disabled>Cancelled</button>
+                        {% else %}
+                            <button class="btn btn-outline-secondary flex-fill" disabled>Inactive</button>
+                        {% endif %}
+                        
+                        <!-- Buy Ticket Button -->
+                        {% if event.status == 'Available' %}
+                            <a href="{{ url_for('main.event_detail', event_id=event.id) }}" class="btn btn-success flex-fill">Buy Tickets</a>
+                        {% else %}
+                            <button class="btn btn-success flex-fill" disabled>Buy Tickets</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <!-- No Results Message -->
+        <div class="col-12">
+            <div class="text-center py-5">
+                <h4>No events found for "{{ query }}"</h4>
+                <p class="text-muted">Try searching with different keywords</p>
+                <a href="{{ url_for('main.index') }}" class="btn btn-primary">View All Events</a>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
