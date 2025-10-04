@@ -23,15 +23,18 @@ class RegisterForm(FlaskForm):
 class CreateEvent(FlaskForm):
 #event creation
     title = StringField('Enter event name', [InputRequired()])
-    image = FileField('Enter image that you would like to use', [InputRequired()])
+    artist = StringField('Enter artist/group name', [InputRequired()])
+    image = FileField('Event Image', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
     date = DateField('Enter the date of event', [InputRequired()])
-    time = TimeField('Enter the starting time of event', [InputRequired()])
-    venue = StringField('Enter venue name', [InputRequired()])
+    startTime = TimeField('Enter the starting time of event', [InputRequired()])
+    location = StringField('Enter venue name', [InputRequired()])
     normalPrice = DecimalField('Enter normal ticket price', [InputRequired()])
     vipPrice = DecimalField('Enter VIP ticket price', [InputRequired()])
     normalAvail = DecimalField('Enter number of normal tickets', [InputRequired()])
     vipAvail = DecimalField('Enter number of VIP tickets', [InputRequired()])
     description = TextAreaField('Enter event description', [InputRequired()])
+    tags = TextAreaField('Enter any words that will be helpful for users to search. This could include: genre, common mispellings, band members, popular songs etc.')
     submit = SubmitField('Submit')
+
 
 

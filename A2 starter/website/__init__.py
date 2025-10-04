@@ -20,7 +20,11 @@ def create_app():
     db.init_app(app)
 
     Bootstrap5(app)
-    
+
+    # config upload folder
+    UPLOAD_FOLDER = '/static/Image/uploads'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+  
     # initialise the login manager
     login_manager = LoginManager()
     
@@ -46,3 +50,4 @@ def create_app():
     app.register_blueprint(create.createbp)
   
     return app
+

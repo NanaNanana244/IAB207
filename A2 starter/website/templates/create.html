@@ -2,6 +2,10 @@
 
 {% from 'bootstrap5/form.html' import render_form %}
 
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='Style/EventCreationStyle.css') }}">
+{% endblock %}
+
 {% block content %}
 
         <div class="d-flex justify-content-center my-5">
@@ -9,13 +13,20 @@
                 <h2 class="text-center">Create Your Event!</h2>
                 <h6 class="text-center mb-0">Don't worry if you miss any details,</h6>
                 <h6 class="text-center">you can always update the event later!</h6>
-                <form action="" method="post" novalidate>
+                <form action="" method="post" enctype="multipart/form-data" novalidate>
                     {{ form.hidden_tag() }}
                     <!-- Event Name -->
                     <div class="mb-3">
                         <div class="form-group">
                             {{ form.title.label }}
                             {{ form.title(class_="form-control", size=32) }}
+                        </div>
+                    </div>
+                    <!-- Artist -->
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.artist.label }}
+                            {{ form.artist(class_="form-control", size=32) }}
                         </div>
                     </div>
                     <!-- Event Image -->
@@ -35,16 +46,16 @@
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                {{ form.time.label }}
-                                {{ form.time(class_="form-control", size=32) }}
+                                {{ form.startTime.label }}
+                                {{ form.startTime(class_="form-control", size=32, type='time') }}
                             </div>
                         </div>
                     </div>
                     <!-- Venue -->
                     <div class="mb-3">
                         <div class="form-group">
-                            {{ form.venue.label }}
-                            {{ form.venue(class_="form-control", size=32) }}
+                            {{ form.location.label }}
+                            {{ form.location(class_="form-control", size=32) }}
                         </div>
                     </div>
                     <!-- Ticket Prices -->
@@ -82,6 +93,13 @@
                         <div class="form-group">
                             {{ form.description.label }}
                             {{ form.description(class_="form-control", size=32) }}
+                        </div>      
+                    </div>
+                    <!--tags-->
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.tags.label }}
+                            {{ form.tags(class_="form-control", size=32) }}
                         </div>      
                     </div>
                     <!-- Submit -->
@@ -124,7 +142,6 @@
                 <div class="modal-content text-center">
                     <div class="modal-body">
                         <h5 class="mb-3">Your event has been successfully created!</h5>
-                        <p>A confirmation email will be sent to you shortly.</p>
                     </div>
                 </div>
             </div>
