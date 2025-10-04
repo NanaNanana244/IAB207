@@ -17,28 +17,28 @@
     <!-- Slides -->
     <div class="carousel-inner">
         <div class="carousel-item active position-relative">
-            <img src="{{ url_for('static', filename='Image/Twice concert.png') }}" class="d-block w-100">
+            <img src="{{ url_for('static', filename='Image/Display events/Twice concert.png') }}" class="d-block w-100">
             <!-- Buy Now button -->
             <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="z-index: 10">
                 Buy Now
             </a>
         </div>
         <div class="carousel-item position-relative">
-            <img src="{{ url_for('static', filename='Image/SKZ concert.png') }}" class="d-block w-100">
+            <img src="{{ url_for('static', filename='Image/Display events/SKZ concert.png') }}" class="d-block w-100">
             <!-- Buy Now button -->
             <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="z-index: 10">
                 Buy Now
             </a>
         </div>
         <div class="carousel-item position-relative">
-            <img src="{{ url_for('static', filename='Image/IVE concert.png') }}" class="d-block w-100">
+            <img src="{{ url_for('static', filename='Image/Display events/IVE concert.png') }}" class="d-block w-100">
             <!-- Buy Now button -->
             <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="z-index: 10">
                 Buy Now
             </a>
         </div>
         <div class="carousel-item position-relative">
-            <img src="{{ url_for('static', filename='Image/BTS concert.png') }}" class="d-block w-100">
+            <img src="{{ url_for('static', filename='Image/Display events/BTS concert.png') }}" class="d-block w-100">
             <!-- Buy Now button overlay -->
             <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="z-index: 10"> 
                 Buy Now
@@ -72,7 +72,7 @@
 
 {% block content3 %}
 <!-- Categories --> 
-<div class="container">  <!-- Removed g-0 -->
+<div class="container">
     <!-- Add a clear heading -->
     <div class="row">
         <div class="col-12">
@@ -84,32 +84,32 @@
             <div class="d-flex justify-content-start mt-3 gap-5 ps-3"> 
                 <!-- America -->
                 <div class="text-center category-item" style="cursor: pointer;">
-                    <img src="{{ url_for('static', filename='Image/united-states.png') }}" class="category-icon rounded-20px" style="height:50px; width:50px;">
+                    <img src="{{ url_for('static', filename='Image/Category Icons/united-states.png') }}" class="category-icon rounded-20px" style="height:50px; width:50px;">
                     <p class="mb-0 mt-2">America</p>
                 </div>
                 <!-- Australia -->
                 <div class="text-center category-item" style="cursor: pointer;">
-                    <img src="{{ url_for('static', filename='Image/australia.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                    <img src="{{ url_for('static', filename='Image/Category Icons/australia.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
                     <p class="mb-0 mt-2">Australia</p>
                 </div>
                 <!-- Canada -->
                 <div class="text-center category-item" style="cursor: pointer;">
-                    <img src="{{ url_for('static', filename='Image/canada.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                    <img src="{{ url_for('static', filename='Image/Category Icons/canada.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
                     <p class="mb-0 mt-2">Canada</p>
                 </div>
                 <!-- China -->
                 <div class="text-center category-item" style="cursor: pointer;">
-                    <img src="{{ url_for('static', filename='Image/china.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                    <img src="{{ url_for('static', filename='Image/Category Icons/china.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
                     <p class="mb-0 mt-2">China</p>
                 </div>
                 <!-- Japan -->
                 <div class="text-center category-item" style="cursor: pointer;">
-                    <img src="{{ url_for('static', filename='Image/japan.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                    <img src="{{ url_for('static', filename='Image/Category Icons/japan.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
                     <p class="mb-0 mt-2">Japan</p>
                 </div>
                 <!-- Korea -->
                 <div class="text-center category-item" style="cursor: pointer;">
-                    <img src="{{ url_for('static', filename='Image/south-korea.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                    <img src="{{ url_for('static', filename='Image/Category Icons/south-korea.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
                     <p class="mb-0 mt-2">Korea</p>
                 </div>
             </div>
@@ -127,7 +127,7 @@
         <!-- Event Card 1 -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100 border-radius-20px" style="border-radius:20px; overflow: hidden">
-                <img src="{{ url_for('static', filename='Image/Twice concert.png') }}" class="card-img-top event-img">
+                <img src="{{ url_for('static', filename='Image/Display events/Twice concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">Twice Concert</h5>
                     <p class="card-text" style="max-height: 100px; height: 100px">Twice Concert</p>
@@ -144,7 +144,7 @@
         <!-- Event Card 2 -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border-radius:20px; overflow: hidden">
-                <img src="{{ url_for('static', filename='Image/IVE concert.png') }}" class="card-img-top event-img">
+                <img src="{{ url_for('static', filename='Image/Display events/IVE concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">IVE Concert</h5>
                     <p class="card-text" style="max-height: 100px; height: 100px">IVE Concert</p>
@@ -161,7 +161,7 @@
         <!-- Event Card 3 -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100" style="border-radius:20px; overflow: hidden">
-                <img src="{{ url_for('static', filename='Image/KATSEYE concert.png') }}" class="card-img-top event-img">
+                <img src="{{ url_for('static', filename='Image/Display events/KATSEYE concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">KATSEYE Fansign</h5>
                     <p class="card-text" style="max-height: 100px; height: 100px">KATSEYE Fansign</p>
@@ -178,7 +178,7 @@
         <!-- Event Card 4 -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border-radius:20px; overflow: hidden">
-                <img src="{{ url_for('static', filename='Image/BTS concert.png') }}" class="card-img-top event-img">
+                <img src="{{ url_for('static', filename='Image/Display events/BTS concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">BTS Concert</h5>
                     <p class="card-text" style="max-height: 100px; height: 100px">BTS Concert</p>
@@ -195,7 +195,7 @@
         <!-- Event Card 5 -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border-radius:20px; overflow: hidden">
-                <img src="{{ url_for('static', filename='Image/NEWJEANS concert.png') }}" class="card-img-top event-img">
+                <img src="{{ url_for('static', filename='Image/Display events/NEWJEANS concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">NEWJEANS Fansign</h5>
                     <p class="card-text" style="max-height: 100px; height: 100px">NEWJEANS Fansign</p>
@@ -212,7 +212,7 @@
         <!-- Event Card 6 -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border-radius:20px; overflow: hidden">
-                <img src="{{ url_for('static', filename='Image/SKZ concert.png') }}" class="card-img-top event-img">
+                <img src="{{ url_for('static', filename='Image/Display events/SKZ concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">SKZ Concert</h5>
                     <p class="card-text" style="max-height: 100px; height: 100px">SKZ Concert</p>
@@ -229,7 +229,7 @@
         <!-- Event Card 7 -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border-radius:20px; overflow: hidden">
-                <img src="{{ url_for('static', filename='Image/EXO concert.png') }}" class="card-img-top event-img">
+                <img src="{{ url_for('static', filename='Image/Display events/EXO concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">EXO Fanmeeting</h5>
                     <p class="card-text" style="max-height: 100px; height: 100px">EXO Fanmeeting</p>

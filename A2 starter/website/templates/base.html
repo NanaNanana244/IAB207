@@ -35,7 +35,7 @@ i've added 4 main content blocks if we need more than that we can add more if we
                         <div class="search-bar d-flex">
                             <form class="d-flex mx-3 align-items-center flex-grow-1" role="search" style="margin-bottom:0px"
                                 method="GET" action="{{ url_for('main.search') }}">
-                                <img src="{{ url_for('static', filename='Image/search.png') }}" height="25px" class="me-2" style="filter: invert(1); transition: filter 0.2s">
+                                <img src="{{ url_for('static', filename='Image/NavBar Icons/search.png') }}" height="25px" class="me-2" style="filter: invert(1); transition: filter 0.2s">
                                 <input class="form-control flex-grow-1" type="search" name="q" 
                                     placeholder="Search events..." aria-label="Search">
                             </form>
@@ -43,21 +43,21 @@ i've added 4 main content blocks if we need more than that we can add more if we
                         <!-- Add Event -->
                         <li class="nav-item mx-2">
                             <a href="{{ url_for('create.create') }}">
-                                <img src="{{ url_for('static', filename='Image/add.png') }}" height="25px">
+                                <img src="{{ url_for('static', filename='Image/NavBar Icons/add.png') }}" height="25px">
                                 <span class="nav-tooltip">Create Event</span>
                             </a>
                         </li>
                         <!-- Cart -->
                         <li class="nav-item mx-2 position-relative">
                             <a href="BookingHistory.html">
-                                <img src="{{ url_for('static', filename='Image/grocery-store.png') }}" height="25px">
+                                <img src="{{ url_for('static', filename='Image/NavBar Icons/grocery-store.png') }}" height="25px">
                                 <span class="nav-tooltip">Booking History</span>
                             </a>
                         </li>
                         <!-- Profile Dropdown -->
                         <li class="nav-item dropdown mx-2">
                             <a href="#" class="dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
-                                <img src="{{ url_for('static', filename='Image/account.png') }}" height="25px">
+                                <img src="{{ url_for('static', filename='Image/NavBar Icons/account.png') }}" height="25px">
                                 <span class="nav-tooltip">Account</span>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
@@ -77,7 +77,7 @@ i've added 4 main content blocks if we need more than that we can add more if we
                                 <li class="nav-item my-2">
                                     <form class="d-flex align-items-center bg-clear rounded px-2 w-100" 
                                         method="GET" action="{{ url_for('main.search') }}">
-                                        <img src="{{ url_for('static', filename='Image/search.png') }}" height="20px" class="me-2">
+                                        <img src="{{ url_for('static', filename='Image/NavBar Icons/search.png') }}" height="20px" class="me-2">
                                         <input class="form-control border-0 flex-grow-1" type="search" name="q" 
                                             placeholder="Search" aria-label="Search">
                                     </form>
@@ -85,21 +85,21 @@ i've added 4 main content blocks if we need more than that we can add more if we
                                 <!-- Add Event -->
                                 <li class="nav-item">
                                     <a class="dropdown-item text-white" href="{{ url_for('create.create') }}">
-                                        <img src="{{ url_for('static', filename='Image/add.png') }}" height="20px" class="me-2">
+                                        <img src="{{ url_for('static', filename='Image/NavBar Icons/add.png') }}" height="20px" class="me-2">
                                         Add Event
                                     </a>
                                 </li>
                                 <!-- Booking History -->
                                 <li class="nav-item">
                                     <a class="dropdown-item text-white position-relative" href="BookingHistory.html">
-                                        <img src="{{ url_for('static', filename='Image/grocery-store.png') }}" height="20px" class="me-2">
+                                        <img src="{{ url_for('static', filename='Image/NavBar Icons/grocery-store.png') }}" height="20px" class="me-2">
                                         Booking History
                                     </a>
                                 </li>
                                 <!-- Profile -->
                                 <li class="nav-item">
                                     <a class="dropdown-item text-white" href="#">
-                                        <img src="{{ url_for('static', filename='Image/account.png') }}" height="20px" class="me-2">
+                                        <img src="{{ url_for('static', filename='Image/NavBar Icons/account.png') }}" height="20px" class="me-2">
                                         Register / Log in
                                     </a>
                                 </li>
@@ -136,9 +136,9 @@ i've added 4 main content blocks if we need more than that we can add more if we
                 <p class="mb-0 fs-6">©2025 EVENT MANAGEMENT ALL RIGHTS RESERVED</p>
                 <!-- Right side: icons -->
                 <div class="footer-icons">
-                    <img src="{{ url_for('static', filename='Image/facebook.png') }}" height="25px" class="me-2">
-                    <img src="{{ url_for('static', filename='Image/instagram.png') }}" height="25px" class="me-2">
-                    <img src="{{ url_for('static', filename='Image/email.png') }}" height="25px" class="me-2">
+                    <img src="{{ url_for('static', filename='Image/Footer Icons/facebook.png') }}" height="25px" class="me-2">
+                    <img src="{{ url_for('static', filename='Image/Footer Icons/instagram.png') }}" height="25px" class="me-2">
+                    <img src="{{ url_for('static', filename='Image/Footer Icons/email.png') }}" height="25px" class="me-2">
                 </div>
             </div>
         </div>
