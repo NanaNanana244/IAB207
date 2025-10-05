@@ -49,9 +49,9 @@ i've added 4 main content blocks if we need more than that we can add more if we
                         </li>
                         <!-- Cart -->
                         <li class="nav-item mx-2 position-relative">
-                            <a href="BookingHistory.html">
+                            <a href="{{ url_for('main.booking_history') }}">
                                 <img src="{{ url_for('static', filename='Image/NavBar Icons/grocery-store.png') }}" height="25px">
-                                <span class="nav-tooltip">Booking History</span>
+                                <span class="nav-tooltip">History</span>
                             </a>
                         </li>
                         <!-- Profile Dropdown -->
@@ -91,7 +91,7 @@ i've added 4 main content blocks if we need more than that we can add more if we
                                 </li>
                                 <!-- Booking History -->
                                 <li class="nav-item">
-                                    <a class="dropdown-item text-white position-relative" href="BookingHistory.html">
+                                    <a class="dropdown-item text-white position-relative" href="{{ url_for('main.booking_history') }}">
                                         <img src="{{ url_for('static', filename='Image/NavBar Icons/grocery-store.png') }}" height="20px" class="me-2">
                                         Booking History
                                     </a>

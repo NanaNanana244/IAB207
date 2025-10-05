@@ -5,7 +5,7 @@ from .models import User
 from .forms import LoginForm, RegisterForm
 from . import db
 
-# Create a blueprint - make sure all BPs have unique names
+# create a blueprint - make sure all BPs have unique names
 auth_bp = Blueprint('auth', __name__)
 
 # this is a hint for a login function

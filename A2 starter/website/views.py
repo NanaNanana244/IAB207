@@ -45,3 +45,16 @@ def search():
 def event_detail(event_id):
     event = Event.query.get_or_404(event_id)
     return render_template('event_detail.html', event=event, title=event.title)
+
+@main_bp.route('/booking-history')
+def booking_history():
+    # Show all events for now since we're not using authentication yet
+    user_events = Event.query.all()
+    
+    return render_template('history.html', 
+                         user_events=user_events,
+                         title='Booking History')
+
+@main_bp.route('/register')
+def register():
+    return "Register page coming soon"

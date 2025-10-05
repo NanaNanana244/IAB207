@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}Booking History{% endblock %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='Style/BookingHistoryStyle.css') }}">
+{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="d-flex justify-content-center">
+        <ul class="nav nav-tabs nav-fill mb-0" style="max-width: 700px; width: 100%;" id="bookingTabs" role="tablist">
+            <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="past-bookings-tab" data-bs-toggle="tab" data-bs-target="#past-bookings" type="button" role="tab" aria-controls="past-bookings" aria-selected="true">
+                    History
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button class="nav-link" id="your-events-tab" data-bs-toggle="tab" data-bs-target="#your-events" type="button" role="tab" aria-controls="your-events" aria-selected="false">
+                    Your Events
+                </button>
+            </li>
+        </ul>
+    </div>
+
+    <!-- Tabs Content -->
+    <div class="tab-content" id="bookingTabsContent">
+        <!-- Past Bookings Tab -->
+        <div class="tab-pane fade show active" id="past-bookings" role="tabpanel" aria-labelledby="past-bookings-tab">
+            <div class="d-flex justify-content-center">
+                <div class="card p-4 mb-5" style="max-width: 700px; width: 100%; border: #cd98fb solid 2px; border-radius: 0 0 15px 15px; border-width: 0 2px 2px 2px">
+                    <h2 class="text-center m-0">Your Booking History</h2>
+                    <p class="text-black text-center mb-4">Manage and view your past bookings here</p>
+                    <!-- Booking card 1 -->
+                    <div class="card mb-3" style="border: #cd98fb solid 1px; overflow: hidden">
+                        <div class="row g-0 flex-column flex-md-row">
+                            <!-- Event image -->
+                            <div class="col-md-4">
+                                <img src="{{ url_for('static', filename='Image/Display events/IVE concert.png') }}" class="booking-img" style="width: 100%; height: 100%; object-fit: cover">
+                            </div>
+                            <!-- Booking details -->
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">IVE Concert (VIP Ticket)</h5>
+                                    <p class="card-text mb-1"><strong>Booking ID:</strong> #011221</p>
+                                    <p class="card-text mb-1"><strong>Date Booked:</strong> 28/8/2025</p>
+                                    <p class="card-text mb-1"><strong>Event Date:</strong> 1/12/2025 6:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Booking card 2 -->
+                    <div class="card mb-3" style="border: #cd98fb solid 1px; overflow: hidden">
+                        <div class="row g-0 flex-column flex-md-row">
+                            <div class="col-md-4">
+                                <img src="{{ url_for('static', filename='Image/Display events/EXO concert.png') }}" class="booking-img" style="width: 100%; height: 100%; object-fit: cover">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">EXO Concert (VIP Ticket)</h5>
+                                    <p class="card-text mb-1"><strong>Booking ID:</strong> #080412</p>
+                                    <p class="card-text mb-1"><strong>Date Booked:</strong> 28/3/2024</p>
+                                    <p class="card-text mb-1"><strong>Event Date:</strong> 8/4/2024 6:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Booking card 3 -->
+                    <div class="card mb-3" style="border: #cd98fb solid 1px; overflow: hidden">
+                        <div class="row g-0 flex-column flex-md-row">
+                            <div class="col-md-4">
+                                <img src="{{ url_for('static', filename='Image/Display events/SKZ concert.png') }}" class="booking-img" style="width: 100%; height: 100%; object-fit: cover">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">SKZ Concert</h5>
+                                    <p class="card-text mb-1"><strong>Booking ID:</strong> #250318</p>
+                                    <p class="card-text mb-1"><strong>Date Booked:</strong> 15/3/2024</p>
+                                    <p class="card-text mb-1"><strong>Event Date:</strong> 25/3/2024 7:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Booking card 4 -->
+                    <div class="card mb-3" style="border: #cd98fb solid 1px; overflow: hidden">
+                        <div class="row g-0 flex-column flex-md-row">
+                            <div class="col-md-4">
+                                <img src="{{ url_for('static', filename='Image/Display events/BTS concert.png') }}" class="booking-img" style="width: 100%; height: 100%; object-fit: cover">
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body">
+                                    <h5 class="card-title">BTS Concert (VIP Ticket)</h5>
+                                    <p class="card-text mb-1"><strong>Booking ID:</strong> #130613</p>
+                                    <p class="card-text mb-1"><strong>Date Booked:</strong> 13/5/2025</p>
+                                    <p class="card-text mb-1"><strong>Event Date:</strong> 13/6/2025 7:00 PM</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- Your Events Tab -->
+        <div class="tab-pane fade" id="your-events" role="tabpanel" aria-labelledby="your-events-tab">
+            <div class="d-flex justify-content-center">
+                <div class="card p-4 MB-5" style="max-width: 700px; width: 100%; border: #cd98fb solid 2px; border-radius: 0 0 15px 15px; border-width: 0 2px 2px 2px">
+                    <h2 class="text-center mb-0">Your Created Events</h2>
+                    <p class="text-black text-center mb-4">Manage and edit your events here</p>
+                    <!-- Database Events (User's Events) -->
+                    {% for event in user_events %}
+                    <div class="card mb-3" style="border: #cd98fb solid 1px; overflow: hidden; height: 150px;"> <!-- Set fixed height on entire card -->
+                        <div class="row g-0 h-100"> <!-- Make row fill card height -->
+                            <!-- Event image -->
+                            <div class="col-md-4">
+                                <img src="{{ event.image }}" class="h-100 w-100" style="object-fit: cover;"> <!-- Use Bootstrap height classes -->
+                            </div>
+                            <!-- Event details -->
+                            <div class="col-md-8">
+                                <div class="card-body d-flex flex-column justify-content-between h-100">
+                                    <div>
+                                        <h5 class="card-title">{{ event.title }}</h5>
+                                        <p class="card-text mb-1"><strong>Location:</strong> {{ event.location }}</p>
+                                        <p class="card-text mb-1"><strong>Date/Time:</strong> {{ event.startTime }}</p>
+                                    </div>
+                                    <div class="d-flex gap-2 mt-1">
+                                        <a href="{{ url_for('main.event_detail', event_id=event.eventid) }}" class="btn btn-outline-primary btn-sm flex-fill">View</a>
+                                        <a href="#" class="btn btn-outline-secondary btn-sm flex-fill">Edit</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+                    <!-- Add Event Card -->
+                    <div class="card mb-3" style="border: #cd98fb solid 1px; overflow: hidden">
+                        <div class="row g-0 flex-column flex-md-row" style="min-height: 150px;"> <!-- Same fixed height -->
+                            <div class="col-md-4">
+                                <a href="{{ url_for('create.create') }}" class="text-decoration-none h-100 d-block">
+                                    <div class="d-flex justify-content-center align-items-center h-100 bg-light">
+                                        <img src="{{ url_for('static', filename='Image/more.png') }}" style="height: 60px; width: 60px; object-fit: contain;">
+                                    </div>
+                                </a>
+                            </div>
+                            <div class="col-md-8">
+                                <div class="card-body d-flex flex-column justify-content-center h-100">
+                                    <a href="{{ url_for('create.create') }}" class="text-decoration-none text-dark">
+                                        <h5 class="card-title">Create New Event</h5>
+                                        <p class="card-text text-muted">Click here to create and manage a new event</p>
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
