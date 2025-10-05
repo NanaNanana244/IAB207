@@ -26,23 +26,37 @@
         <div class="carousel-item position-relative">
             <img src="{{ url_for('static', filename='Image/Display events/SKZ concert.png') }}" class="d-block w-100">
             <!-- Buy Now button -->
-            <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10">
+            <button class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10" data-bs-toggle="modal" data-bs-target="#soldOutModal">
                 Buy Now
-            </a>
+            </button>
         </div>
         <div class="carousel-item position-relative">
             <img src="{{ url_for('static', filename='Image/Display events/IVE concert.png') }}" class="d-block w-100">
             <!-- Buy Now button -->
-            <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10">
+            <button class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10" data-bs-toggle="modal" data-bs-target="#soldOutModal">
                 Buy Now
-            </a>
+            </button>
         </div>
         <div class="carousel-item position-relative">
             <img src="{{ url_for('static', filename='Image/Display events/BTS concert.png') }}" class="d-block w-100">
             <!-- Buy Now button overlay -->
-            <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10"> 
+            <button class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10" data-bs-toggle="modal" data-bs-target="#soldOutModal">
                 Buy Now
-            </a>
+            </button>
+        </div>
+        <!-- Sold Out Modal (add this once somewhere in your template) -->
+        <div class="modal fade" id="soldOutModal" tabindex="-1" aria-labelledby="soldOutModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="soldOutModalLabel">Ticket Unavailable</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body text-center">
+                        <p>Sorry, the tickets for this show are not available.</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <!-- Controls -->
