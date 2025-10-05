@@ -19,28 +19,28 @@
         <div class="carousel-item active position-relative">
             <img src="{{ url_for('static', filename='Image/Display events/Twice concert.png') }}" class="d-block w-100">
             <!-- Buy Now button -->
-            <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="z-index: 10">
+            <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10">
                 Buy Now
             </a>
         </div>
         <div class="carousel-item position-relative">
             <img src="{{ url_for('static', filename='Image/Display events/SKZ concert.png') }}" class="d-block w-100">
             <!-- Buy Now button -->
-            <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="z-index: 10">
+            <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10">
                 Buy Now
             </a>
         </div>
         <div class="carousel-item position-relative">
             <img src="{{ url_for('static', filename='Image/Display events/IVE concert.png') }}" class="d-block w-100">
             <!-- Buy Now button -->
-            <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="z-index: 10">
+            <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10">
                 Buy Now
             </a>
         </div>
         <div class="carousel-item position-relative">
             <img src="{{ url_for('static', filename='Image/Display events/BTS concert.png') }}" class="d-block w-100">
             <!-- Buy Now button overlay -->
-            <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="z-index: 10"> 
+            <a href="EventDetail.html" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10"> 
                 Buy Now
             </a>
         </div>
@@ -82,36 +82,55 @@
     <div class="row">
         <div class="col-12">
             <div class="d-flex justify-content-start mt-3 gap-5 ps-3"> 
+                <!-- All events -->                
+                <a href="{{ url_for('main.index') }}" class="text-decoration-none">
+                    <div class="text-center category-item" style="cursor: pointer;">
+                        <img src="{{ url_for('static', filename='Image/Category Icons/earth.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                        <p class="mb-0 mt-2">All Events</p>
+                    </div>
+                </a>
                 <!-- America -->
-                <div class="text-center category-item" style="cursor: pointer;">
-                    <img src="{{ url_for('static', filename='Image/Category Icons/united-states.png') }}" class="category-icon rounded-20px" style="height:50px; width:50px;">
-                    <p class="mb-0 mt-2">America</p>
-                </div>
+                <a href="{{ url_for('main.index') }}?country=America" class="text-decoration-none">
+                    <div class="text-center category-item" style="cursor: pointer;">
+                        <img src="{{ url_for('static', filename='Image/Category Icons/united-states.png') }}" class="category-icon rounded-20px" style="height:50px; width:50px;">
+                        <p class="mb-0 mt-2">America</p>
+                    </div>
+                </a>
                 <!-- Australia -->
-                <div class="text-center category-item" style="cursor: pointer;">
-                    <img src="{{ url_for('static', filename='Image/Category Icons/australia.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-                    <p class="mb-0 mt-2">Australia</p>
-                </div>
+                <a href="{{ url_for('main.index') }}?country=Australia" class="text-decoration-none">
+                    <div class="text-center category-item" style="cursor: pointer;">
+                        <img src="{{ url_for('static', filename='Image/Category Icons/australia.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                        <p class="mb-0 mt-2">Australia</p>
+                    </div>
+                </a>
                 <!-- Canada -->
-                <div class="text-center category-item" style="cursor: pointer;">
-                    <img src="{{ url_for('static', filename='Image/Category Icons/canada.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-                    <p class="mb-0 mt-2">Canada</p>
-                </div>
+                <a href="{{ url_for('main.index') }}?country=Canada" class="text-decoration-none">
+                    <div class="text-center category-item" style="cursor: pointer;">
+                        <img src="{{ url_for('static', filename='Image/Category Icons/canada.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                        <p class="mb-0 mt-2">Canada</p>
+                    </div>
+                </a>
                 <!-- China -->
-                <div class="text-center category-item" style="cursor: pointer;">
-                    <img src="{{ url_for('static', filename='Image/Category Icons/china.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-                    <p class="mb-0 mt-2">China</p>
-                </div>
+                <a href="{{ url_for('main.index') }}?country=China" class="text-decoration-none">
+                    <div class="text-center category-item" style="cursor: pointer;">
+                        <img src="{{ url_for('static', filename='Image/Category Icons/china.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                        <p class="mb-0 mt-2">China</p>
+                    </div>
+                </a>
                 <!-- Japan -->
-                <div class="text-center category-item" style="cursor: pointer;">
-                    <img src="{{ url_for('static', filename='Image/Category Icons/japan.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-                    <p class="mb-0 mt-2">Japan</p>
-                </div>
+                <a href="{{ url_for('main.index') }}?country=Japan" class="text-decoration-none">
+                    <div class="text-center category-item" style="cursor: pointer;">
+                        <img src="{{ url_for('static', filename='Image/Category Icons/japan.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                        <p class="mb-0 mt-2">Japan</p>
+                    </div>
+                </a>
                 <!-- Korea -->
-                <div class="text-center category-item" style="cursor: pointer;">
-                    <img src="{{ url_for('static', filename='Image/Category Icons/south-korea.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-                    <p class="mb-0 mt-2">Korea</p>
-                </div>
+                <a href="{{ url_for('main.index') }}?country=Korea" class="text-decoration-none">
+                    <div class="text-center category-item" style="cursor: pointer;">
+                        <img src="{{ url_for('static', filename='Image/Category Icons/south-korea.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
+                        <p class="mb-0 mt-2">Korea</p>
+                    </div>
+                </a>
             </div>
         </div>
     </div>  
@@ -120,13 +139,82 @@
 
 {% block content4 %}
 <!-- All events -->
-<div class="container my-3">
-    <h3 class="mb-3">Upcoming Events</h3>
+<div class="container my-3" id="events-section">
+        <!-- DEBUG: Show event count -->
+    <div class="alert alert-info">
+        <strong>Debug Info:</strong> 
+        {{ events|length }} events found in database
+        {% for event in events %}
+        <br> - {{ event.title }} ({{ event.status }})
+        {% endfor %}
+    </div>
+    <!-- Header with filter dropdown -->
+    <div class="d-flex justify-content-between align-items-center mb-3">
+        <h3 class="mb-0">
+            {% if selected_country %}
+                Events in {{ selected_country }}
+            {% else %}
+                Upcoming Events
+            {% endif %}
+        </h3>
+        <!-- Status Filter Dropdown -->
+        <div class="dropdown">
+            <button class="btn" style="width: 160px; background-color: #e7ccff; border-color: #cd98fb" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {% if selected_status %} 
+                    {{ selected_status }}
+                {% else %}
+                    Event Status
+                {% endif %}
+                <span style="margin-left: 5px;">▼</span>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ url_for('main.index') }}{% if selected_country %}?country={{ selected_country }}{% endif %}#events-section">All Statuses</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('main.index') }}{% if selected_country %}?country={{ selected_country }}&{% else %}?{% endif %}status=Available#events-section">Available</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('main.index') }}{% if selected_country %}?country={{ selected_country }}&{% else %}?{% endif %}status=Sold out#events-section">Sold Out</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('main.index') }}{% if selected_country %}?country={{ selected_country }}&{% else %}?{% endif %}status=Cancelled#events-section">Cancelled</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('main.index') }}{% if selected_country %}?country={{ selected_country }}&{% else %}?{% endif %}status=Inactive#events-section">Inactive</a></li>
+            </ul>
+        </div>
+    </div>
     <!-- Row with 3-unit gutter between cards -->
     <div class="row g-3">
-        <!-- Event Card 1 -->
+        <!-- REAL EVENTS FROM DATABASE (show first) -->
+        {% for event in events %}
         <div class="col-12 col-md-4 col-lg-3 mb-4">
-            <div class="card h-100 border-radius-20px" style="border-radius:20px; overflow: hidden">
+            <div class="card h-100" style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
+                <img src="{{ event.image }}" class="card-img-top event-img">
+                <div class="card-body">
+                    <h5 class="card-title">{{ event.title }}</h5>
+                    <p class="card-text" style="max-height: 100px; height: 100px">{{ event.description }}</p>
+                    <!-- Buttons row -->
+                    <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
+                        <!-- Status Button -->
+                        {% if event.status == 'Available' %}
+                            <button class="btn btn-outline-success flex-fill" disabled>Available</button>
+                        {% elif event.status == 'Sold out' %}
+                            <button class="btn btn-outline-info flex-fill" disabled>Sold out</button>
+                        {% elif event.status == 'Cancelled' %}
+                            <button class="btn btn-outline-danger flex-fill" disabled>Cancelled</button>
+                        {% else %}
+                            <button class="btn btn-outline-secondary flex-fill" disabled>Inactive</button>
+                        {% endif %}
+                        <!-- Buy Ticket Button -->
+                        {% if event.status == 'Available' %}
+                            <a href="{{ url_for('main.event_detail', event_id=event.eventid) }}" class="btn btn-success flex-fill">Buy Tickets</a>
+                        {% else %}
+                            <button class="btn btn-success flex-fill" disabled>Buy Tickets</button>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+
+        <!-- EXAMPLE EVENTS (always show after real events) -->
+        {% if not selected_status or selected_status == 'Available' %}
+        <!-- Event Card 1 - Available -->
+        <div class="col-12 col-md-4 col-lg-3 mb-4">
+            <div class="card h-100" style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/Twice concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">Twice Concert</h5>
@@ -141,9 +229,12 @@
                 </div>
             </div>
         </div>
-        <!-- Event Card 2 -->
+        {% endif %}
+
+        {% if not selected_status or selected_status == 'Sold out' %}
+        <!-- Event Card 2 - Sold out -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
-            <div class="card h-100"  style="border-radius:20px; overflow: hidden">
+            <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/IVE concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">IVE Concert</h5>
@@ -158,9 +249,12 @@
                 </div>
             </div>
         </div>
-        <!-- Event Card 3 -->
+        {% endif %}
+
+        {% if not selected_status or selected_status == 'Sold out' %}
+        <!-- Event Card 3 - Sold out -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
-            <div class="card h-100" style="border-radius:20px; overflow: hidden">
+            <div class="card h-100" style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/KATSEYE concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">KATSEYE Fansign</h5>
@@ -175,9 +269,12 @@
                 </div>
             </div>
         </div>
-        <!-- Event Card 4 -->
+        {% endif %}
+
+        {% if not selected_status or selected_status == 'Cancelled' %}
+        <!-- Event Card 4 - Cancelled -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
-            <div class="card h-100"  style="border-radius:20px; overflow: hidden">
+            <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/BTS concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">BTS Concert</h5>
@@ -192,9 +289,12 @@
                 </div>
             </div>
         </div>
-        <!-- Event Card 5 -->
+        {% endif %}
+
+        {% if not selected_status or selected_status == 'Cancelled' %}
+        <!-- Event Card 5 - Cancelled -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
-            <div class="card h-100"  style="border-radius:20px; overflow: hidden">
+            <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/NEWJEANS concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">NEWJEANS Fansign</h5>
@@ -209,9 +309,12 @@
                 </div>
             </div>
         </div>
-        <!-- Event Card 6 -->
+        {% endif %}
+
+        {% if not selected_status or selected_status == 'Inactive' %}
+        <!-- Event Card 6 - Inactive -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
-            <div class="card h-100"  style="border-radius:20px; overflow: hidden">
+            <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/SKZ concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">SKZ Concert</h5>
@@ -226,9 +329,12 @@
                 </div>
             </div>
         </div>
-        <!-- Event Card 7 -->
+        {% endif %}
+
+        {% if not selected_status or selected_status == 'Inactive' %}
+        <!-- Event Card 7 - Inactive -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
-            <div class="card h-100"  style="border-radius:20px; overflow: hidden">
+            <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/EXO concert.png') }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title">EXO Fanmeeting</h5>
@@ -243,10 +349,12 @@
                 </div>
             </div>
         </div>
+        {% endif %}
+
         <!-- Create Events -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
-            <div class="card h-100"  style="border-radius:20px; overflow: hidden">
-                <a href="EventCreation.html">
+            <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
+                <a href="{{ url_for('create.create') }}">
                     <img src="{{ url_for('static', filename='Image/more.png') }}" class="card-img-top" style="height: 125px; object-fit: contain; padding-top: 20px">
                 </a>
                 <div class="card-body text-center">

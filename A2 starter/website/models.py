@@ -24,6 +24,7 @@ class Event(db.Model):
     artist = db.Column(db.String(100), index=True, nullable=False)
     startTime = db.Column(db.Time, index=True, nullable=False)
     location = db.Column(db.String(100), index=True, nullable=False)
+    country = db.Column(db.String(100), index=True, nullable=False)  
     title = db.Column(db.String(100), index=True, nullable=False)
     description = db.Column(db.String(255), index=True, nullable=False)
     image = db.Column(db.String(100), index=True, nullable=False)

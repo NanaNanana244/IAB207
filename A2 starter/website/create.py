@@ -18,6 +18,7 @@ def create():
         eventAdd = Event(artist=form.artist.data,
                       startTime=form.startTime.data, 
                       location=form.location.data,
+                      country=form.country.data,
                       title=form.title.data,
                       description=form.description.data,
                       image = db_file_path,
