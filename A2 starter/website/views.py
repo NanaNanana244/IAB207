@@ -1,6 +1,7 @@
-from flask import Blueprint, render_template, request
+from flask import Blueprint, render_template, request, redirect, url_for
+from flask_login import login_required, current_user
 from . import db
-from .models import Event
+from .models import Event, Comment
 
 main_bp = Blueprint('main', __name__)
 
@@ -44,7 +45,24 @@ def search():
 @main_bp.route('/event/<int:event_id>')
 def event_detail(event_id):
     event = Event.query.get_or_404(event_id)
-    return render_template('event_detail.html', event=event, title=event.title)
+    return render_template('event_details/details.html', event=event, title=event.title)
+
+@main_bp.route('/event/<int:event_id>/comment', methods=['POST'])
+@login_required
+def add_comment(event_id):
+    comment_text = request.form.get('comment_text')
+    
+    new_comment = Comment(
+        eventid=event_id,
+        userid=current_user.userid,
+        username=current_user.username,
+        comment=comment_text
+    )
+    
+    db.session.add(new_comment)
+    db.session.commit()
+    
+    return redirect(url_for('main.event_detail', event_id=event_id))
 
 @main_bp.route('/demo-event')
 def demo_event():
