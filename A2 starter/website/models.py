@@ -30,6 +30,7 @@ class Event(db.Model):
     image = db.Column(db.String(100), index=True, nullable=False)
     status = db.Column(db.String(50), nullable=False, default='Active')
     tags = db.Column(db.String(255), index=True, nullable=True)
+    country = db.Column(db.String(100), index=True, nullable=False)
 
     db.relationship('comment', backref='events')
     db.relationship('order', backref='events')
@@ -51,3 +52,4 @@ class Order(db.Model):
     eventid = db.Column(db.Integer, db.ForeignKey('event.eventid'))
     price = db.Column(db.Integer, index=True, nullable=False)
     timeBooked = db.Column(db.DateTime, index=True, nullable=False)
+
