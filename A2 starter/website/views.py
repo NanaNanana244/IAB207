@@ -46,6 +46,10 @@ def event_detail(event_id):
     event = Event.query.get_or_404(event_id)
     return render_template('event_detail.html', event=event, title=event.title)
 
+@main_bp.route('/demo-event')
+def demo_event():
+    return render_template('event_details/DemoEvent.html', title='Demo Event')
+
 @main_bp.route('/booking-history')
 def booking_history():
     # Show all events for now since we're not using authentication yet
