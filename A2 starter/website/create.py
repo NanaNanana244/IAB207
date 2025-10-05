@@ -17,17 +17,19 @@ def create():
         db_file_path = check_upload_file(form)
         eventAdd = Event(artist=form.artist.data,
                       startTime=form.startTime.data, 
+                      date=form.date.data,
                       location=form.location.data,
+                      country=form.country.data,
                       title=form.title.data,
                       description=form.description.data,
                       image = db_file_path,
+                      status=form.status.data,  # ← ADD THIS LINE
                       tags=form.tags.data)
         # add the object to the db session
         db.session.add(eventAdd)
         # commit to the database
         db.session.commit()
         print('success')
-        #print('artist', form.artist.data, 'start', form.startTime.data, 'location', form.location.data, '')
         # Always end with redirect when form is valid
         return redirect(url_for('main.index'))
     else:

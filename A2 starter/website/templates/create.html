@@ -7,7 +7,6 @@
 {% endblock %}
 
 {% block content %}
-
         <div class="d-flex justify-content-center my-5">
             <div class="card p-4" style="max-width: 700px; width: 100%; border: #cd98fb solid 2px; border-radius: 15px;">
                 <h2 class="text-center">Create Your Event!</h2>
@@ -58,6 +57,20 @@
                             {{ form.location(class_="form-control", size=32) }}
                         </div>
                     </div>
+                    <!-- Country -->
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.country.label }}
+                            {{ form.country(class_="form-control", size=32) }}
+                        </div>
+                    </div>
+                    <!-- Status Dropdown -->
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.status.label }}
+                            {{ form.status(class_="form-control") }}
+                        </div>
+                    </div>
                     <!-- Ticket Prices -->
                     <div class="row mb-3">
                         <div class="col-md-6">
@@ -105,7 +118,7 @@
                     <!-- Submit -->
                      <div class="d-flex justify-content-end">
                         <div class="form-group">
-                            {{ form.submit(class_="form-control", size=32) }}
+                            {{ form.submit(class_="btn btn-success") }}
                         </div>
                      </div>
                     
@@ -123,7 +136,8 @@
                     <div class="modal-body">
                         <p><strong>Event:</strong> #Event name#</p>
                         <p><strong>Date and time:</strong> dd/mm/yy hh:mm</p>
-                        <p><strong>Venue:</strong> #Place#</p>             
+                        <p><strong>Venue:</strong> #Place#</p>
+                        <p><strong>Country:</strong> #Country#</p>  <!-- ← ADD THIS LINE TO MODAL TOO -->
                         <p><strong>Price:</strong> Normal:$$, VIP:$$$</p>           
                         <p><strong>Tickets available:</strong> Normal: 10, VIP: 5</p>
                         <p>Please review your event details before submititng. You can still edit after this.</p>

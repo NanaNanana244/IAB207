@@ -23,6 +23,40 @@
         box-shadow: none;             
     }
 
+    /* CSS Tooltips for Navbar */
+    .nav-item {
+        position: relative;
+    }
+    .nav-tooltip {
+        position: absolute;
+        bottom: -30px;
+        left: 50%;
+        transform: translateX(-50%);
+        background: #333;
+        color: white;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 0.8rem;
+        white-space: nowrap;
+        opacity: 0;
+        visibility: hidden;
+        transition: opacity 0.3s, visibility 0.3s;
+        z-index: 1000;
+    }
+    .nav-tooltip::after {
+        content: '';
+        position: absolute;
+        top: -5px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-width: 0 5px 5px 5px;
+        border-style: solid;
+        border-color: transparent transparent #333 transparent;
+    }
+    .nav-item:hover .nav-tooltip {
+        opacity: 1;
+        visibility: visible;
+    }
 
 /* Carousel */
     /* Carousel image height */
@@ -74,6 +108,14 @@
     filter: brightness(70%);
     }
 
+/* Status dropdown */
+    .dropdown-menu .dropdown-item {
+        color: black !important;
+    }
+    .dropdown-menu .dropdown-item:hover {
+        color: white !important;
+        background-color: #cd98fb !important;
+    }
 
 /* Event card */
     /* For small screens */
@@ -88,7 +130,6 @@
         height: 125px;
     }
     }
-
 
 /* Footer */
     .footer-icons img {

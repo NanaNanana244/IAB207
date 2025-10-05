@@ -43,6 +43,20 @@
     z-index: -1; 
     }
 
+/* Switching tabs */
+    /* Active tab - full opacity custom color background with black text */
+    .nav-tabs .nav-link.active {
+        background-color: #cd98fb !important;
+        color: black !important;
+        opacity: 1 !important;
+    }
+    /* Inactive tabs - black background at 75% opacity with custom color text */
+    .nav-tabs .nav-link {
+        background-color: rgba(0, 0, 0, 0.50) !important;
+        color: #cd98fb !important;
+        opacity: 1 !important;
+    }
+
 /* Image height */
     /* Large screens */
     .booking-img {
