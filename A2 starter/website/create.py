@@ -23,8 +23,12 @@ def create():
                       title=form.title.data,
                       description=form.description.data,
                       image = db_file_path,
-                      status=form.status.data,  # ← ADD THIS LINE
-                      tags=form.tags.data)
+                      status=form.status.data,
+                      tags=form.tags.data,
+                      normalAvail=form.normalAvail.data,
+                      normalPrice=form.normalPrice.data,
+                      vipAvail=form.vipAvail.data,
+                      vipPrice=form.vipPrice.data)
         # add the object to the db session
         db.session.add(eventAdd)
         # commit to the database
