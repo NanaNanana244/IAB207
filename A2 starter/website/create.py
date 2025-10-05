@@ -17,6 +17,7 @@ def create():
         db_file_path = check_upload_file(form)
         eventAdd = Event(artist=form.artist.data,
                       startTime=form.startTime.data, 
+                      date=form.date.data,
                       location=form.location.data,
                       country=form.country.data,
                       title=form.title.data,

@@ -23,6 +23,7 @@ class Event(db.Model):
     db.Column(db.Integer, nullable=False, default=1) #MUST BE CHANGED TO THE FK
     artist = db.Column(db.String(100), index=True, nullable=False)
     startTime = db.Column(db.Time, index=True, nullable=False)
+    date = db.Column(db.Date, index=True, nullable=False)
     location = db.Column(db.String(100), index=True, nullable=False)
     country = db.Column(db.String(100), index=True, nullable=False)  
     title = db.Column(db.String(100), index=True, nullable=False)
