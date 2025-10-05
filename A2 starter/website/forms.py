@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms import StringField, TextAreaField, FileField, DecimalField, SubmitField, TimeField, DateField, PasswordField
+from wtforms import StringField, TextAreaField, FileField, DecimalField, SubmitField, TimeField, DateField, PasswordField, SelectField
 from wtforms.validators import InputRequired, Length, EqualTo, Email
 
 # creates the login information
@@ -38,4 +38,16 @@ class CreateEvent(FlaskForm):
     submit = SubmitField('Submit')
 
 
+class CommentForm(FlaskForm):
+#create comments
+  text = TextAreaField('Comment', [InputRequired()])
+  submit = SubmitField('Create')
+
+
+class OrderForm(FlaskForm):
+#creates order
+    ticType = SelectField('Select Ticket Type', validators = [InputRequired()], choices = [('normTicket', 'Normal Ticket (Price: $200)'), ('vipticket', 'VIP Ticket (Price $300)')])
+    numTickets = StringField("How many tickets?", validators = [InputRequired()])
+    submit = SubmitField('Submit')
+    
 
