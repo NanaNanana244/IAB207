@@ -56,8 +56,11 @@ class Order(db.Model):
     userid = db.Column(db.Integer, db.ForeignKey('user.userid'))
     eventid = db.Column(db.Integer, db.ForeignKey('event.eventid'))
     normalTickets = db.Column(db.Integer, index=True, nullable=True)
+    normPrice = db.Column(db.Float, index=True, nullable=False)
     vipTickets = db.Column(db.Integer, index=True, nullable=True)
+    vPrice = db.Column(db.Float, index=True, nullable=False)
     price = db.Column(db.Integer, index=True, nullable=False)
     timeBooked = db.Column(db.DateTime, index=True, nullable=False)
+
 
 
