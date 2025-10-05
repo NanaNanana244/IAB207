@@ -7,7 +7,7 @@
 {% endblock %}
 
 {% block content %}
-<div class="container my-4 my-5">
+<div class="container my-4 my-5 d-flex justify-content-center">
     <!-- Search Results Box - Left Aligned -->
     <div class="card p-4 d-flex flex-column" style="min-height:500px; width: 100%; max-width: 1200px; border: #cd98fb solid 2px; border-radius: 15px; background: white;">
         <!-- Results Header - Left Aligned -->
@@ -22,7 +22,7 @@
         </div>
         
         <!-- Search Results Grid -->
-        <div class="search-results-grid flex-grow-1 d-flex flex-column">
+        <div class="d-flex justify-content-center" style="min-height: 500px;">
             {% if events %}
             <div class="row g-3">
                 {% for event in events %}
