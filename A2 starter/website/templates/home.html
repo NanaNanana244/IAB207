@@ -83,57 +83,57 @@
         <div class="col-12">
             <div class="d-flex justify-content-start mt-3 gap-5 ps-3"> 
                 <!-- All events -->                
-                <a href="{{ url_for('main.index') }}" class="text-decoration-none">
+                <a href="{{ url_for('main.index') }}#events-section" class="text-decoration-none">
                     <div class="text-center category-item" style="cursor: pointer;">
                         <img src="{{ url_for('static', filename='Image/Category Icons/earth.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-                        <p class="mb-0 mt-2">All Events</p>
+                        <p class="mb-0 mt-2" style="color: black;">All Events</p>
                     </div>
                 </a>
                 <!-- America -->
-                <a href="{{ url_for('main.index') }}?country=America" class="text-decoration-none">
+                <a href="{{ url_for('main.index') }}?country=america#events-section" class="text-decoration-none">
                     <div class="text-center category-item" style="cursor: pointer;">
                         <img src="{{ url_for('static', filename='Image/Category Icons/united-states.png') }}" class="category-icon rounded-20px" style="height:50px; width:50px;">
-                        <p class="mb-0 mt-2">America</p>
+                        <p class="mb-0 mt-2" style="color: black">America</p>
                     </div>
                 </a>
                 <!-- Australia -->
-                <a href="{{ url_for('main.index') }}?country=Australia" class="text-decoration-none">
+                <a href="{{ url_for('main.index') }}?country=australia#events-section" class="text-decoration-none">
                     <div class="text-center category-item" style="cursor: pointer;">
                         <img src="{{ url_for('static', filename='Image/Category Icons/australia.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-                        <p class="mb-0 mt-2">Australia</p>
+                        <p class="mb-0 mt-2" style="color: black">Australia</p>
                     </div>
                 </a>
                 <!-- Canada -->
-                <a href="{{ url_for('main.index') }}?country=Canada" class="text-decoration-none">
+                <a href="{{ url_for('main.index') }}?country=canada#events-section" class="text-decoration-none">
                     <div class="text-center category-item" style="cursor: pointer;">
                         <img src="{{ url_for('static', filename='Image/Category Icons/canada.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-                        <p class="mb-0 mt-2">Canada</p>
+                        <p class="mb-0 mt-2" style="color: black">Canada</p>
                     </div>
                 </a>
                 <!-- China -->
-                <a href="{{ url_for('main.index') }}?country=China" class="text-decoration-none">
+                <a href="{{ url_for('main.index') }}?country=china#events-section" class="text-decoration-none">
                     <div class="text-center category-item" style="cursor: pointer;">
                         <img src="{{ url_for('static', filename='Image/Category Icons/china.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-                        <p class="mb-0 mt-2">China</p>
+                        <p class="mb-0 mt-2" style="color: black">China</p>
                     </div>
                 </a>
                 <!-- Japan -->
-                <a href="{{ url_for('main.index') }}?country=Japan" class="text-decoration-none">
+                <a href="{{ url_for('main.index') }}?country=japan#events-section" class="text-decoration-none">
                     <div class="text-center category-item" style="cursor: pointer;">
                         <img src="{{ url_for('static', filename='Image/Category Icons/japan.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-                        <p class="mb-0 mt-2">Japan</p>
+                        <p class="mb-0 mt-2" style="color: black">Japan</p>
                     </div>
                 </a>
                 <!-- Korea -->
-                <a href="{{ url_for('main.index') }}?country=Korea" class="text-decoration-none">
+                <a href="{{ url_for('main.index') }}?country=korea#events-section" class="text-decoration-none">
                     <div class="text-center category-item" style="cursor: pointer;">
                         <img src="{{ url_for('static', filename='Image/Category Icons/south-korea.png') }}" class="category-icon rounded-circle" style="height:50px; width:50px;">
-                        <p class="mb-0 mt-2">Korea</p>
+                        <p class="mb-0 mt-2" style="color: black">Korea</p>
                     </div>
                 </a>
             </div>
         </div>
-    </div>  
+    </div>
 </div>
 {% endblock %}
 
@@ -143,8 +143,8 @@
     <!-- Header with filter dropdown -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="mb-0">
-            {% if selected_country %}
-                Events in {{ selected_country }}
+            {% if selected_country and selected_country != 'all' %}
+                Events in <span style="color: #cd98fb">{{ selected_country.title() }}</span>
             {% else %}
                 Upcoming Events
             {% endif %}
@@ -201,10 +201,9 @@
             </div>
         </div>
         {% endfor %}
-
         <!-- EXAMPLE EVENTS (always show after real events) -->
-        {% if not selected_status or selected_status == 'Available' %}
-        <!-- Event Card 1 - Available -->
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'australia') and (not selected_status or selected_status == 'Available') %}
+        <!-- Event Card 1 - Twice Concert (Australia) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100" style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/Twice concert.png') }}" class="card-img-top event-img">
@@ -222,9 +221,8 @@
             </div>
         </div>
         {% endif %}
-
-        {% if not selected_status or selected_status == 'Sold out' %}
-        <!-- Event Card 2 - Sold out -->
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'america') and (not selected_status or selected_status == 'Sold out') %}
+        <!-- Event Card 2 - IVE Concert (America) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/IVE concert.png') }}" class="card-img-top event-img">
@@ -242,9 +240,8 @@
             </div>
         </div>
         {% endif %}
-
-        {% if not selected_status or selected_status == 'Sold out' %}
-        <!-- Event Card 3 - Sold out -->
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'korea') and (not selected_status or selected_status == 'Sold out') %}
+        <!-- Event Card 3 - KATSEYE Fansign (Korea) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100" style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/KATSEYE concert.png') }}" class="card-img-top event-img">
@@ -262,9 +259,8 @@
             </div>
         </div>
         {% endif %}
-
-        {% if not selected_status or selected_status == 'Cancelled' %}
-        <!-- Event Card 4 - Cancelled -->
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'korea') and (not selected_status or selected_status == 'Cancelled') %}
+        <!-- Event Card 4 - BTS Concert (Korea) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/BTS concert.png') }}" class="card-img-top event-img">
@@ -282,9 +278,8 @@
             </div>
         </div>
         {% endif %}
-
-        {% if not selected_status or selected_status == 'Cancelled' %}
-        <!-- Event Card 5 - Cancelled -->
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'japan') and (not selected_status or selected_status == 'Cancelled') %}
+        <!-- Event Card 5 - NEWJEANS Fansign (Japan) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/NEWJEANS concert.png') }}" class="card-img-top event-img">
@@ -302,9 +297,8 @@
             </div>
         </div>
         {% endif %}
-
-        {% if not selected_status or selected_status == 'Inactive' %}
-        <!-- Event Card 6 - Inactive -->
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'america') and (not selected_status or selected_status == 'Inactive') %}
+        <!-- Event Card 6 - SKZ Concert (America) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/SKZ concert.png') }}" class="card-img-top event-img">
@@ -322,9 +316,8 @@
             </div>
         </div>
         {% endif %}
-
-        {% if not selected_status or selected_status == 'Inactive' %}
-        <!-- Event Card 7 - Inactive -->
+        {% if (not selected_country or selected_country == 'china' or selected_country.lower() == 'all') and (not selected_status or selected_status == 'Inactive') %}
+        <!-- Event Card 7 - EXO Fanmeeting (China) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ url_for('static', filename='Image/Display events/EXO concert.png') }}" class="card-img-top event-img">
@@ -342,7 +335,6 @@
             </div>
         </div>
         {% endif %}
-
         <!-- Create Events -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">

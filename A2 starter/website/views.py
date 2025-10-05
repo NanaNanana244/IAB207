@@ -13,9 +13,10 @@ def index():
     # Start with all events
     query = Event.query
     
-    # Apply country filter if specified
+    # Apply country filter if specified - FIXED TO HANDLE CASE INSENSITIVE
     if country_filter:
-        query = query.filter(Event.country == country_filter)
+        # Use ilike for case-insensitive filtering
+        query = query.filter(Event.country.ilike(country_filter))
     
     # Apply status filter if specified  
     if status_filter:
