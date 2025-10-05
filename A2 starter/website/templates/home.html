@@ -140,14 +140,6 @@
 {% block content4 %}
 <!-- All events -->
 <div class="container my-3" id="events-section">
-        <!-- DEBUG: Show event count -->
-    <div class="alert alert-info">
-        <strong>Debug Info:</strong> 
-        {{ events|length }} events found in database
-        {% for event in events %}
-        <br> - {{ event.title }} ({{ event.status }})
-        {% endfor %}
-    </div>
     <!-- Header with filter dropdown -->
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h3 class="mb-0">

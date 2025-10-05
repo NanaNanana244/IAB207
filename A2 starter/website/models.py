@@ -24,13 +24,13 @@ class Event(db.Model):
     artist = db.Column(db.String(100), index=True, nullable=False)
     startTime = db.Column(db.Time, index=True, nullable=False)
     location = db.Column(db.String(100), index=True, nullable=False)
-    country = db.Column(db.String(100), index=True, nullable=False)  
+    country = db.Column(db.String(100), index=True, nullable=False)  # ← ONLY ONE COUNTRY COLUMN
     title = db.Column(db.String(100), index=True, nullable=False)
     description = db.Column(db.String(255), index=True, nullable=False)
     image = db.Column(db.String(100), index=True, nullable=False)
     status = db.Column(db.String(50), nullable=False, default='Active')
     tags = db.Column(db.String(255), index=True, nullable=True)
-    country = db.Column(db.String(100), index=True, nullable=False)
+    # REMOVED DUPLICATE COUNTRY LINE
 
     db.relationship('comment', backref='events')
     db.relationship('order', backref='events')
@@ -44,7 +44,6 @@ class Comment(db.Model):
     created_at = db.Column(db.DateTime, default=datetime.now())
     comment = db.Column(db.String(255), index=True, nullable=False)
 
-
 class Order(db.Model):
     __tablename__ = 'order'
     orderid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
@@ -52,4 +51,3 @@ class Order(db.Model):
     eventid = db.Column(db.Integer, db.ForeignKey('event.eventid'))
     price = db.Column(db.Integer, index=True, nullable=False)
     timeBooked = db.Column(db.DateTime, index=True, nullable=False)
-
