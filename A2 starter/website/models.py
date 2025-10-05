@@ -32,7 +32,11 @@ class Event(db.Model):
     status = db.Column(db.String(50), nullable=False, default='Active')
     tags = db.Column(db.String(255), index=True, nullable=True)
     country = db.Column(db.String(100), index=True, nullable=False)
-
+    normalAvail = db.Column(db.Float, index=True, nullable=False)
+    vipAvail = db.Column(db.Float, index=True, nullable=False)
+    normalPrice = db.Column(db.Float, index=True, nullable=False)
+    vipPrice = db.Column(db.Float, index=True, nullable=False)
+    
     db.relationship('comment', backref='events')
     db.relationship('order', backref='events')
 
@@ -51,6 +55,9 @@ class Order(db.Model):
     orderid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
     userid = db.Column(db.Integer, db.ForeignKey('user.userid'))
     eventid = db.Column(db.Integer, db.ForeignKey('event.eventid'))
+    normalTickets = db.Column(db.Integer, index=True, nullable=True)
+    vipTickets = db.Column(db.Integer, index=True, nullable=True)
     price = db.Column(db.Integer, index=True, nullable=False)
     timeBooked = db.Column(db.DateTime, index=True, nullable=False)
+
 
