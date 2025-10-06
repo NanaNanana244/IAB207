@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='Style/EventCreationStyle.css') }}">
+{% endblock %}
+
+{% block content %}
+<!-- Flash Messages -->
+{% with messages = get_flashed_messages(with_categories=true) %}
+    {% if messages %}
+        <div class="container mt-3">
+            {% for category, message in messages %}
+                <div class="alert alert-{{ category }} alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+{% endwith %}
+
+<!-- Login form -->
+<div class="d-flex justify-content-center my-5">
+    <div class="card p-4" style="max-width: 700px; width: 100%; border: #cd98fb solid 2px; border-radius: 15px;">
+        <h2 class="text-center">Welcome Back!</h2>
+        <form action="" method="post" novalidate>
+            {{ form.hidden_tag() }}
+            
+            <!-- Username -->
+            <div class="mb-3">
+                {{ form.user_name.label }}
+                {{ form.user_name(class_="form-control", size=32) }}
+                {% if form.user_name.errors %}
+                    <div class="text-danger">
+                        {% for error in form.user_name.errors %}{{ error }}{% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Password -->
+            <div class="mb-3">
+                {{ form.password.label }}
+                {{ form.password(class_="form-control", size=32) }}
+                {% if form.password.errors %}
+                    <div class="text-danger">
+                        {% for error in form.password.errors %}{{ error }}{% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+            
+            <!-- Submit -->
+            <div class="d-flex justify-content-end">
+                {{ form.submit(class_="btn btn-success") }}
+            </div>
+            
+            <!-- Link to register -->
+            <div class="text-center mt-3">
+                <p>New to K-POP Events? <a href="{{ url_for('auth.register') }}" style="color: #cd98fb;">Register here</a></p>
+            </div>
+        </form>
+    </div>
+</div>
+{% endblock %}
