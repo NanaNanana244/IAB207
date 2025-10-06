@@ -76,7 +76,3 @@ def booking_history():
     return render_template('history.html', 
                          user_events=user_events,
                          title='Booking History')
-
-@main_bp.route('/register')
-def register():
-    return "Register page coming soon"
