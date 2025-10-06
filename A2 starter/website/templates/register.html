@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='Style/EventCreationStyle.css') }}">
+{% endblock %}
+
+{% block content %}
+        <!-- Event creation form -->
+        <div class="d-flex justify-content-center my-5">
+            <div class="card p-4" style="max-width: 700px; width: 100%; border: #cd98fb solid 2px; border-radius: 15px;">
+                <h2 class="text-center">Create Your Account!</h2>
+                <form action="" method="post" enctype="multipart/form-data" novalidate>
+                    {{ form.hidden_tag() }}
+                    <!-- Name -->
+                    <div class="mb-3">
+                        {{ form.name.label }}
+                        {{ form.name(class_="form-control", size=32) }}
+                    </div>
+                    <!-- username -->
+                    <div class="mb-3">
+                        {{ form.username.label }}
+                        {{ form.username(class_="form-control", size=32) }}
+                    </div>
+                    <!-- email -->
+                    <div class="mb-3">
+                        {{ form.email.label }}
+                        {{ form.email(class_="form-control", size=32) }}
+                    </div>
+                    <!-- phone number -->
+                    <div class="mb-3">
+                        {{ form.phoneNo.label }}
+                        {{ form.phoneNo(class_="form-control", size=32) }}
+                    </div>
+                    <!-- password -->
+                    <div class="mb-3">
+                        {{ form.password.label }}
+                        {{ form.password(class_="form-control", size=32) }}
+                    </div>
+                    <!-- password confirm -->
+                    <div class="mb-3">
+                        {{ form.confirm.label }}
+                        {{ form.confirm(class_="form-control", size=32) }}
+                    </div>
+                    <!-- Submit -->
+                    <div class="d-flex justify-content-end">
+                        {{ form.submit(class_="btn btn-success") }}
+                    </div> 
+                </form>
+            </div>
+        </div>
+        
+{% endblock %}
