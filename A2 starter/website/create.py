@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, session
 from .forms import CreateEvent
 from . import db
 import os
@@ -15,7 +15,9 @@ def create():
     if form.validate_on_submit():
         # call the function that checks and returns image
         db_file_path = check_upload_file(form)
-        eventAdd = Event(artist=form.artist.data,
+        user_id = session.get('user_id')
+        eventAdd = Event(userid= user_id,
+                         artist=form.artist.data,
                       startTime=form.startTime.data, 
                       date=form.date.data,
                       location=form.location.data,
