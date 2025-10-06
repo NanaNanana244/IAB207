@@ -54,3 +54,10 @@ def register():
         # Always end with redirect when form is valid
         return redirect(url_for('main.index'))
     return render_template('register.html', form=form, title='Register')
+
+
+@auth_bp.route('/logout')
+def logout():
+    session.clear()
+    return redirect(url_for('main.index'))
+
