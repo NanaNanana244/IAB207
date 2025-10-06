@@ -60,9 +60,10 @@ i've added 4 main content blocks if we need more than that we can add more if we
                                 <img src="{{ url_for('static', filename='Image/NavBar Icons/account.png') }}" height="25px">
                                 <span class="nav-tooltip">Account</span>
                             </a>
-                            <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="#" style="color: black">Register</a></li>
-                                <li><a class="dropdown-item" href="#" style="color: black">Log in</a></li>
+                                <ul class="dropdown-menu dropdown-menu-end">
+                                <li><a class="dropdown-item" href="{{ url_for('auth.register') }}" style="color: black">Register</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('auth.login') }}" style="color: black">Login</a></li>
+                                <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}" style="color: black">Logout</a></li>
                             </ul>
                         </li>
                     </ul>
@@ -144,6 +145,7 @@ i've added 4 main content blocks if we need more than that we can add more if we
         </div>
     </footer>
 </html>
+
 
 
 
