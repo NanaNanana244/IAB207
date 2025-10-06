@@ -1,0 +1,18 @@
+this is just a space where we can put sql stuff for when we make new dbs
+
+insert into event 
+values (eventid, userid, 'artist', 'hh:mm:ss', yyyy-mm-dd, 'location', 'country', 'title', 'description', 'image', 'status', 'tags', normalAvail, vipAvail, normalPrice, vipPrice)
+
+insert into event 
+values (1, 1, 'Twice', '19:30:00', 2025-11-08, 'Rod Laver Arena, Melbourne, VIC', 'Australia', 'Twice World Tour', '
+                                Presented by Live Nation, the Australian leg of World Tour THIS IS FOR includes 2 shows for Sydney’s Qudos Bank Arena on November 1 and 2, followed by another 2 dates in Melbourne at Rod Laver Arena on November 8 and 9.
+
+                                For this sixth world tour, TWICE will perform on 360-degree stages at every stop, removing the traditional barrier between the artist and audience. By transforming the entire venue into a fully immersive space, fans will experience TWICE’s performances from all angles—visually and sonically—setting a new standard for K-pop concert production.
+
+                                TWICE released their 4th full-length album, THIS IS FOR, on July 11. They are also slated to headline Lollapalooza Chicago on August 2, further cementing their status as a global artist. With new music and a massive world tour ahead, TWICE is set to heat up the summer and captivate audiences worldwide once again.', 'Image/uploads/Twice concert.png', 'active', 'twice kpop Nayeon Jeongyeon Momo Sana Jihyo Mina Dahyun Chaeyoung Tzuyu', 100, 200, 20, 300)
+
+insert into event 
+values (2, 1, 'BTS', '17:00:00', 2025-11-15, 'Suncorp Stadium 40 Castlemaine St, Milton QLD 4064', 'Australia', 'BTS Goes Down Under', 'This is the BTS Goes Down Under tour coming to Brisbane hear where you can hear all the best BTS music live', 'Image/upoads/BTS concert.png', 'Active', 'bts Jin Suga J-Hope RM Jimin V Jung Kook butter dynamite', 500, 40, 150, 300)
+
+insert into event 
+values (3, 1, 'Huntr/x', '20:00:00', 206-01-20, 'Melborne Cricket Ground', 'Australia', 'Golden Tour', "Come to the MCG to watch huntr/x perform their first Australian show. They're so excited to come to Australia and see all their international fans - Bobby", 'Image/uploads/huntrx.jpg', 'Sold Out', 'huntr\x huntrix demon hunters rumi mira zoe golden takedown', 4000, 100, 200, 500)
