@@ -31,4 +31,26 @@ def login():
             return redirect(nextp)
         else:
             flash(error)
+
     return render_template('user.html', form=login_form, heading='Login')
+
+
+@auth_bp.route('/register', methods=['GET', 'POST'])
+def register():
+    form = RegisterForm()
+    if form.validate_on_submit():
+        password_hash = generate_password_hash(form.password.data)
+        userAdd = User(name=form.name.data,
+                    username=form.username.data, 
+                    email=form.email.data,
+                    phoneNo=form.phoneNo.data,
+                    password_hash=password_hash)
+        # add the object to the db session
+        db.session.add(userAdd)
+        # commit to the database
+        db.session.commit()
+        print('success')
+        session['user_id'] = userAdd.userid
+        # Always end with redirect when form is valid
+        return redirect(url_for('main.index'))
+    return render_template('register.html', form=form, title='Register')
