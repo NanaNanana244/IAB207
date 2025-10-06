@@ -11,8 +11,10 @@ class LoginForm(FlaskForm):
 
 #this is the registration form
 class RegisterForm(FlaskForm):
-    user_name=StringField("User Name", validators=[InputRequired()])
+    username=StringField("User Name", validators=[InputRequired()])
+    name=StringField("Name", validators=[InputRequired()])
     email = StringField("Email Address", validators=[Email("Please enter a valid email")])
+    phoneNo=DecimalField("Phone Number", validators=[InputRequired()])
     # linking two fields - password should be equal to data entered in confirm
     password=PasswordField("Password", validators=[InputRequired(),
                   EqualTo('confirm', message="Passwords should match")])
@@ -54,4 +56,5 @@ class OrderForm(FlaskForm):
     ticType = SelectField('Select Ticket Type', validators = [InputRequired()], choices = [('normTicket', 'Normal Ticket (Price: $200)'), ('vipticket', 'VIP Ticket (Price $300)')])
     numTickets = StringField("How many tickets?", validators = [InputRequired()])
     submit = SubmitField('Submit')
+
 
