@@ -60,10 +60,18 @@ i've added 4 main content blocks if we need more than that we can add more if we
                                 <img src="{{ url_for('static', filename='Image/NavBar Icons/account.png') }}" height="25px">
                                 <span class="nav-tooltip">Account</span>
                             </a>
-                                <ul class="dropdown-menu dropdown-menu-end">
-                                <li><a class="dropdown-item" href="{{ url_for('auth.register') }}" style="color: black">Register</a></li>
-                                <li><a class="dropdown-item" href="{{ url_for('auth.login') }}" style="color: black">Login</a></li>
-                                <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}" style="color: black">Logout</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end">
+                                {% if current_user.is_authenticated %}
+                                    <li><a class="dropdown-item" href="#" style="color: black">{{ current_user.username }}</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="#" style="color: black">My Profile</a></li>
+                                    <li><a class="dropdown-item" href="#" style="color: black">My Events</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}" style="color: black">Logout</a></li>
+                                {% else %}
+                                    <li><a class="dropdown-item" href="{{ url_for('auth.register') }}" style="color: black">Register</a></li>
+                                    <li><a class="dropdown-item" href="{{ url_for('auth.login') }}" style="color: black">Log in</a></li>
+                                {% endif %}
                             </ul>
                         </li>
                     </ul>
@@ -99,10 +107,25 @@ i've added 4 main content blocks if we need more than that we can add more if we
                                 </li>
                                 <!-- Profile -->
                                 <li class="nav-item">
-                                    <a class="dropdown-item text-white" href="#">
-                                        <img src="{{ url_for('static', filename='Image/NavBar Icons/account.png') }}" height="20px" class="me-2">
-                                        Register / Log in
-                                    </a>
+                                    {% if current_user.is_authenticated %}
+                                        <a class="dropdown-item text-white" href="#">
+                                            <img src="{{ url_for('static', filename='Image/NavBar Icons/account.png') }}" height="20px" class="me-2">
+                                            {{ current_user.username }}
+                                        </a>
+                                        <a class="dropdown-item text-white" href="{{ url_for('auth.logout') }}">
+                                            <img src="{{ url_for('static', filename='Image/NavBar Icons/account.png') }}" height="20px" class="me-2">
+                                            Logout
+                                        </a>
+                                    {% else %}
+                                        <a class="dropdown-item text-white" href="{{ url_for('auth.register') }}">
+                                            <img src="{{ url_for('static', filename='Image/NavBar Icons/account.png') }}" height="20px" class="me-2">
+                                            Register
+                                        </a>
+                                        <a class="dropdown-item text-white" href="{{ url_for('auth.login') }}">
+                                            <img src="{{ url_for('static', filename='Image/NavBar Icons/account.png') }}" height="20px" class="me-2">
+                                            Log in
+                                        </a>
+                                    {% endif %}
                                 </li>
                             </ul>
                         </div>

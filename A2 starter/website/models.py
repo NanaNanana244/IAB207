@@ -13,10 +13,17 @@ class User(db.Model, UserMixin):
     phoneNo = db.Column(db.Float,index=True, nullable=False)
 
     #places where there are FKs from this table
-    db.relationship('comment', backref='user')
-    db.relationship('event', backref='user') #MUST BE CHANGED WHEN LOGIN IS SORTED
-    db.relationship('order', backref='user')
-
+    comments = db.relationship('Comment', backref='user', lazy=True)
+    events = db.relationship('Event', backref='user', lazy=True)
+    orders = db.relationship('Order', backref='user', lazy=True)
+   
+    # for Flask-Login
+    def get_id(self):
+        return str(self.userid)
+    
+    def __repr__(self):
+        return f'<User {self.username}>'
+    
 class Event(db.Model):
     __tablename__ = 'event'
     eventid = db.Column(db.Integer,db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
@@ -37,17 +44,23 @@ class Event(db.Model):
     normalPrice = db.Column(db.Float, index=True, nullable=False)
     vipPrice = db.Column(db.Float, index=True, nullable=False)
 
-    db.relationship('comment', backref='events')
-    db.relationship('order', backref='events')
+    comments = db.relationship('Comment', backref='event', lazy=True)
+    orders = db.relationship('Order', backref='event', lazy=True)
+    
+    def __repr__(self):
+        return f'<Event {self.title}>'
 
 class Comment(db.Model):
     __tablename__ = 'comment'
     commentid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
     eventid = db.Column(db.Integer, db.ForeignKey('event.eventid'))
-    userid = db.Column(db.Integer, db.ForeignKey('user.userid'))
-    username = db.Column(db.String(100), db.ForeignKey('user.username'))
+    userid = db.Column(db.Integer, db.ForeignKey('user.userid')) 
+    # username = db.Column(db.String(100), db.ForeignKey('user.username'))
     created_at = db.Column(db.DateTime, default=datetime.now())
     comment = db.Column(db.String(255), index=True, nullable=False)
+    
+    def __repr__(self):
+        return f'<Comment {self.commentid}>'
 
 
 class Order(db.Model):
@@ -62,7 +75,6 @@ class Order(db.Model):
     price = db.Column(db.Integer, index=True, nullable=False)
     timeBooked = db.Column(db.DateTime, index=True, nullable=False)
 
-
-
-
+    def __repr__(self):
+        return f'<Order {self.orderid}>'
 
