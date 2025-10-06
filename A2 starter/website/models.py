@@ -7,20 +7,20 @@ class User(db.Model, UserMixin):
     __tablename__ = 'user'
     userid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True) #PK
     username = db.Column(db.String(100), index=True, nullable=False)
-    password_hash = db.Column(db.String(255), nullable=False)
     name = db.Column(db.String(100), index=True, nullable=False)
+    password_hash = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(100), index=True, nullable=False)
-    phoneNo = db.Column(db.Integer,index=True, nullable=False)
+    phoneNo = db.Column(db.Float,index=True, nullable=False)
 
     #places where there are FKs from this table
     db.relationship('comment', backref='user')
-   # db.relationship('event', backref='user') #MUST BE CHANGED WHEN LOGIN IS SORTED
+    db.relationship('event', backref='user') #MUST BE CHANGED WHEN LOGIN IS SORTED
     db.relationship('order', backref='user')
 
 class Event(db.Model):
     __tablename__ = 'event'
     eventid = db.Column(db.Integer,db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
-    db.Column(db.Integer, nullable=False, default=1) #MUST BE CHANGED TO THE FK
+    userid = db.Column(db.Integer, db.ForeignKey('user.userid'))
     artist = db.Column(db.String(100), index=True, nullable=False)
     startTime = db.Column(db.Time, index=True, nullable=False)
     date = db.Column(db.Date, index=True, nullable=False)
@@ -36,7 +36,7 @@ class Event(db.Model):
     vipAvail = db.Column(db.Float, index=True, nullable=False)
     normalPrice = db.Column(db.Float, index=True, nullable=False)
     vipPrice = db.Column(db.Float, index=True, nullable=False)
-    
+
     db.relationship('comment', backref='events')
     db.relationship('order', backref='events')
 
@@ -61,6 +61,8 @@ class Order(db.Model):
     vPrice = db.Column(db.Float, index=True, nullable=False)
     price = db.Column(db.Integer, index=True, nullable=False)
     timeBooked = db.Column(db.DateTime, index=True, nullable=False)
+
+
 
 
 
