@@ -54,7 +54,7 @@ def add_comment(event_id):
     
     new_comment = Comment(
         eventid=event_id,
-        userid=current_user.userid,
+        userid="35677456",
         username=current_user.username,
         comment=comment_text
     )
