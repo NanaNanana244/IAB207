@@ -5,24 +5,31 @@ from datetime import datetime
 
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
-    userid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True) #PK
+    userid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
     username = db.Column(db.String(100), index=True, nullable=False)
-    name = db.Column(db.String(100), index=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
+    name = db.Column(db.String(100), index=True, nullable=False)
     email = db.Column(db.String(100), index=True, nullable=False)
-    phoneNo = db.Column(db.Float,index=True, nullable=False)
+    phoneNo = db.Column(db.Integer, index=True, nullable=False)
 
-    #places where there are FKs from this table
-    comments = db.relationship('Comment', backref='user', lazy=True)
-    events = db.relationship('Event', backref='user', lazy=True)
-    orders = db.relationship('Order', backref='user', lazy=True)
-   
-    # for Flask-Login
-    def get_id(self):
-        return str(self.userid)
-    
-    def __repr__(self):
-        return f'<User {self.username}>'
+    # Add this property for Flask-Login
+    @property
+    def id(self):
+        return self.userid
+
+    # Relationships - SPECIFY FOREIGN KEYS
+    comments = db.relationship('Comment', backref='user', foreign_keys='Comment.userid')
+    events = db.relationship('Event', backref='user')
+    orders = db.relationship('Order', backref='user', foreign_keys='Order.userid')
+
+class Comment(db.Model):
+    __tablename__ = 'comment'
+    commentid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
+    eventid = db.Column(db.Integer, db.ForeignKey('event.eventid'))
+    userid = db.Column(db.Integer, db.ForeignKey('user.userid'))  # This is the main foreign key
+    username = db.Column(db.String(100), db.ForeignKey('user.username'))  # This causes the ambiguity
+    created_at = db.Column(db.DateTime, default=datetime.now())
+    comment = db.Column(db.String(255), index=True, nullable=False)
     
 class Event(db.Model):
     __tablename__ = 'event'
@@ -50,30 +57,15 @@ class Event(db.Model):
     def __repr__(self):
         return f'<Event {self.title}>'
 
-class Comment(db.Model):
-    __tablename__ = 'comment'
-    commentid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
-    eventid = db.Column(db.Integer, db.ForeignKey('event.eventid'))
-    userid = db.Column(db.Integer, db.ForeignKey('user.userid')) 
-    # username = db.Column(db.String(100), db.ForeignKey('user.username'))
-    created_at = db.Column(db.DateTime, default=datetime.now())
-    comment = db.Column(db.String(255), index=True, nullable=False)
-    
-    def __repr__(self):
-        return f'<Comment {self.commentid}>'
-
-
 class Order(db.Model):
     __tablename__ = 'order'
     orderid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
     userid = db.Column(db.Integer, db.ForeignKey('user.userid'))
     eventid = db.Column(db.Integer, db.ForeignKey('event.eventid'))
-    normalTickets = db.Column(db.Integer, index=True, nullable=True)
-    normPrice = db.Column(db.Float, index=True, nullable=False)
-    vipTickets = db.Column(db.Integer, index=True, nullable=True)
-    vPrice = db.Column(db.Float, index=True, nullable=False)
-    price = db.Column(db.Integer, index=True, nullable=False)
-    timeBooked = db.Column(db.DateTime, index=True, nullable=False)
+    normalQty = db.Column(db.Integer, nullable=True)
+    vipQty = db.Column(db.Integer, nullable=True)
+    totalPrice = db.Column(db.Float, nullable=False)
+    timeBooked = db.Column(db.DateTime, default=datetime.now)
 
     def __repr__(self):
         return f'<Order {self.orderid}>'

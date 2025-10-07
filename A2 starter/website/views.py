@@ -1,7 +1,7 @@
-from flask import Blueprint, render_template, request, redirect, url_for
+from flask import Blueprint, render_template, request, redirect, url_for, flash 
 from flask_login import login_required, current_user
 from . import db
-from .models import Event, Comment
+from .models import Event, Comment, Order 
 
 main_bp = Blueprint('main', __name__)
 
@@ -47,6 +47,52 @@ def event_detail(event_id):
     event = Event.query.get_or_404(event_id)
     return render_template('event_details/details.html', event=event, title=event.title)
 
+@main_bp.route('/event/<int:event_id>/purchase', methods=['POST'])
+@login_required
+def purchase_tickets(event_id):
+    event = Event.query.get_or_404(event_id)
+    normal_qty = int(request.form.get('normal_qty', 0))
+    vip_qty = int(request.form.get('vip_qty', 0))
+    
+    # Validate quantities
+    if normal_qty < 0 or vip_qty < 0:
+        flash('Ticket quantities cannot be negative.', 'error')
+        return redirect(url_for('main.event_detail', event_id=event_id))
+    
+    if normal_qty > event.normalAvail:
+        flash(f'Cannot purchase {normal_qty} normal tickets. Only {event.normalAvail} available.', 'error')
+        return redirect(url_for('main.event_detail', event_id=event_id))
+    
+    if vip_qty > event.vipAvail:
+        flash(f'Cannot purchase {vip_qty} VIP tickets. Only {event.vipAvail} available.', 'error')
+        return redirect(url_for('main.event_detail', event_id=event_id))
+    
+    if normal_qty == 0 and vip_qty == 0:
+        flash('Please select at least one ticket.', 'error')
+        return redirect(url_for('main.event_detail', event_id=event_id))
+    
+    # Calculate total
+    total = (normal_qty * event.normalPrice) + (vip_qty * event.vipPrice)
+    
+    # Create order - FIXED: Use normalQty and vipQty to match model
+    new_order = Order(
+        userid=current_user.userid,
+        eventid=event_id,
+        normalQty=normal_qty,
+        vipQty=vip_qty,
+        totalPrice=total
+    )
+    
+    # Update event availability
+    event.normalAvail -= normal_qty
+    event.vipAvail -= vip_qty
+    
+    db.session.add(new_order)
+    db.session.commit()
+    
+    flash(f'Purchase confirmed! {normal_qty} normal + {vip_qty} VIP tickets. Total: ${total}', 'success')
+    return redirect(url_for('main.event_detail', event_id=event_id))
+
 @main_bp.route('/event/<int:event_id>/comment', methods=['POST'])
 @login_required
 def add_comment(event_id):
@@ -54,11 +100,10 @@ def add_comment(event_id):
     
     new_comment = Comment(
         eventid=event_id,
-        userid="35677456",
-        username=current_user.username,
+        userid=current_user.userid,
         comment=comment_text
     )
-    
+
     db.session.add(new_comment)
     db.session.commit()
     
