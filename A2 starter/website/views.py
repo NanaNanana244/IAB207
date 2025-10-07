@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash 
 from flask_login import login_required, current_user
+from datetime import datetime
 from . import db
 from .models import Event, Comment, Order 
 
@@ -14,7 +15,7 @@ def index():
     # Start with all events
     query = Event.query
     
-    # Apply country filter if specified - FIXED TO HANDLE CASE INSENSITIVE
+    # Apply country filter if specified
     if country_filter:
         # Use ilike for case-insensitive filtering
         query = query.filter(Event.country.ilike(country_filter))
@@ -71,16 +72,19 @@ def purchase_tickets(event_id):
         flash('Please select at least one ticket.', 'error')
         return redirect(url_for('main.event_detail', event_id=event_id))
     
-    # Calculate total
-    total = (normal_qty * event.normalPrice) + (vip_qty * event.vipPrice)
+    # Calculate prices
+    normal_total = normal_qty * event.normalPrice
+    vip_total = vip_qty * event.vipPrice
+    total_price = normal_total + vip_total
     
-    # Create order - FIXED: Use normalQty and vipQty to match model
+    # Create order
     new_order = Order(
         userid=current_user.userid,
         eventid=event_id,
         normalQty=normal_qty,
         vipQty=vip_qty,
-        totalPrice=total
+        totalPrice=total_price,
+        timeBooked=datetime.now()
     )
     
     # Update event availability
@@ -90,7 +94,7 @@ def purchase_tickets(event_id):
     db.session.add(new_order)
     db.session.commit()
     
-    flash(f'Purchase confirmed! {normal_qty} normal + {vip_qty} VIP tickets. Total: ${total}', 'success')
+    flash(f'Purchase confirmed! {normal_qty} normal + {vip_qty} VIP tickets. Total: ${total_price}', 'success')
     return redirect(url_for('main.event_detail', event_id=event_id))
 
 @main_bp.route('/event/<int:event_id>/comment', methods=['POST'])
