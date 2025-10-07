@@ -17,6 +17,7 @@ def login():
         user_name = login_form.user_name.data
         password = login_form.password.data
         user = db.session.scalar(db.select(User).where(User.username==user_name))
+        session['user_id'] = user.userid
         if user is None:
             error = 'Incorrect user name'
         elif not check_password_hash(user.password_hash, password):
@@ -57,3 +58,4 @@ def register():
 def logout():
     session.clear()
     return redirect(url_for('main.index'))
+
