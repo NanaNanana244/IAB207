@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from datetime import datetime
 from . import db
 from .models import Event, Comment, Order 
+from .forms import SearchForm
 
 main_bp = Blueprint('main', __name__)
 
@@ -31,17 +32,31 @@ def index():
                          title='Home Page',
                          selected_country=country_filter,
                          selected_status=status_filter)
+    
+@main_bp.context_processor
+def base():
+    form  = SearchForm()
+    return dict(form=form)
 
-@main_bp.route('/search')
+@main_bp.route('/search', methods=['POST'])
 def search():
-    query = request.args.get('q', '')
-    events = [] 
-    results_count = 0
-    return render_template('search.html', 
-                         events=events, 
-                         query=query, 
-                         results_count=results_count,
-                         title=f"Search: {query}")
+    form = SearchForm ()
+    query=Event.q
+    if form.validate_on_submit():
+        Event.q = form.q.data
+        query = query.filter(Event.title.ilike('%'+ Event.q +'%'))
+        query = query.order_by(Event.title).all
+    return render_template("search.html", form=form, q=Event.q, query=query)
+        
+    
+    # query = request.args.get('q', '')
+    # events = [] 
+    # results_count = 0
+    # return render_template('search.html', 
+    #                      events=events, 
+    #                      query=query, 
+    #                      results_count=results_count,
+    #                      title=f"Search: {query}")
 
 @main_bp.route('/event/<int:event_id>')
 def event_detail(event_id):
@@ -125,3 +140,9 @@ def booking_history():
     return render_template('history.html', 
                          user_events=user_events,
                          title='Booking History')
+    
+@main_bp.route('/order-details')
+def order_details():
+    return render_template('order_details.html', title='Order Details')
+
+#('/event/<int:event_id>/order-details', methods=[])
