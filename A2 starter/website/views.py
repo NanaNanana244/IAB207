@@ -134,3 +134,7 @@ def not_found():
 @main_bp.route('/500')
 def server_error():
     return render_template('500.html', title='500 Error')
+
+@main_bp.route('/order-details')
+def order_details():
+    return render_template('order_details.html', title='Order Details')
