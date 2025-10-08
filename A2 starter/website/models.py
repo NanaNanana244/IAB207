@@ -68,11 +68,9 @@ class Order(db.Model):
     orderid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
     userid = db.Column(db.Integer, db.ForeignKey('user.userid'))
     eventid = db.Column(db.Integer, db.ForeignKey('event.eventid'))
-    normalTickets = db.Column(db.Integer, index=True, nullable=True)
-    normPrice = db.Column(db.Float, index=True, nullable=False)
-    vipTickets = db.Column(db.Integer, index=True, nullable=True)
-    vPrice = db.Column(db.Float, index=True, nullable=False)
-    price = db.Column(db.Integer, index=True, nullable=False)
+    normalQty = db.Column(db.Integer, index=True, nullable=True)
+    vipQty = db.Column(db.Integer, index=True, nullable=True)
+    totalPrice  = db.Column(db.Integer, index=True, nullable=False)
     timeBooked = db.Column(db.DateTime, index=True, nullable=False)
 
     def __repr__(self):
