@@ -125,3 +125,12 @@ def booking_history():
     return render_template('history.html', 
                          user_events=user_events,
                          title='Booking History')
+    
+
+@main_bp.route('/404')
+def not_found():
+    return render_template('404.html', title='404 Error')
+
+@main_bp.route('/500')
+def server_error():
+    return render_template('500.html', title='500 Error')
