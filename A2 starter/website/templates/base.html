@@ -63,11 +63,7 @@ i've added 4 main content blocks if we need more than that we can add more if we
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 {% if current_user.is_authenticated %}
-                                    <li><a class="dropdown-item" href="#" style="color: black">{{ current_user.username }}</a></li>
-                                    <li><hr class="dropdown-divider"></li>
-                                    <li><a class="dropdown-item" href="#" style="color: black">My Profile</a></li>
-                                    <li><a class="dropdown-item" href="#" style="color: black">My Events</a></li>
-                                    <li><hr class="dropdown-divider"></li>
+                                    <li><a class="dropdown-item" style="color: black">{{ current_user.username }}</a></li>
                                     <li><a class="dropdown-item" href="{{ url_for('auth.logout') }}" style="color: black">Logout</a></li>
                                 {% else %}
                                     <li><a class="dropdown-item" href="{{ url_for('auth.register') }}" style="color: black">Register</a></li>
