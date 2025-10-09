@@ -17,8 +17,12 @@ def index():
     
     # Apply country filter if specified
     if country_filter:
-        # Use ilike for case-insensitive filtering
-        query = query.filter(Event.country.ilike(country_filter))
+        if country_filter == 'other':
+            # Filter out the specific countries, show everything else
+            query = query.filter(~Event.country.in_(['america', 'australia', 'canada', 'china', 'japan', 'korea']))
+        else:
+            # Use ilike for case-insensitive filtering
+            query = query.filter(Event.country.ilike(country_filter))
     
     # Apply status filter if specified  
     if status_filter:
