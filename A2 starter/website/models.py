@@ -54,8 +54,7 @@ class Comment(db.Model):
     __tablename__ = 'comment'
     commentid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
     eventid = db.Column(db.Integer, db.ForeignKey('event.eventid'))
-    userid = db.Column(db.Integer, db.ForeignKey('user.userid')) 
-    # username = db.Column(db.String(100), db.ForeignKey('user.username'))
+    userid = db.Column(db.Integer, db.ForeignKey('user.userid'))
     created_at = db.Column(db.DateTime, default=datetime.now())
     comment = db.Column(db.String(255), index=True, nullable=False)
     

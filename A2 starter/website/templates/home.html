@@ -198,7 +198,16 @@
                 <img src="{{ event.image }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title text-truncate" title="{{ event.title }}">{{ event.title }}</h5>
-                    <p class="card-text" style="max-height: 100px; height: 100px">{{ event.description }}</p>
+                    <p class="card-text" style="max-height: 60px; height: 76px; overflow: hidden">{{ event.description }}</p>
+                    
+                    <!-- Prices -->
+                    <div class="m-0">
+                        <small class="text-muted">
+                            <strong>Normal:</strong> ${{ "%0.2f"|format(event.normalPrice) }}<br>
+                            <strong>VIP:</strong> ${{ "%0.2f"|format(event.vipPrice) }}
+                        </small>
+                    </div>
+                    
                     <!-- Buttons row -->
                     <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
                         <!-- Status Button -->
