@@ -34,14 +34,9 @@ def index():
 
 @main_bp.route('/search')
 def search():
-    query = request.args.get('q', '')
-    events = [] 
-    results_count = 0
-    return render_template('search.html', 
-                         events=events, 
-                         query=query, 
-                         results_count=results_count,
-                         title=f"Search: {query}")
+    query = request.args.get('q')
+    results= Event.query.filter(Event.title.ilike(f'%{query}')).all()
+    return render_template('search.html', results=results)
 
 @main_bp.route('/event/<int:event_id>')
 def event_detail(event_id):
@@ -129,11 +124,11 @@ def booking_history():
 
 @main_bp.route('/404')
 def not_found():
-    return render_template('404.html', title='404 Error')
+    return render_template('404.html', title='404 Not Found')
 
 @main_bp.route('/500')
 def server_error():
-    return render_template('500.html', title='500 Error')
+    return render_template('500.html', title='500 Internal Server Error')
 
 @main_bp.route('/order-details')
 def order_details():
