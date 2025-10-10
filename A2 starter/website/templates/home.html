@@ -19,9 +19,9 @@
         <div class="carousel-item active position-relative">
             <img src="{{ url_for('static', filename='Image/Display events/Twice concert.png') }}" class="d-block w-100">
             <!-- Buy Now button -->
-            <a href="{{ url_for('main.demo_event') }}" class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10">
+            <button class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10" data-bs-toggle="modal" data-bs-target="#soldOutModal">
                 Buy Now
-            </a>
+            </button>
         </div>
         <div class="carousel-item position-relative">
             <img src="{{ url_for('static', filename='Image/Display events/SKZ concert.png') }}" class="d-block w-100">
@@ -173,7 +173,7 @@
     <div class="d-flex gap-2">
         <!-- Price Sort Dropdown -->
         <div class="dropdown">
-            <button class="btn" style="width: 200px; background-color: #e7ccff; border-color: #cd98fb" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <button class="btn" style="width: 185px; background-color: #e7ccff; border-color: #cd98fb" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                 {% if selected_price_sort %} 
                     {% if selected_price_sort == 'normal_low_to_high' %}Normal - Low to High
                     {% elif selected_price_sort == 'normal_high_to_low' %}Normal - High to Low
@@ -185,7 +185,7 @@
                 {% endif %}
             </button>
             <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="{{ url_for('main.index') }}{% if selected_country %}?country={{ selected_country }}{% if selected_status %}&status={{ selected_status }}{% endif %}{% elif selected_status %}?status={{ selected_status }}{% endif %}#events-section">Sort by Price</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('main.index') }}{% if selected_country %}?country={{ selected_country }}{% if selected_status %}&status={{ selected_status }}{% endif %}{% elif selected_status %}?status={{ selected_status }}{% endif %}#events-section">All events</a></li>
                 <li><a class="dropdown-item" href="{{ url_for('main.index') }}?price_sort=normal_low_to_high{% if selected_country %}&country={{ selected_country }}{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}#events-section">Normal - Low to High</a></li>
                 <li><a class="dropdown-item" href="{{ url_for('main.index') }}?price_sort=normal_high_to_low{% if selected_country %}&country={{ selected_country }}{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}#events-section">Normal - High to Low</a></li>
                 <li><a class="dropdown-item" href="{{ url_for('main.index') }}?price_sort=vip_low_to_high{% if selected_country %}&country={{ selected_country }}{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}#events-section">VIP - Low to High</a></li>
@@ -222,7 +222,6 @@
                 <div class="card-body">
                     <h5 class="card-title text-truncate" title="{{ event.title }}">{{ event.title }}</h5>
                     <p class="card-text" style="max-height: 60px; height: 76px; overflow: hidden">{{ event.description }}</p>
-                    
                     <!-- Prices -->
                     <div class="mb-1">
                         <small class="text-muted">
@@ -254,7 +253,7 @@
         </div>
         {% endfor %}
         <!-- EXAMPLE EVENTS (always show after real events) -->
-        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'australia') and (not selected_status or selected_status == 'Available') and not selected_price_sort %}
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'australia') and (not selected_status or selected_status == 'Sold out') and not selected_price_sort %}
         <!-- Event Card 1 - Twice Concert (Australia) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100" style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
@@ -265,9 +264,9 @@
                     <!-- Buttons row -->
                     <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
                         <!-- Status Button -->
-                        <button class="btn btn-outline-success flex-fill" disabled>Available</button>
+                        <button class="btn btn-outline-info flex-fill" disabled>Sold out</button>
                         <!-- Buy Ticket Button -->
-                        <a href="{{ url_for('main.demo_event') }}" class="btn btn-success flex-fill">Buy Tickets</a>
+                        <button class="btn btn-success flex-fill" disabled>Buy Tickets</button>
                     </div>
                 </div>
             </div>
