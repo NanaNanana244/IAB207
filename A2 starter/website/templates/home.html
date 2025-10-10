@@ -170,6 +170,28 @@
                 Upcoming Events
             {% endif %}
         </h3>
+    <div class="d-flex gap-2">
+        <!-- Price Sort Dropdown -->
+        <div class="dropdown">
+            <button class="btn" style="width: 200px; background-color: #e7ccff; border-color: #cd98fb" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                {% if selected_price_sort %} 
+                    {% if selected_price_sort == 'normal_low_to_high' %}Normal - Low to High
+                    {% elif selected_price_sort == 'normal_high_to_low' %}Normal - High to Low
+                    {% elif selected_price_sort == 'vip_low_to_high' %}VIP - Low to High
+                    {% elif selected_price_sort == 'vip_high_to_low' %}VIP - High to Low
+                    {% endif %}
+                {% else %}
+                    Sort by Price <span style="margin-left: 5px;">▼</span>
+                {% endif %}
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="{{ url_for('main.index') }}{% if selected_country %}?country={{ selected_country }}{% if selected_status %}&status={{ selected_status }}{% endif %}{% elif selected_status %}?status={{ selected_status }}{% endif %}#events-section">Sort by Price</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('main.index') }}?price_sort=normal_low_to_high{% if selected_country %}&country={{ selected_country }}{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}#events-section">Normal - Low to High</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('main.index') }}?price_sort=normal_high_to_low{% if selected_country %}&country={{ selected_country }}{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}#events-section">Normal - High to Low</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('main.index') }}?price_sort=vip_low_to_high{% if selected_country %}&country={{ selected_country }}{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}#events-section">VIP - Low to High</a></li>
+                <li><a class="dropdown-item" href="{{ url_for('main.index') }}?price_sort=vip_high_to_low{% if selected_country %}&country={{ selected_country }}{% endif %}{% if selected_status %}&status={{ selected_status }}{% endif %}#events-section">VIP - High to Low</a></li>
+            </ul>
+        </div>
         <!-- Status Filter Dropdown -->
         <div class="dropdown">
             <button class="btn" style="width: 160px; background-color: #e7ccff; border-color: #cd98fb" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -189,6 +211,7 @@
             </ul>
         </div>
     </div>
+    </div>
     <!-- Row with 3-unit gutter between cards -->
     <div class="row g-3">
         <!-- REAL EVENTS FROM DATABASE (show first) -->
@@ -201,13 +224,12 @@
                     <p class="card-text" style="max-height: 60px; height: 76px; overflow: hidden">{{ event.description }}</p>
                     
                     <!-- Prices -->
-                    <div class="m-0">
+                    <div class="mb-1">
                         <small class="text-muted">
-                            <strong>Normal:</strong> ${{ event.normalPrice }}<br>
-                            <strong>VIP:</strong> ${{ event.vipPrice }}
+                            <strong>Normal:</strong> ${{ "%0.2f"|format(event.normalPrice) }}<br>
+                            <strong>VIP:</strong> ${{ "%0.2f"|format(event.vipPrice) }}
                         </small>
                     </div>
-                    
                     <!-- Buttons row -->
                     <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
                         <!-- Status Button -->
@@ -232,7 +254,7 @@
         </div>
         {% endfor %}
         <!-- EXAMPLE EVENTS (always show after real events) -->
-        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'australia') and (not selected_status or selected_status == 'Available') %}
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'australia') and (not selected_status or selected_status == 'Available') and not selected_price_sort %}
         <!-- Event Card 1 - Twice Concert (Australia) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100" style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
@@ -251,7 +273,7 @@
             </div>
         </div>
         {% endif %}
-        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'america') and (not selected_status or selected_status == 'Sold out') %}
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'america') and (not selected_status or selected_status == 'Sold out') and not selected_price_sort %}
         <!-- Event Card 2 - IVE Concert (America) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
@@ -270,7 +292,7 @@
             </div>
         </div>
         {% endif %}
-        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'korea') and (not selected_status or selected_status == 'Sold out') %}
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'korea') and (not selected_status or selected_status == 'Sold out') and not selected_price_sort %}
         <!-- Event Card 3 - KATSEYE Fansign (Korea) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100" style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
@@ -289,7 +311,7 @@
             </div>
         </div>
         {% endif %}
-        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'korea') and (not selected_status or selected_status == 'Cancelled') %}
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'korea') and (not selected_status or selected_status == 'Cancelled') and not selected_price_sort %}
         <!-- Event Card 4 - BTS Concert (Korea) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
@@ -308,7 +330,7 @@
             </div>
         </div>
         {% endif %}
-        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'japan') and (not selected_status or selected_status == 'Cancelled') %}
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'japan') and (not selected_status or selected_status == 'Cancelled') and not selected_price_sort %}
         <!-- Event Card 5 - NEWJEANS Fansign (Japan) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
@@ -327,7 +349,7 @@
             </div>
         </div>
         {% endif %}
-        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'america') and (not selected_status or selected_status == 'Inactive') %}
+        {% if (not selected_country or selected_country == 'all' or selected_country.lower() == 'america') and (not selected_status or selected_status == 'Inactive') and not selected_price_sort %}
         <!-- Event Card 6 - SKZ Concert (America) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
@@ -346,7 +368,7 @@
             </div>
         </div>
         {% endif %}
-        {% if (not selected_country or selected_country == 'china' or selected_country.lower() == 'all') and (not selected_status or selected_status == 'Inactive') %}
+        {% if (not selected_country or selected_country == 'china' or selected_country.lower() == 'all') and (not selected_status or selected_status == 'Inactive') and not selected_price_sort %}
         <!-- Event Card 7 - EXO Fanmeeting (China) -->
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100"  style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">

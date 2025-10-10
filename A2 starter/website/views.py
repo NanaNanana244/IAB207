@@ -3,6 +3,7 @@ from flask_login import login_required, current_user
 from datetime import datetime
 from . import db
 from .models import Event, Comment, Order 
+from .forms import CreateEvent
 
 main_bp = Blueprint('main', __name__)
 
@@ -11,6 +12,7 @@ def index():
     # Get filters from URL parameters
     country_filter = request.args.get('country', '')
     status_filter = request.args.get('status', '')
+    price_sort = request.args.get('price_sort', '')
     
     # Start with all events
     query = Event.query
@@ -18,15 +20,26 @@ def index():
     # Apply country filter if specified
     if country_filter:
         if country_filter == 'other':
-            # Filter out the specific countries, show everything else
             query = query.filter(~Event.country.in_(['america', 'australia', 'canada', 'china', 'japan', 'korea']))
         else:
-            # Use ilike for case-insensitive filtering
             query = query.filter(Event.country.ilike(country_filter))
     
     # Apply status filter if specified  
     if status_filter:
         query = query.filter(Event.status == status_filter)
+    
+    # Apply price sorting if specified - ONLY show available events when sorting by price
+    if price_sort:
+        # When sorting by price, only show available events
+        query = query.filter(Event.status == 'Available')
+        if price_sort == 'normal_low_to_high':
+            query = query.order_by(Event.normalPrice.asc())
+        elif price_sort == 'normal_high_to_low':
+            query = query.order_by(Event.normalPrice.desc())
+        elif price_sort == 'vip_low_to_high':
+            query = query.order_by(Event.vipPrice.asc())
+        elif price_sort == 'vip_high_to_low':
+            query = query.order_by(Event.vipPrice.desc())
     
     events = query.all()
     
@@ -34,7 +47,42 @@ def index():
                          events=events, 
                          title='Home Page',
                          selected_country=country_filter,
-                         selected_status=status_filter)
+                         selected_status=status_filter,
+                         selected_price_sort=price_sort)
+
+@main_bp.route('/create', methods=['GET', 'POST'])
+@login_required
+def create_event():
+    form = CreateEvent()
+    
+    if form.validate_on_submit():
+        # Create new event
+        new_event = Event(
+            userid=current_user.userid,
+            title=form.title.data,
+            artist=form.artist.data,
+            date=form.date.data,
+            startTime=form.startTime.data,
+            location=form.location.data,
+            country=form.country.data,
+            description=form.description.data,
+            image="default.jpg", 
+            status=form.status.data,
+            tags=form.tags.data,
+            normalAvail=int(form.normalAvail.data),
+            vipAvail=int(form.vipAvail.data),
+            normalPrice=float(form.normalPrice.data),
+            vipPrice=float(form.vipPrice.data)
+        )
+        
+        db.session.add(new_event)
+        db.session.commit()
+        
+        flash('Event created successfully!', 'success')
+        return redirect(url_for('main.index'))
+    
+    # This shows form with errors if validation fails
+    return render_template('create.html', form=form, title='Create Event')
 
 @main_bp.route('/search')
 def search():

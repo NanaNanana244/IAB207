@@ -55,7 +55,7 @@
                                 </h2>
                                 <div id="collapseNormal" class="accordion-collapse collapse" aria-labelledby="headingNormal">
                                     <div class="accordion-body pb-0">
-                                        <p><strong>Ticket Price:</strong> ${{ event.normalPrice if event.normalPrice else 0 }}</p>
+                                        <p><strong>Ticket Price:</strong> ${{ "%0.2f"|format(event.normalPrice) if event.normalPrice else 0 }}</p>
                                         {% if event.status == 'Available' and event.normalAvail and event.normalAvail > 0 %}
                                             <div class="mb-3">
                                                 <label class="form-label">Number of Normal Tickets:</label>
@@ -82,7 +82,7 @@
                                 </h2>
                                 <div id="collapseVip" class="accordion-collapse collapse" aria-labelledby="headingVip">
                                     <div class="accordion-body pb-0">
-                                        <p><strong>Ticket Price:</strong> ${{ event.vipPrice if event.vipPrice else 0 }}</p>
+                                        <p><strong>Ticket Price:</strong> ${{ "%0.2f"|format(event.normalPrice) if event.vipPrice else 0 }}</p>
                                         {% if event.status == 'Available' and event.vipAvail and event.vipAvail > 0 %}
                                             <div class="mb-3">
                                                 <label class="form-label">Number of VIP Tickets:</label>

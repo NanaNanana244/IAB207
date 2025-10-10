@@ -26,7 +26,7 @@ class User(db.Model, UserMixin):
     
 class Event(db.Model):
     __tablename__ = 'event'
-    eventid = db.Column(db.Integer,db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
+    eventid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
     userid = db.Column(db.Integer, db.ForeignKey('user.userid'))
     artist = db.Column(db.String(100), index=True, nullable=False)
     startTime = db.Column(db.Time, index=True, nullable=False)
@@ -38,12 +38,10 @@ class Event(db.Model):
     image = db.Column(db.String(100), index=True, nullable=False)
     status = db.Column(db.String(50), nullable=False, default='Active')
     tags = db.Column(db.String(255), index=True, nullable=True)
-    country = db.Column(db.String(100), index=True, nullable=False)
-    normalAvail = db.Column(db.Float, index=True, nullable=False)
-    vipAvail = db.Column(db.Float, index=True, nullable=False)
-    normalPrice = db.Column(db.Float, index=True, nullable=False)
-    vipPrice = db.Column(db.Float, index=True, nullable=False)
-
+    normalAvail = db.Column(db.Integer, index=True, nullable=False) 
+    vipAvail = db.Column(db.Integer, index=True, nullable=False)   
+    normalPrice = db.Column(db.Numeric(10,2), index=True, nullable=False)  
+    vipPrice = db.Column(db.Numeric(10,2), index=True, nullable=False)    
     comments = db.relationship('Comment', backref='event', lazy=True)
     orders = db.relationship('Order', backref='event', lazy=True)
     
@@ -69,7 +67,7 @@ class Order(db.Model):
     eventid = db.Column(db.Integer, db.ForeignKey('event.eventid'))
     normalQty = db.Column(db.Integer, index=True, nullable=True)
     vipQty = db.Column(db.Integer, index=True, nullable=True)
-    totalPrice  = db.Column(db.Integer, index=True, nullable=False)
+    totalPrice  = db.Column(db.Numeric(10,2), index=True, nullable=False)
     timeBooked = db.Column(db.DateTime, index=True, nullable=False)
 
     def __repr__(self):

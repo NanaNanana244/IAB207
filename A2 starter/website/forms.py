@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from flask_wtf.file import FileField, FileRequired, FileAllowed
-from wtforms import StringField, TextAreaField, FileField, DecimalField, SubmitField, TimeField, DateField, PasswordField, SelectField
+from wtforms import StringField, TextAreaField, FileField, DecimalField, IntegerField, SubmitField, TimeField, DateField, PasswordField, SelectField
 from wtforms.validators import InputRequired, Length, EqualTo, Email
 
 #creates the login information
@@ -40,8 +40,8 @@ class CreateEvent(FlaskForm):
                 validators=[InputRequired()])
     normalPrice = DecimalField('Enter normal ticket price', [InputRequired()])
     vipPrice = DecimalField('Enter VIP ticket price', [InputRequired()])
-    normalAvail = DecimalField('Enter number of normal tickets', [InputRequired()])
-    vipAvail = DecimalField('Enter number of VIP tickets', [InputRequired()])
+    normalAvail = IntegerField('Enter number of normal tickets', [InputRequired()])
+    vipAvail = IntegerField('Enter number of VIP tickets', [InputRequired()])
     description = TextAreaField('Enter event description', [InputRequired()])
     tags = TextAreaField('Enter keywords to help users find this event. Examples: genre, common mispellings, band members, popular songs, etc.')
     submit = SubmitField('Submit')

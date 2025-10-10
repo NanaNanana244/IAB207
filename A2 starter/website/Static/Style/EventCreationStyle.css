@@ -22,7 +22,14 @@
         color: white;               
         box-shadow: none;             
     }
-    
+
+/* Form styling */
+    .required-field::after {
+        content: " *";
+        color: red;
+    }
+
+
 /* Event Creation Background */
     /* Section with background image */
     body {
