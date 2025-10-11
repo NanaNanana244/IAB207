@@ -46,6 +46,23 @@ class CreateEvent(FlaskForm):
     tags = TextAreaField('Enter keywords to help users find this event. Examples: genre, common mispellings, band members, popular songs, etc.')
     submit = SubmitField('Submit')
 
+class EditEvent(FlaskForm):
+    title = StringField('Enter event name')
+    artist = StringField('Enter artist/group name')
+    image = FileField('Event Image', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
+    date = DateField('Enter the date of event')
+    startTime = TimeField('Enter the starting time of event')
+    location = StringField('Enter venue name')
+    country = StringField('Enter country (Spelling must be correct)') 
+    normalPrice = DecimalField('Enter normal ticket price')
+    vipPrice = DecimalField('Enter VIP ticket price')
+    normalAvail = DecimalField('Enter number of normal tickets')
+    vipAvail = DecimalField('Enter number of VIP tickets')
+    status = StringField('Event Status')
+    description = TextAreaField('Enter event description')
+    tags = TextAreaField('Enter keywords to help users find this event. Examples: genre, common mispellings, band members, popular songs, etc.')
+    submit = SubmitField('Submit')
+
 class CommentForm(FlaskForm):
     #create comments
     text = TextAreaField('Comment', [InputRequired()])
@@ -56,5 +73,6 @@ class OrderForm(FlaskForm):
     ticType = SelectField('Select Ticket Type', validators = [InputRequired()], choices = [('normTicket', 'Normal Ticket (Price: $200)'), ('vipticket', 'VIP Ticket (Price $300)')])
     numTickets = StringField("How many tickets?", validators = [InputRequired()])
     submit = SubmitField('Submit')
+
 
 
