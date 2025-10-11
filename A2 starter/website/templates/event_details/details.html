@@ -130,41 +130,6 @@
     </div>
 </div>
 
-<!-- Comment Section -->
-<div class="container">
-    <h3>Comments</h3>
-    
-    <!-- Comment form -->
-    {% if current_user.is_authenticated %}
-    <form method="POST" action="{{ url_for('main.purchase_tickets', event_id=event.eventid) }}?confirm=true" style="display: inline;">
-        <input type="hidden" name="normal_qty" value="{{ request.args.get('normal_qty', 0) }}">
-        <input type="hidden" name="vip_qty" value="{{ request.args.get('vip_qty', 0) }}">
-        <button type="submit" class="btn btn-success">Confirm Booking</button>
-    </form>
-    {% else %}
-    <div class="alert alert-info">
-        Please <a href="{{ url_for('auth.login') }}">login</a> to leave a comment.
-    </div>
-    {% endif %}
-
-    <!-- Comments from database -->
-    <div class="my-4">
-        {% for comment in event.comments %}
-        <div class="card mb-2">
-            <div class="card-body d-flex align-items-start">
-                <img src="{{ url_for('static', filename='Image/NavBar Icons/account.png') }}" class="rounded-circle me-3" style="width:40px; height:40px">
-                <div class="pt-2">
-                    <p class="m-0"><strong>{{ comment.user.username }}:</strong> {{ comment.comment }}</p>
-                    <small class="text-muted">{{ comment.created_at.strftime('%d/%m/%Y %I:%M %p') }}</small>
-                </div>
-            </div>
-        </div>
-        {% else %}
-        <p class="text-muted">No comments yet. Be the first to comment!</p>
-        {% endfor %}
-    </div>
-</div>
-
 <!-- Checkout Modal (shown when tickets are selected) -->
 {% if request.args.get('normal_qty') and request.args.get('vip_qty') and (request.args.get('normal_qty') != '0' or request.args.get('vip_qty') != '0') %}
 <div class="modal show" id="checkoutModal" tabindex="-1" style="display: block; background: rgba(0,0,0,0.5)">
@@ -208,4 +173,42 @@
     </div>
 </div>
 {% endif %}
+
+<!-- Comment Section -->
+<div class="container">
+    <h3>Comments</h3>
+    
+    <!-- Comment form -->
+    {% if current_user.is_authenticated %}
+    <form method="POST" action="{{ url_for('main.add_comment', event_id=event.eventid) }}">
+        <div class="mb-3">
+            <textarea name="comment_text" class="form-control" rows="3" placeholder="Write your comment here..." required></textarea>
+        </div>
+        <div class="text-end mb-3">
+            <button type="submit" class="btn btn-success">Submit Comment</button>
+        </div>
+    </form>
+    {% else %}
+    <div class="alert alert-info">
+        Please <a href="{{ url_for('auth.login') }}">login</a> to leave a comment.
+    </div>
+    {% endif %}
+
+    <!-- Comments from database -->
+    <div class="my-4">
+        {% for comment in event.comments %}
+        <div class="card mb-2">
+            <div class="card-body d-flex align-items-start">
+                <img src="{{ url_for('static', filename='Image/NavBar Icons/account.png') }}" class="rounded-circle me-3" style="width:40px; height:40px">
+                <div class="pt-2">
+                    <p class="m-0"><strong>{{ comment.user.username }}:</strong> {{ comment.comment }}</p>
+                    <small class="text-muted">{{ comment.created_at.strftime('%d/%m/%Y %I:%M %p') }}</small>
+                </div>
+            </div>
+        </div>
+        {% else %}
+        <p class="text-muted">No comments yet. Be the first to comment!</p>
+        {% endfor %}
+    </div>
+</div>
 {% endblock %}
