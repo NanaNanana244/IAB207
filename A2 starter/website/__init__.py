@@ -48,9 +48,13 @@ def create_app():
 
     from . import create
     app.register_blueprint(create.createbp)
-    
+
+    from . import edit
+    app.register_blueprint(edit.editbp)
+  
     from . import details
     app.register_blueprint(details.detailsbp)
   
     return app
+
 
