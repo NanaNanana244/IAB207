@@ -43,8 +43,17 @@
                     
                     <!-- Combined Purchase Form -->
                     {% if event.status == 'Available' and (event.normalAvail > 0 or event.vipAvail > 0) %}
-                    <form method="POST" action="{{ url_for('main.purchase_tickets', event_id=event.eventid) }}">
+                    <form method="GET" action="#">
                         <h6>Ticket Types Available:</h6>
+                        
+                        <!-- Show alert when no tickets selected - MOVED HERE -->
+                        {% if request.args.get('normal_qty') == '0' and request.args.get('vip_qty') == '0' %}
+                        <div class="alert alert-danger alert-dismissible fade show mt-3">
+                            No tickets selected. Please choose at least one ticket.
+                            <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                        </div>
+                        {% endif %}
+                        
                         <div class="accordion" id="ticketAccordion">
                             <!-- Normal Tickets -->
                             <div class="accordion-item">
@@ -59,13 +68,9 @@
                                         {% if event.status == 'Available' and event.normalAvail and event.normalAvail > 0 %}
                                             <div class="mb-3">
                                                 <label class="form-label">Number of Normal Tickets:</label>
-                                                <input type="number" name="normal_qty" class="form-control" value="0" 
+                                                <input type="number" name="normal_qty" class="form-control" value="{{ request.args.get('normal_qty', 0) }}" 
                                                     min="0" max="{{ event.normalAvail }}" 
                                                     {% if event.normalAvail == 0 %}disabled{% endif %}>
-                                                <div class="form-text">
-                                                    Available: {{ event.normalAvail }} tickets
-                                                    {% if event.normalAvail == 0 %}<span class="text-danger"> - Sold Out</span>{% endif %}
-                                                </div>
                                             </div>
                                         {% else %}
                                             <button class="btn btn-success" disabled>Sold Out</button>
@@ -82,17 +87,13 @@
                                 </h2>
                                 <div id="collapseVip" class="accordion-collapse collapse" aria-labelledby="headingVip">
                                     <div class="accordion-body pb-0">
-                                        <p><strong>Ticket Price:</strong> ${{ "%0.2f"|format(event.normalPrice) if event.vipPrice else 0 }}</p>
+                                        <p><strong>Ticket Price:</strong> ${{ "%0.2f"|format(event.vipPrice) if event.vipPrice else 0 }}</p>
                                         {% if event.status == 'Available' and event.vipAvail and event.vipAvail > 0 %}
                                             <div class="mb-3">
                                                 <label class="form-label">Number of VIP Tickets:</label>
-                                                <input type="number" name="vip_qty" class="form-control" value="0" 
+                                                <input type="number" name="vip_qty" class="form-control" value="{{ request.args.get('vip_qty', 0) }}" 
                                                     min="0" max="{{ event.vipAvail }}" 
                                                     {% if event.vipAvail == 0 %}disabled{% endif %}>
-                                                <div class="form-text">
-                                                    Available: {{ event.vipAvail }} tickets
-                                                    {% if event.vipAvail == 0 %}<span class="text-danger"> - Sold Out</span>{% endif %}
-                                                </div>
                                             </div>
                                         {% else %}
                                             <button class="btn btn-success" disabled>Sold Out</button>
@@ -117,7 +118,6 @@
                 </div>
             </div>
         </div>
-
         <!-- Right Column: Event Details -->
         <div class="col-md-8">
             <div class="card border-0">
@@ -136,13 +136,10 @@
     
     <!-- Comment form -->
     {% if current_user.is_authenticated %}
-    <form method="POST" action="{{ url_for('main.add_comment', event_id=event.eventid) }}">
-        <div class="mb-3">
-            <textarea name="comment_text" class="form-control" rows="3" placeholder="Write your comment here..." required></textarea>
-        </div>
-        <div class="text-end mb-3">
-            <button type="submit" class="btn btn-success">Submit Comment</button>
-        </div>
+    <form method="POST" action="{{ url_for('main.purchase_tickets', event_id=event.eventid) }}?confirm=true" style="display: inline;">
+        <input type="hidden" name="normal_qty" value="{{ request.args.get('normal_qty', 0) }}">
+        <input type="hidden" name="vip_qty" value="{{ request.args.get('vip_qty', 0) }}">
+        <button type="submit" class="btn btn-success">Confirm Booking</button>
     </form>
     {% else %}
     <div class="alert alert-info">
@@ -167,4 +164,48 @@
         {% endfor %}
     </div>
 </div>
+
+<!-- Checkout Modal (shown when tickets are selected) -->
+{% if request.args.get('normal_qty') and request.args.get('vip_qty') and (request.args.get('normal_qty') != '0' or request.args.get('vip_qty') != '0') %}
+<div class="modal show" id="checkoutModal" tabindex="-1" style="display: block; background: rgba(0,0,0,0.5)">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirm Booking</h5>
+            </div>
+            <div class="modal-body">
+                <p><strong>Event:</strong> {{ event.title }}</p>
+                <p><strong>Tickets:</strong> Normal: {{ request.args.get('normal_qty', 0) }} tickets, VIP: {{ request.args.get('vip_qty', 0) }} tickets</p>
+                <p><strong>Total:</strong> ${{ "%.2f"|format(request.args.get('normal_qty', 0)|int * event.normalPrice + request.args.get('vip_qty', 0)|int * event.vipPrice) }}</p>
+                <p>Please review your booking details before confirming.</p>
+            </div>
+            <div class="modal-footer">
+                <a href="{{ url_for('main.event_detail', event_id=event.eventid) }}" class="btn btn-danger">Cancel</a>
+                <form method="POST" action="{{ url_for('main.purchase_tickets', event_id=event.eventid) }}" style="display: inline;">
+                    <input type="hidden" name="normal_qty" value="{{ request.args.get('normal_qty', 0) }}">
+                    <input type="hidden" name="vip_qty" value="{{ request.args.get('vip_qty', 0) }}">
+                    <button type="submit" class="btn btn-success">Confirm Booking</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Thank You Modal (shown after confirmation) -->
+{% if request.args.get('confirm') %}
+<div class="modal show" id="thankYouModal" tabindex="-1" aria-labelledby="thankYouModalLabel" aria-hidden="false" style="display: block; background: rgba(0,0,0,0.5)">
+    <div class="modal-dialog">
+        <div class="modal-content text-center">
+            <div class="modal-body">
+                <h5 class="mb-3">Thank You for Your Purchase!</h5>
+                <p>Your booking has been successfully confirmed. You can access your ticket details anytime from your <a href="{{ url_for('main.booking_history') }}">Booking History</a>.</p>
+            </div>
+            <div class="modal-footer justify-content-center">
+                <a href="{{ url_for('main.event_detail', event_id=event.eventid) }}" class="btn btn-success">Close</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endif %}
 {% endblock %}

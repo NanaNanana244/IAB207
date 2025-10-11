@@ -119,10 +119,8 @@ def purchase_tickets(event_id):
         flash('Please select at least one ticket.', 'error')
         return redirect(url_for('main.event_detail', event_id=event_id))
     
-    # Calculate prices
-    normal_total = normal_qty * event.normalPrice
-    vip_total = vip_qty * event.vipPrice
-    total_price = normal_total + vip_total
+    # Calculate total
+    total = (normal_qty * event.normalPrice) + (vip_qty * event.vipPrice)
     
     # Create order
     new_order = Order(
@@ -130,7 +128,7 @@ def purchase_tickets(event_id):
         eventid=event_id,
         normalQty=normal_qty,
         vipQty=vip_qty,
-        totalPrice=total_price,
+        totalPrice=total,
         timeBooked=datetime.now()
     )
     
@@ -141,8 +139,8 @@ def purchase_tickets(event_id):
     db.session.add(new_order)
     db.session.commit()
     
-    flash(f'Purchase confirmed! {normal_qty} normal + {vip_qty} VIP tickets. Total: ${total_price}', 'success')
-    return redirect(url_for('main.event_detail', event_id=event_id))
+    # Redirect back with confirm parameter instead of flash message
+    return redirect(url_for('main.event_detail', event_id=event_id, confirm='true'))
 
 @main_bp.route('/event/<int:event_id>/comment', methods=['POST'])
 @login_required
