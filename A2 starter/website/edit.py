@@ -11,7 +11,6 @@ editbp = Blueprint('edit', __name__, template_folder='templates')
 def edit(eventid):
     event = Event.query.get_or_404(eventid)
     form = EditEvent(obj=event)  
-    #db_file_path = check_upload_file(form)
 
     if form.validate_on_submit():
         event.artist = form.artist.data
@@ -21,14 +20,11 @@ def edit(eventid):
         event.country = form.country.data
         event.title=form.title.data
         event.description=form.description.data
-        #event.image = db_file_path
-        event.status = form.status.data
         event.tags = form.tags.data
         event.normalAvail = form.normalAvail.data
         event.normalPrice = form.normalPrice.data
         event.vipAvail = form.vipAvail.data
         event.vipPrice = form.vipPrice.data
-      #  db_file_path = check_upload_file(form)
         db.session.commit()
         return redirect(url_for('main.index'))
 
@@ -47,4 +43,5 @@ def check_upload_file(form):
   db_upload_path = '/static/image/uploads/' + secure_filename(filename)
   # save the file and return the db upload path  
   fp.save(upload_path)
+
   return db_upload_path
