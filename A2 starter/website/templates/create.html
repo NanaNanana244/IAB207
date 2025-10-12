@@ -54,13 +54,13 @@
             <div class="row mb-3">
                 <div class="col-md-6">
                     <div class="form-group">
-                        {{ form.date.label }} <span style="color: red">*</span>
-                        {{ form.date(class_="form-control", size=32) }} 
-                        {% if form.date.errors %}
+                        {{ form.eventdate.label }}<br>
+                        {{ form.eventdate(class_="form-control", size=32, type='date') }}
+                       {% for error in form.eventdate.errors %}
                             <div class="text-danger">
-                                <small>This field cannot be empty</small>
+                                <small>This field cannot be empty or in the past</small>
                             </div>
-                        {% endif %}
+                        {% endfor %}
                     </div>
                 </div>
                 <div class="col-md-6">
