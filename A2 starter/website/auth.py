@@ -38,6 +38,7 @@ def register():
     form = RegisterForm()
     if form.validate_on_submit():
         password_hash = generate_password_hash(form.password.data)
+        user_name = form.username.data
         userAdd = User(name=form.name.data,
                     username=form.username.data, 
                     email=form.email.data,
@@ -48,7 +49,11 @@ def register():
         # commit to the database
         db.session.commit()
         print('success')
-        session['user_id'] = userAdd.userid
+        user = db.session.scalar(db.select(User).where(User.username==user_name))
+        login_user(user)
+        nextp = request.args.get('next')
+        print(nextp)
+        session['user_id'] = user.userid
         # Always end with redirect when form is valid
         return redirect(url_for('main.index'))
     return render_template('register.html', form=form, title='Register')
@@ -58,4 +63,5 @@ def register():
 def logout():
     session.clear()
     return redirect(url_for('main.index'))
+
 
