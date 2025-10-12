@@ -39,8 +39,13 @@
                     <div class="row mb-3">
                         <div class="col-md-6">
                             <div class="form-group">
-                                {{ form.date.label }}
-                                {{ form.date(class_="form-control", size=32) }}
+                                {{ form.date.label }}<br>
+                                {{ form.date(class_="form-control", size=32, type='date') }}
+                               {% for error in form.date.errors %}
+                                    <div class="text-danger">
+                                        <small>This field cannot be empty or in the past</small>
+                                    </div>
+                                {% endfor %}
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -126,4 +131,5 @@
             </div>
         </div>
        
+
 {% endblock %}
