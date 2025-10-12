@@ -45,36 +45,6 @@ def index():
                          selected_status=status_filter,
                          selected_price_sort=price_sort)
 
-# Creating events
-@main_bp.route('/create', methods=['GET', 'POST'])
-@login_required
-def create_event():
-    form = CreateEvent()
-    if form.validate_on_submit():
-        # Create new event
-        new_event = Event(
-            userid=current_user.userid,
-            title=form.title.data,
-            artist=form.artist.data,
-            date=form.date.data,
-            startTime=form.startTime.data,
-            location=form.location.data,
-            country=form.country.data,
-            description=form.description.data,
-            image="default.jpg", 
-            status=form.status.data,
-            tags=form.tags.data,
-            normalAvail=int(form.normalAvail.data),
-            vipAvail=int(form.vipAvail.data),
-            normalPrice=float(form.normalPrice.data),
-            vipPrice=float(form.vipPrice.data)
-        )
-        db.session.add(new_event)
-        db.session.commit()
-        flash('Event created successfully!', 'success')
-        return redirect(url_for('main.index'))
-    # This shows form with errors if validation fails
-    return render_template('create.html', form=form, title='Create Event')
 
 # Search for keywords
 @main_bp.route('/search')
@@ -175,3 +145,4 @@ def order_details(order_id):
     return render_template('order_details.html', 
                          order=order,
                          title=f'Order #{order.orderid}')
+
