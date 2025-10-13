@@ -12,52 +12,68 @@ auth_bp = Blueprint('auth', __name__)
 @auth_bp.route('/login', methods=['GET', 'POST'])
 def login():
     login_form = LoginForm()
-    error = None
+    
     if login_form.validate_on_submit():
-        user_name = login_form.user_name.data
+        user_name = login_form.user_name.data.strip()
         password = login_form.password.data
         user = db.session.scalar(db.select(User).where(User.username==user_name))
-        session['user_id'] = user.userid
+        
         if user is None:
-            error = 'Incorrect user name'
+            # Add error under username field
+            login_form.user_name.errors.append('Incorrect user name')
         elif not check_password_hash(user.password_hash, password):
-            error = 'Incorrect password'
-        if error is None:
+            # Add error under password field
+            login_form.password.errors.append('Incorrect password')
+        else:
+            # Login successful
+            session['user_id'] = user.userid
             login_user(user)
             nextp = request.args.get('next')
             print(nextp)
             if nextp is None or not nextp.startswith('/'):
                 return redirect(url_for('main.index'))
             return redirect(nextp)
-        else:
-            flash(error)
+    
     return render_template('login.html', form=login_form, heading='Login')
 
 @auth_bp.route('/register', methods=['GET', 'POST'])
 def register():
     form = RegisterForm()
     if form.validate_on_submit():
-        password_hash = generate_password_hash(form.password.data)
-        user_name = form.username.data
-        userAdd = User(name=form.name.data,
-                    username=form.username.data, 
-                    email=form.email.data,
-                    phoneNo=form.phoneNo.data,
+        password_hash = generate_password_hash(form.password.data) 
+        user_name = form.username.data.strip()
+        email = (form.email.data).strip()
+        name = (form.name.data).strip()
+        phoneNo = (form.phoneNo.data).strip()
+
+        # Check if the username already exists
+        existing_user = db.session.scalar(db.select(User).where(User.username == user_name))
+        if existing_user:
+            # Add error under username field instead of flash
+            form.username.errors.append('Username already exists. Please choose a different one.')
+            return render_template('register.html', form=form, title='Register')
+        
+        # Check if the email already exists
+        existing_email = db.session.scalar(db.select(User).where(User.email == email))
+        if existing_email:
+            form.email.errors.append('Email address already registered. Please log in directly.')
+            return render_template('register.html', form=form, title='Register')
+        
+        userAdd = User(name=name,
+                    username=user_name, 
+                    email=email,
+                    phoneNo=phoneNo,
                     password_hash=password_hash)
         # add the object to the db session
         db.session.add(userAdd)
         # commit to the database
         db.session.commit()
         print('success')
-        user = db.session.scalar(db.select(User).where(User.username==user_name))
-        login_user(user)
-        nextp = request.args.get('next')
-        print(nextp)
-        session['user_id'] = user.userid
+        login_user(userAdd)
+        session['user_id'] = userAdd.userid
         # Always end with redirect when form is valid
         return redirect(url_for('main.index'))
     return render_template('register.html', form=form, title='Register')
-
 
 @auth_bp.route('/logout')
 def logout():
