@@ -13,22 +13,23 @@ def index():
     country_filter = request.args.get('country', '')
     status_filter = request.args.get('status', '')
     price_sort = request.args.get('price_sort', '')
-    
+
     # Start with all events
     query = Event.query
-    
     # Apply country filter if specified
     if country_filter:
         if country_filter == 'other':
-            query = query.filter(~Event.country.in_(['america', 'australia', 'canada', 'china', 'japan', 'korea']))
+            # Case-insensitive exclusion for "other" category
+            excluded_countries = ['america', 'australia', 'canada', 'china', 'japan', 'korea']
+            for country in excluded_countries:
+                query = query.filter(~Event.country.ilike(country))
         else:
+            # Case-insensitive inclusion for specific countries
             query = query.filter(Event.country.ilike(country_filter))
-    
     # Apply status filter if specified  
     if status_filter:
         query = query.filter(Event.status == status_filter)
-    
-    # Apply price sorting if specified - ONLY show available events when sorting by price
+    # Apply price sorting if specified
     if price_sort:
         # When sorting by price, only show available events
         query = query.filter(Event.status == 'Available')
@@ -40,7 +41,7 @@ def index():
             query = query.order_by(Event.vipPrice.asc())
         elif price_sort == 'vip_high_to_low':
             query = query.order_by(Event.vipPrice.desc())
-    
+            
     events = query.all()
 
     return render_template('home.html', 
@@ -50,39 +51,6 @@ def index():
                          selected_status=status_filter,
                          selected_price_sort=price_sort)
 
-@main_bp.route('/create', methods=['GET', 'POST'])
-@login_required
-def create_event():
-    form = CreateEvent()
-    
-    if form.validate_on_submit():
-        # Create new event
-        new_event = Event(
-            userid=current_user.userid,
-            title=form.title.data,
-            artist=form.artist.data,
-            date=form.date.data,
-            startTime=form.startTime.data,
-            location=form.location.data,
-            country=form.country.data,
-            description=form.description.data,
-            image="default.jpg", 
-            status=form.status.data,
-            tags=form.tags.data,
-            normalAvail=int(form.normalAvail.data),
-            vipAvail=int(form.vipAvail.data),
-            normalPrice=float(form.normalPrice.data),
-            vipPrice=float(form.vipPrice.data)
-        )
-        
-        db.session.add(new_event)
-        db.session.commit()
-        
-        flash('Event created successfully!', 'success')
-        return redirect(url_for('main.index'))
-    
-    # This shows form with errors if validation fails
-    return render_template('create.html', form=form, title='Create Event')
 
 @main_bp.route('/search', methods =['GET'])
 def search():
@@ -102,98 +70,96 @@ def search():
     
     return render_template('search.html', events=results, query=query, results_count=results_count)
 
+# Event detail page
 @main_bp.route('/event/<int:event_id>')
 def event_detail(event_id):
     event = Event.query.get_or_404(event_id)
     return render_template('event_details/details.html', event=event, title=event.title)
 
+# Event details - Select amount of tickets and process order
 @main_bp.route('/event/<int:event_id>/purchase', methods=['POST'])
 @login_required
 def purchase_tickets(event_id):
     event = Event.query.get_or_404(event_id)
     normal_qty = int(request.form.get('normal_qty', 0))
     vip_qty = int(request.form.get('vip_qty', 0))
-    
     # Validate quantities
     if normal_qty < 0 or vip_qty < 0:
         flash('Ticket quantities cannot be negative.', 'error')
         return redirect(url_for('main.event_detail', event_id=event_id))
-    
     if normal_qty > event.normalAvail:
         flash(f'Cannot purchase {normal_qty} normal tickets. Only {event.normalAvail} available.', 'error')
         return redirect(url_for('main.event_detail', event_id=event_id))
-    
     if vip_qty > event.vipAvail:
         flash(f'Cannot purchase {vip_qty} VIP tickets. Only {event.vipAvail} available.', 'error')
         return redirect(url_for('main.event_detail', event_id=event_id))
-    
     if normal_qty == 0 and vip_qty == 0:
         flash('Please select at least one ticket.', 'error')
         return redirect(url_for('main.event_detail', event_id=event_id))
-    
-    # Calculate prices
-    normal_total = normal_qty * event.normalPrice
-    vip_total = vip_qty * event.vipPrice
-    total_price = normal_total + vip_total
-    
+    # Calculate total
+    total = (normal_qty * event.normalPrice) + (vip_qty * event.vipPrice)
     # Create order
     new_order = Order(
         userid=current_user.userid,
         eventid=event_id,
         normalQty=normal_qty,
         vipQty=vip_qty,
-        totalPrice=total_price,
+        totalPrice=total,
         timeBooked=datetime.now()
     )
-    
     # Update event availability
     event.normalAvail -= normal_qty
     event.vipAvail -= vip_qty
-    
     db.session.add(new_order)
     db.session.commit()
-    
-    flash(f'Purchase confirmed! {normal_qty} normal + {vip_qty} VIP tickets. Total: ${total_price}', 'success')
-    return redirect(url_for('main.event_detail', event_id=event_id))
+    # Redirect back with confirm parameter instead of flash message
+    return redirect(url_for('main.event_detail', event_id=event_id, confirm='true'))
 
+# Event details - Commenting 
 @main_bp.route('/event/<int:event_id>/comment', methods=['POST'])
 @login_required
 def add_comment(event_id):
     comment_text = request.form.get('comment_text')
-    
     new_comment = Comment(
         eventid=event_id,
         userid=current_user.userid,
         comment=comment_text
     )
-
     db.session.add(new_comment)
     db.session.commit()
-    
     return redirect(url_for('main.event_detail', event_id=event_id))
 
-@main_bp.route('/demo-event')
-def demo_event():
-    return render_template('event_details/DemoEvent.html', title='Demo Event')
-
+# Booking History page 
 @main_bp.route('/booking-history')
+@login_required
 def booking_history():
-    # Show all events for now since we're not using authentication yet
-    user_events = Event.query.all()
-    
+    # Get user's orders with event details
+    user_orders = Order.query.filter_by(userid=current_user.userid)\
+                            .join(Event)\
+                            .order_by(Order.timeBooked.desc())\
+                            .all()
+    # Get user's created events
+    user_events = Event.query.filter_by(userid=current_user.userid).all()
     return render_template('history.html', 
+                         user_orders=user_orders,
                          user_events=user_events,
                          title='Booking History')
     
-
+# Error pages
 @main_bp.route('/404')
 def not_found():
     return render_template('404.html', title='404 Not Found')
-
 @main_bp.route('/500')
 def server_error():
     return render_template('500.html', title='500 Internal Server Error')
 
-@main_bp.route('/order-details')
-def order_details():
-    return render_template('order_details.html', title='Order Details')
+# Order details page
+@main_bp.route('/order/<int:order_id>') 
+@login_required
+def order_details(order_id): 
+    # Get the specific order
+    order = Order.query.filter_by(orderid=order_id, userid=current_user.userid).first_or_404()
+    return render_template('order_details.html', 
+                         order=order,
+                         title=f'Order #{order.orderid}')
+

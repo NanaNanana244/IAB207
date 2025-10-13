@@ -3,53 +3,56 @@
 {% from 'bootstrap5/form.html' import render_form %}
 
 {% block head %}
-<link rel="stylesheet" href="{{ url_for('static', filename='style/ErrorStyle.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='style/BookingHistoryStyle.css') }}">
 {% endblock %}
 
 {% block content %}
 
-
 <!-- Order details display -->
 <div class="d-flex justify-content-center my-5">
     <div class="card p-4"
-        style="min-height:564px; max-width: 600px; width: 100%; border: #cd98fb solid 2px; border-radius: 15px;">
+        style="min-height:540px; max-width: 600px; width: 100%; border: #cd98fb solid 2px; border-radius: 15px;">
         <div class="row">
             <div class="col-sm-12 mt-3">
                 <h1 class="text-center">Order Details</h1>
                 <p class="text-center">Thank you for using Kpop Event Ticket!</p>
-                <div class="d-grid gap-2 col-8 mx-auto mt-4">
+                <div class="d-grid gap-1 col-11 mx-5">
                     <!-- Details of event -->
-                    <h5 class="text-start"> Order ID:</h5>
-                    <h5 class="text-start"> Event:</h5>
-                    <h5 class="text-start"> Venue:</h5>
-                    <h5 class="text-start"> Date: </h5>
-                    <h5 class="text-start"> Time:</h5>
-                    <h5 class="text-start"> Number of tickets:</h5>
-                    <h5 class="text-start"> Ticket Type:</h5>
-                    <h5 class="text-start"> Total:</h5>
-                    <div class="d-grid gap-2 col-11 mx-auto mt-4">
-                        <!-- Redirect user to home page -->
-                        <a href="{{ url_for('main.index') }}"
-                        class="btn btn-light btn-lg "
-                        style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10">
-                        Return to Home
-                    </a>
-                        <!-- Redirect user to booking history page -->
-                    <a href="{{ url_for('main.booking_history') }}"
-                        class="btn btn-light btn-lg "
-                        style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10">
-                        See Bookings
-                    </a>
-                    </div>
-
-                </div>
-                
+                    <h5 class="text-start"><strong>Event: </strong>{{ order.event.title }}</h5>
+                    <h5 class="text-start"><strong>Order ID: </strong>#{{ "%06d"|format(order.orderid) }}</h5>
+                    <h5 class="text-start"><strong>Venue: </strong>{{ order.event.location }}, {{ order.event.country.title() }}</h5>
+                    <h5 class="text-start"><strong>Date: </strong>{{ order.event.date.strftime('%d/%m/%Y') if order.event.date else 'TBA' }}</h5>
+                    <h5 class="text-start"><strong>Time: </strong>{{ order.event.startTime.strftime('%I:%M %p') if order.event.startTime else 'TBA' }}</h5>
+                    <h5 class="text-start">
+                        <strong>Number of tickets: </strong>
+                        {% if order.normalQty and order.normalQty > 0 %}{{ order.normalQty }} Normal tickets{% endif %}
+                        {% if order.normalQty and order.normalQty > 0 and order.vipQty and order.vipQty > 0 %} + {% endif %}
+                        {% if order.vipQty and order.vipQty > 0 %}{{ order.vipQty }} VIP tickets{% endif %}
+                    </h5>
+                    <h5 class="text-start">
+                        <strong>Ticket Type: </strong>
+                        {% if order.normalQty and order.normalQty > 0 %}Normal{% endif %}
+                        {% if order.normalQty and order.normalQty > 0 and order.vipQty and order.vipQty > 0 %} & {% endif %}
+                        {% if order.vipQty and order.vipQty > 0 %}VIP{% endif %}
+                    </h5>
+                    <h5 class="text-start"><strong>Total: </strong>${{ "%.2f"|format(order.totalPrice) }}</h5>
+                </div>        
+            </div>           
+            <!-- Button Section -->
+            <div class="d-flex gap-3 mt-3 justify-content-center">
+                <!-- Redirect user to home page -->
+                <a href="{{ url_for('main.index') }}"
+                class="btn btn-lg px-4 btn-purple-outline">
+                Return to Home
+                </a>
+                <!-- Redirect user to booking history page -->
+                <a href="{{ url_for('main.booking_history') }}"
+                class="btn btn-lg px-4 btn-purple-outline">
+                See All Bookings
+                </a>
             </div>
          </div>
-
-
     </div>
 </div>
-
 
 {% endblock %}

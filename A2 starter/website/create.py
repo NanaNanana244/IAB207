@@ -25,7 +25,6 @@ def create():
                       title=form.title.data,
                       description=form.description.data,
                       image = db_file_path,
-                      status=form.status.data,
                       tags=form.tags.data,
                       normalAvail=form.normalAvail.data,
                       normalPrice=form.normalPrice.data,

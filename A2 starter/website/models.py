@@ -59,7 +59,6 @@ class Comment(db.Model):
     def __repr__(self):
         return f'<Comment {self.commentid}>'
 
-
 class Order(db.Model):
     __tablename__ = 'order'
     orderid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)

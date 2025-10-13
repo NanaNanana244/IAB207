@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
+from datetime import date
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import StringField, TextAreaField, FileField, DecimalField, IntegerField, SubmitField, TimeField, DateField, PasswordField, SelectField
-from wtforms.validators import InputRequired, Length, EqualTo, Email
+from wtforms.validators import InputRequired, Length, EqualTo, Email, Regexp, ValidationError
 
 #creates the login information
 class LoginForm(FlaskForm):
@@ -14,7 +15,10 @@ class RegisterForm(FlaskForm):
     username=StringField("User Name", validators=[InputRequired()])
     name=StringField("Name", validators=[InputRequired()])
     email = StringField("Email Address", validators=[Email("Please enter a valid email")])
-    phoneNo=DecimalField("Phone Number", validators=[InputRequired()])
+    phoneNo=StringField("Phone Number", validators=[
+        InputRequired(),
+        Regexp(r'^\+?[0-9\s\-\(\)]+$', message="Please enter a valid phone number")
+    ])
     # linking two fields - password should be equal to data entered in confirm
     password=PasswordField("Password", validators=[InputRequired(),
                   EqualTo('confirm', message="Passwords should match")])
@@ -25,19 +29,18 @@ class RegisterForm(FlaskForm):
 
 #event creation
 class CreateEvent(FlaskForm):
+    def validate_eventdate(form, field):
+        print("Validating date:", field.data)
+        if field.data < date.today():
+            raise ValidationError('The date cannot be in the past.')
     title = StringField('Enter event name', [InputRequired()])
     artist = StringField('Enter artist/group name', [InputRequired()])
     image = FileField('Event Image', validators=[FileRequired(), FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
-    date = DateField('Enter the date of event', [InputRequired()])
+    eventdate = DateField('Enter the date of event', validators=[InputRequired(), validate_eventdate])
     startTime = TimeField('Enter the starting time of event', [InputRequired()])
     location = StringField('Enter venue name', [InputRequired()])
     country = StringField('Enter country (Spelling must be correct)', [InputRequired()]) 
-    status = SelectField('Event Status', 
-                choices=[('Available', 'Available'), 
-                        ('Sold out', 'Sold out'),
-                        ('Cancelled', 'Cancelled'),
-                        ('Inactive', 'Inactive')],
-                validators=[InputRequired()])
+    status = StringField()
     normalPrice = DecimalField('Enter normal ticket price', [InputRequired()])
     vipPrice = DecimalField('Enter VIP ticket price', [InputRequired()])
     normalAvail = IntegerField('Enter number of normal tickets', [InputRequired()])
@@ -47,10 +50,14 @@ class CreateEvent(FlaskForm):
     submit = SubmitField('Submit')
 
 class EditEvent(FlaskForm):
+    def validate_eventdate(form, field):
+        print("Validating date:", field.data)
+        if field.data < date.today():
+            raise ValidationError('The date cannot be in the past.')
     title = StringField('Enter event name')
     artist = StringField('Enter artist/group name')
     image = FileField('Event Image', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
-    date = DateField('Enter the date of event')
+    date = DateField('Enter the date of event', validators=[validate_eventdate])
     startTime = TimeField('Enter the starting time of event')
     location = StringField('Enter venue name')
     country = StringField('Enter country (Spelling must be correct)') 
