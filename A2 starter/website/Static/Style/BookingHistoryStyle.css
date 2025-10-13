@@ -73,6 +73,19 @@
             width: 100%;
         }
     }
+    
+/* Button colour  */
+.btn-purple-outline {
+    border: solid 1px #cd98fb !important;
+    color: #cd98fb !important;
+    background-color: transparent !important;
+    transition: all 0.3s ease !important;
+}
+
+.btn-purple-outline:hover {
+    background-color: #cd98fb !important;
+    color: black !important;
+}
 
 /* Footer */
     .footer-icons img {

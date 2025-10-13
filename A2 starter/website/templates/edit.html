@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+
+{% from 'bootstrap5/form.html' import render_form %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='Style/EventCreationStyle.css') }}">
+{% endblock %}
+
+{% block content %}
+        <div class="d-flex justify-content-center my-5">
+            <div class="card p-4" style="max-width: 700px; width: 100%; border: #cd98fb solid 2px; border-radius: 15px;">
+                <h2 class="text-center">Create Your Event!</h2>
+                <h6 class="text-center mb-0">Don't worry if you miss any details,</h6>
+                <h6 class="text-center">you can always update the event later!</h6>
+                <form action="" method="post" enctype="multipart/form-data" novalidate>
+                    {{ form.hidden_tag() }}
+                    <!-- Event Name -->
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.title.label }}
+                            {{ form.title(class_="form-control", size=32) }}
+                        </div>
+                    </div>
+                    <!-- Artist -->
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.artist.label }}
+                            {{ form.artist(class_="form-control", size=32) }}
+                        </div>
+                    </div>
+                    <!-- Event Image -->
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.image.label }}
+                            {{ form.image(class_="form-control", size=32) }}
+                        </div>    
+                    </div>
+                    <!-- Date & Time -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.date.label }}<br>
+                                {{ form.date(class_="form-control", size=32, type='date') }}
+                               {% for error in form.date.errors %}
+                                    <div class="text-danger">
+                                        <small>This field cannot be empty or in the past</small>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.startTime.label }}
+                                {{ form.startTime(class_="form-control", size=32, type='time') }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Venue -->
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.location.label }}
+                            {{ form.location(class_="form-control", size=32) }}
+                        </div>
+                    </div>
+                    <!-- Country -->
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.country.label }}
+                            {{ form.country(class_="form-control", size=32) }}
+                        </div>
+                    </div>
+                    <!-- Status Dropdown -->
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.status.label }}
+                            {{ form.status(class_="form-control") }}
+                        </div>
+                    </div>
+                    <!-- Ticket Prices -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.normalPrice.label }}
+                                {{ form.normalPrice(class_="form-control", size=32) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.vipPrice.label }}
+                                {{ form.vipPrice(class_="form-control", size=32) }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Ticket Available -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.normalAvail.label }}
+                                {{ form.normalAvail(class_="form-control", size=32) }}
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.vipAvail.label }}
+                                {{ form.vipAvail(class_="form-control", size=32) }}
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Event Description -->
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.description.label }}
+                            {{ form.description(class_="form-control", size=32) }}
+                        </div>      
+                    </div>
+                    <!--tags-->
+                    <div class="mb-3">
+                        <div class="form-group">
+                            {{ form.tags.label }}
+                            {{ form.tags(class_="form-control", size=32) }}
+                        </div>      
+                    </div>
+                    <!-- Submit -->
+                     <div class="d-flex justify-content-end">
+                        <div class="form-group">
+                            {{ form.submit(class_="btn btn-success") }}
+                        </div>
+                     </div>
+                    
+                </form>
+            </div>
+        </div>
+       
+
+{% endblock %}

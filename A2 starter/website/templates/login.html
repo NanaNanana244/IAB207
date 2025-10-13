@@ -21,12 +21,13 @@
 {% endwith %}
 
 <!-- Login form -->
-<div class="d-flex justify-content-center my-5">
-    <div class="card p-4" style="max-width: 700px; width: 100%; border: #cd98fb solid 2px; border-radius: 15px;">
-        <h2 class="text-center">Welcome Back!</h2>
-        <form action="" method="post" novalidate>
-            {{ form.hidden_tag() }}
-            
+<div class="min-vh-100 d-flex flex-column">
+    <!-- Your main content -->
+    <div class="flex-grow-1 d-flex align-items-center justify-content-center py-5">
+        <div class="card p-4" style="max-width: 700px; width: 100%; border: #cd98fb solid 2px; border-radius: 15px;">
+            <h2 class="text-center">Welcome Back!</h2>
+            <form action="" method="post" novalidate>
+                {{ form.hidden_tag() }}     
             <!-- Username -->
             <div class="mb-3">
                 {{ form.user_name.label }}

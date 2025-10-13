@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='style/ErrorStyle.css') }}">
+{% endblock %}
+
+{% block content %}
+ 
+<!-- 404 error page: page not found-->
+
+<div class="container my-4 my-5 d-flex justify-content-center">
+    <div class="card p-4 d-flex flex-column"
+        style="min-height:564px; width: 100%; max-width: 1200px; border: #cd98fb solid 2px; border-radius: 15px; background: white;">
+        <div class="row">
+            <div class="col-sm-12">
+                <p class="text-center text-large"><strong>404</strong></p>
+                <h2 class="text-center"><strong>Sorry!</strong></h2><br>
+                <p class="fs-5 text-center mb-3">The page you requested could not be found.</p>
+                <!-- Redirect user to homepage -->
+                <div class="d-grid gap-2 col-2 mx-auto mt-5"> <a href="{{ url_for('main.index') }}"
+                        class="btn btn-light btn-lg "
+                        style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10">
+                        Return to Home
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
