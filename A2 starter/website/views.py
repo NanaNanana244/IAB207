@@ -14,18 +14,23 @@ def index():
     country_filter = request.args.get('country', '')
     status_filter = request.args.get('status', '')
     price_sort = request.args.get('price_sort', '')
+
     # Start with all events
     query = Event.query
     # Apply country filter if specified
     if country_filter:
         if country_filter == 'other':
-            query = query.filter(~Event.country.in_(['america', 'australia', 'canada', 'china', 'japan', 'korea']))
+            # Case-insensitive exclusion for "other" category
+            excluded_countries = ['america', 'australia', 'canada', 'china', 'japan', 'korea']
+            for country in excluded_countries:
+                query = query.filter(~Event.country.ilike(country))
         else:
+            # Case-insensitive inclusion for specific countries
             query = query.filter(Event.country.ilike(country_filter))
     # Apply status filter if specified  
     if status_filter:
         query = query.filter(Event.status == status_filter)
-    # Apply price sorting if specified - ONLY show available events when sorting by price
+    # Apply price sorting if specified
     if price_sort:
         # When sorting by price, only show available events
         query = query.filter(Event.status == 'Available')
@@ -37,6 +42,7 @@ def index():
             query = query.order_by(Event.vipPrice.asc())
         elif price_sort == 'vip_high_to_low':
             query = query.order_by(Event.vipPrice.desc())
+            
     events = query.all()
     return render_template('home.html', 
                          events=events, 
