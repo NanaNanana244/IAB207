@@ -1,7 +1,8 @@
 from flask_wtf import FlaskForm
+from datetime import date
 from flask_wtf.file import FileField, FileRequired, FileAllowed
 from wtforms import StringField, TextAreaField, FileField, DecimalField, IntegerField, SubmitField, TimeField, DateField, PasswordField, SelectField
-from wtforms.validators import InputRequired, Length, EqualTo, Email
+from wtforms.validators import InputRequired, Length, EqualTo, Email, Regexp, ValidationError
 
 #creates the login information
 class LoginForm(FlaskForm):
@@ -14,7 +15,10 @@ class RegisterForm(FlaskForm):
     username=StringField("User Name", validators=[InputRequired()])
     name=StringField("Name", validators=[InputRequired()])
     email = StringField("Email Address", validators=[Email("Please enter a valid email")])
-    phoneNo=DecimalField("Phone Number", validators=[InputRequired()])
+    phoneNo=StringField("Phone Number", validators=[
+        InputRequired(),
+        Regexp(r'^\+?[0-9\s\-\(\)]+$', message="Please enter a valid phone number")
+    ])
     # linking two fields - password should be equal to data entered in confirm
     password=PasswordField("Password", validators=[InputRequired(),
                   EqualTo('confirm', message="Passwords should match")])
@@ -53,7 +57,7 @@ class EditEvent(FlaskForm):
     title = StringField('Enter event name')
     artist = StringField('Enter artist/group name')
     image = FileField('Event Image', validators=[FileAllowed(['jpg', 'png', 'jpeg'], 'Images only!')])
-    date = DateField('Enter the date of event', validators=validate_eventdate)
+    date = DateField('Enter the date of event', validators=[validate_eventdate])
     startTime = TimeField('Enter the starting time of event')
     location = StringField('Enter venue name')
     country = StringField('Enter country (Spelling must be correct)') 
@@ -76,7 +80,3 @@ class OrderForm(FlaskForm):
     ticType = SelectField('Select Ticket Type', validators = [InputRequired()], choices = [('normTicket', 'Normal Ticket (Price: $200)'), ('vipticket', 'VIP Ticket (Price $300)')])
     numTickets = StringField("How many tickets?", validators = [InputRequired()])
     submit = SubmitField('Submit')
-
-
-
-
