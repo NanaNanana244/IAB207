@@ -80,3 +80,9 @@ class OrderForm(FlaskForm):
     ticType = SelectField('Select Ticket Type', validators = [InputRequired()], choices = [('normTicket', 'Normal Ticket (Price: $200)'), ('vipticket', 'VIP Ticket (Price $300)')])
     numTickets = StringField("How many tickets?", validators = [InputRequired()])
     submit = SubmitField('Submit')
+
+class SearchForm(FlaskForm):
+    query = StringField('Search', validators=[InputRequired()])
+    submit = SubmitField('Search')
+
+

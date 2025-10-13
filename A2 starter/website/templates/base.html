@@ -35,7 +35,6 @@ i've added 4 main content blocks if we need more than that we can add more if we
                         <div class="search-bar d-flex">
                             <form class="d-flex mx-3 align-items-center flex-grow-1" role="search" style="margin-bottom:0px"
                                 method="GET" action="{{ url_for('main.search') }}">
-
                                 <img src="{{ url_for('static', filename='Image/NavBar Icons/search.png') }}" height="25px" class="me-2" style="filter: invert(1); transition: filter 0.2s">
                                 <input class="form-control flex-grow-1" type="search" name="q" 
                                     placeholder="Search events..." aria-label="Search">

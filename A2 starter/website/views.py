@@ -3,12 +3,11 @@ from flask_login import login_required, current_user
 from datetime import datetime
 from . import db
 from .models import Event, Comment, Order 
-from .forms import CreateEvent
+from .forms import CreateEvent, SearchForm
 
 main_bp = Blueprint('main', __name__)
 
-# Index/Home page
-@main_bp.route('/')
+@main_bp.route('/', methods=['GET', 'POST'])
 def index():
     # Get filters from URL parameters
     country_filter = request.args.get('country', '')
@@ -44,6 +43,7 @@ def index():
             query = query.order_by(Event.vipPrice.desc())
             
     events = query.all()
+
     return render_template('home.html', 
                          events=events, 
                          title='Home Page',
@@ -52,12 +52,23 @@ def index():
                          selected_price_sort=price_sort)
 
 
-# Search for keywords
-@main_bp.route('/search')
+@main_bp.route('/search', methods =['GET'])
 def search():
     query = request.args.get('q')
-    results= Event.query.filter(Event.title.ilike(f'%{query}')).all()
-    return render_template('search.html', results=results)
+    if query:
+        results= Event.query.filter(Event.title.ilike(f'%{query}') |
+                                    Event.artist.ilike(f'%{query}') |
+                                    Event.location.ilike(f'%{query}') |
+                                    Event.country.ilike(f'%{query}') |
+                                    Event.description.ilike(f'%{query}') |
+                                    Event.tags.ilike(f'%{query}')
+                                    ).all()
+        results_count = len(results)
+    else:
+        results = []
+        results_count = 0
+    
+    return render_template('search.html', events=results, query=query, results_count=results_count)
 
 # Event detail page
 @main_bp.route('/event/<int:event_id>')
