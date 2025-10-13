@@ -74,5 +74,8 @@ class OrderForm(FlaskForm):
     numTickets = StringField("How many tickets?", validators = [InputRequired()])
     submit = SubmitField('Submit')
 
+class SearchForm(FlaskForm):
+    query = StringField('Search', validators=[InputRequired()])
+    submit = SubmitField('Search')
 
 
