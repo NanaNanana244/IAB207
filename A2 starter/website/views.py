@@ -14,17 +14,27 @@ def index():
     country_filter = request.args.get('country', '')
     status_filter = request.args.get('status', '')
     price_sort = request.args.get('price_sort', '')
+    
     # Start with all events
     query = Event.query
+    
+    # Update status for all events before filtering
+    all_events = Event.query.all()
+    for event in all_events:
+        event.update_status()
+    db.session.commit() 
+
     # Apply country filter if specified
     if country_filter:
         if country_filter == 'other':
             query = query.filter(~Event.country.in_(['america', 'australia', 'canada', 'china', 'japan', 'korea']))
         else:
             query = query.filter(Event.country.ilike(country_filter))
+    
     # Apply status filter if specified  
     if status_filter:
         query = query.filter(Event.status == status_filter)
+    
     # Apply price sorting if specified - ONLY show available events when sorting by price
     if price_sort:
         # When sorting by price, only show available events
@@ -37,6 +47,7 @@ def index():
             query = query.order_by(Event.vipPrice.asc())
         elif price_sort == 'vip_high_to_low':
             query = query.order_by(Event.vipPrice.desc())
+    
     events = query.all()
     return render_template('home.html', 
                          events=events, 
@@ -50,13 +61,22 @@ def index():
 @main_bp.route('/search')
 def search():
     query = request.args.get('q')
-    results= Event.query.filter(Event.title.ilike(f'%{query}')).all()
+    results = Event.query.filter(Event.title.ilike(f'%{query}%')).all()
+    
+    # Update status for search results
+    for event in results:
+        event.update_status()
+    
     return render_template('search.html', results=results)
 
 # Event detail page
 @main_bp.route('/event/<int:event_id>')
 def event_detail(event_id):
     event = Event.query.get_or_404(event_id)
+    
+    # Update event status when viewing details
+    event.update_status()
+    
     return render_template('event_details/details.html', event=event, title=event.title)
 
 # Event details - Select amount of tickets and process order
@@ -66,21 +86,27 @@ def purchase_tickets(event_id):
     event = Event.query.get_or_404(event_id)
     normal_qty = int(request.form.get('normal_qty', 0))
     vip_qty = int(request.form.get('vip_qty', 0))
+    
     # Validate quantities
     if normal_qty < 0 or vip_qty < 0:
         flash('Ticket quantities cannot be negative.', 'error')
         return redirect(url_for('main.event_detail', event_id=event_id))
+    
     if normal_qty > event.normalAvail:
         flash(f'Cannot purchase {normal_qty} normal tickets. Only {event.normalAvail} available.', 'error')
         return redirect(url_for('main.event_detail', event_id=event_id))
+    
     if vip_qty > event.vipAvail:
         flash(f'Cannot purchase {vip_qty} VIP tickets. Only {event.vipAvail} available.', 'error')
         return redirect(url_for('main.event_detail', event_id=event_id))
+    
     if normal_qty == 0 and vip_qty == 0:
         flash('Please select at least one ticket.', 'error')
         return redirect(url_for('main.event_detail', event_id=event_id))
+    
     # Calculate total
     total = (normal_qty * event.normalPrice) + (vip_qty * event.vipPrice)
+    
     # Create order
     new_order = Order(
         userid=current_user.userid,
@@ -90,11 +116,18 @@ def purchase_tickets(event_id):
         totalPrice=total,
         timeBooked=datetime.now()
     )
+    
     # Update event availability
     event.normalAvail -= normal_qty
     event.vipAvail -= vip_qty
+    
     db.session.add(new_order)
     db.session.commit()
+    
+    # Update event status after ticket purchase (checks for sold out)
+    event.update_status()
+    db.session.commit()
+    
     # Redirect back with confirm parameter instead of flash message
     return redirect(url_for('main.event_detail', event_id=event_id, confirm='true'))
 
@@ -121,8 +154,14 @@ def booking_history():
                             .join(Event)\
                             .order_by(Order.timeBooked.desc())\
                             .all()
+    
     # Get user's created events
     user_events = Event.query.filter_by(userid=current_user.userid).all()
+    
+    # Update status for user's events
+    for event in user_events:
+        event.update_status()
+    
     return render_template('history.html', 
                          user_orders=user_orders,
                          user_events=user_events,
@@ -132,6 +171,7 @@ def booking_history():
 @main_bp.route('/404')
 def not_found():
     return render_template('404.html', title='404 Not Found')
+
 @main_bp.route('/500')
 def server_error():
     return render_template('500.html', title='500 Internal Server Error')
@@ -146,3 +186,18 @@ def order_details(order_id):
                          order=order,
                          title=f'Order #{order.orderid}')
 
+@main_bp.route('/debug/events')
+def debug_events():
+    from datetime import date
+    events = Event.query.all()
+    output = "<h1>Event Status Debug</h1>"
+    for event in events:
+        is_past = event.date < date.today()
+        tickets_left = event.normalAvail + event.vipAvail
+        output += f"<p><strong>{event.title}</strong><br>"
+        output += f"Date: {event.date} (Past: {is_past})<br>"
+        output += f"Database Status: <strong>{event.status}</strong><br>"
+        output += f"Tickets Left: {tickets_left}<br>"
+        output += f"Should be: {'Inactive' if is_past else ('Sold Out' if tickets_left == 0 else 'Available')}</p>"
+        output += "<hr>"
+    return output
