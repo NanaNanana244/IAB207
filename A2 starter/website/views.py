@@ -70,7 +70,6 @@ def index():
                          selected_status=status_filter,
                          selected_price_sort=price_sort)
 
-
 # Search functionality
 @main_bp.route('/search', methods =['GET'])
 def search():
@@ -174,11 +173,6 @@ def booking_history():
                          user_orders=user_orders,
                          user_events=user_events,
                          title='Booking History')
-
-@main_bp.route('/create-event')
-@login_required
-def create_event():
-    return render_template('create.html')
 
 # Error pages
 @main_bp.route('/404')
