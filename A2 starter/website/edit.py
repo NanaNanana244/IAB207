@@ -30,6 +30,12 @@ def edit(eventid):
 
     return render_template('edit.html', form=form, title='Edit')
 
+@editbp.route('/cancel/<int:eventid>', methods=['GET', 'POST'])
+def cancel(eventid):
+        event = Event.query.get_or_404(eventid)
+        event.status = 'Cancelled'
+        db.session.commit()
+        return redirect(url_for('main.index'))
 
 def check_upload_file(form):
   # get file data from form  
@@ -45,3 +51,4 @@ def check_upload_file(form):
   fp.save(upload_path)
 
   return db_upload_path
+
