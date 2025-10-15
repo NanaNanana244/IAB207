@@ -16,6 +16,13 @@ def index():
 
     # Start with all events
     query = Event.query
+
+    # Update status for all events before filtering
+    all_events = Event.query.all()
+    for event in all_events:
+        event.update_status()
+    db.session.commit() 
+
     # Apply country filter if specified
     if country_filter:
         if country_filter == 'other':
@@ -75,6 +82,7 @@ def search():
 @main_bp.route('/event/<int:event_id>')
 def event_detail(event_id):
     event = Event.query.get_or_404(event_id)
+    event.update_status()
     return render_template('event_details/details.html', event=event, title=event.title)
 
 # Event details - Select amount of tickets and process order
@@ -113,6 +121,11 @@ def purchase_tickets(event_id):
     event.vipAvail -= vip_qty
     db.session.add(new_order)
     db.session.commit()
+    
+    # Update event status after ticket purchase (checks for sold out)
+    event.update_status()
+    db.session.commit()
+
     # Redirect back with confirm parameter instead of flash message
     return redirect(url_for('main.event_detail', event_id=event_id, confirm='true'))
 
@@ -141,6 +154,10 @@ def booking_history():
                             .all()
     # Get user's created events
     user_events = Event.query.filter_by(userid=current_user.userid).all()
+    
+    # Update status for user's events
+    for event in user_events:
+        event.update_status()
     return render_template('history.html', 
                          user_orders=user_orders,
                          user_events=user_events,

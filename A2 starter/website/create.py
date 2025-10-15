@@ -19,7 +19,7 @@ def create():
         eventAdd = Event(userid= user_id,
                          artist=form.artist.data,
                       startTime=form.startTime.data, 
-                      date=form.date.data,
+                      date=form.eventdate.data,
                       location=form.location.data,
                       country=form.country.data,
                       title=form.title.data,
