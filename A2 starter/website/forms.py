@@ -63,8 +63,8 @@ class EditEvent(FlaskForm):
     country = StringField('Enter country (Spelling must be correct)') 
     normalPrice = DecimalField('Enter normal ticket price')
     vipPrice = DecimalField('Enter VIP ticket price')
-    normalAvail = DecimalField('Enter number of normal tickets')
-    vipAvail = DecimalField('Enter number of VIP tickets')
+    normalAvail = IntegerField('Enter number of normal tickets')
+    vipAvail = IntegerField('Enter number of VIP tickets')
     status = StringField('Event Status')
     description = TextAreaField('Enter event description')
     tags = TextAreaField('Enter keywords to help users find this event. Examples: genre, common mispellings, band members, popular songs, etc.')
@@ -84,5 +84,6 @@ class OrderForm(FlaskForm):
 class SearchForm(FlaskForm):
     query = StringField('Search', validators=[InputRequired()])
     submit = SubmitField('Search')
+
 
 
