@@ -1,5 +1,6 @@
 from flask import Blueprint, render_template, request, redirect, url_for, flash 
 from flask_login import login_required, current_user
+from sqlalchemy import case
 from datetime import datetime
 from . import db
 from .models import Event, Comment, Order 
@@ -196,5 +197,3 @@ def order_details(order_id):
     return render_template('order_details.html', 
                          order=order,
                          title=f'Order #{order.orderid}')
-
-
