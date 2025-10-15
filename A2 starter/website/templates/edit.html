@@ -120,12 +120,19 @@
                             {{ form.tags(class_="form-control", size=32) }}
                         </div>      
                     </div>
-                    <!-- Submit -->
-                     <div class="d-flex justify-content-end">
-                        <div class="form-group">
-                            {{ form.submit(class_="btn btn-success") }}
+                    <!-- buttons -->
+                    <div class="row mb-3">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <a href="{{ url_for('edit.cancel', eventid=event.eventid) }}"><button type="button" class="btn btn-danger">Cancel</button></a>
+                            </div>
                         </div>
-                     </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                {{ form.submit(class_="btn btn-success") }}
+                            </div>
+                        </div>
+                    </div>                    
                     
                 </form>
             </div>
@@ -133,3 +140,4 @@
        
 
 {% endblock %}
+
