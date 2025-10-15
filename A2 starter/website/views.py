@@ -52,18 +52,19 @@ def index():
                          selected_price_sort=price_sort)
 
 
+# Search functionality
 @main_bp.route('/search', methods =['GET'])
 def search():
-    query = request.args.get('q')
+    query = request.args.get('q')  #Get query from search bar
     if query:
-        results= Event.query.filter(Event.title.ilike(f'%{query}') |
-                                    Event.artist.ilike(f'%{query}') |
-                                    Event.location.ilike(f'%{query}') |
-                                    Event.country.ilike(f'%{query}') |
-                                    Event.description.ilike(f'%{query}') |
-                                    Event.tags.ilike(f'%{query}')
-                                    ).all()
-        results_count = len(results)
+        results= Event.query.filter(Event.title.ilike(f'%{query}%') |
+                                    Event.artist.ilike(f'%{query}%') |
+                                    Event.location.ilike(f'%{query}%') |
+                                    Event.country.ilike(f'%{query}%') |
+                                    Event.description.ilike(f'%{query}%') |
+                                    Event.tags.ilike(f'%{query}%')
+                                    ).all()   #Match with attributes title, artist, location, country, description and tags
+        results_count = len(results)  #Count results
     else:
         results = []
         results_count = 0
