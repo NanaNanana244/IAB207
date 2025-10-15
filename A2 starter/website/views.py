@@ -48,7 +48,18 @@ def index():
             query = query.order_by(Event.vipPrice.asc())
         elif price_sort == 'vip_high_to_low':
             query = query.order_by(Event.vipPrice.desc())
-            
+
+    else:
+        # Sort by status priority: Available > Sold out > Cancelled > Inactive
+        status_order = case(
+            (Event.status == 'Available', 1),
+            (Event.status == 'Sold out', 2),
+            (Event.status == 'Cancelled', 3),
+            (Event.status == 'Inactive', 4),
+            else_=5
+        )
+        query = query.order_by(status_order, Event.date.asc())  # Then by date
+        
     events = query.all()
 
     return render_template('home.html', 
@@ -180,4 +191,5 @@ def order_details(order_id):
     return render_template('order_details.html', 
                          order=order,
                          title=f'Order #{order.orderid}')
+
 
