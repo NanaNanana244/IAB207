@@ -178,40 +178,6 @@
         </form>
     </div>
 </div>
-        <!-- Submit event Modal -->
-        <div class="modal fade" id="submitEventModal" tabindex="-1" aria-labelledby="submitEventModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="submitEventModalLabel">Confirm Booking</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                        <p><strong>Event:</strong> #Event name#</p>
-                        <p><strong>Date and time:</strong> dd/mm/yy hh:mm</p>
-                        <p><strong>Venue:</strong> #Place#</p>
-                        <p><strong>Country:</strong> #Country#</p>  <!-- ← ADD THIS LINE TO MODAL TOO -->
-                        <p><strong>Price:</strong> Normal:$$, VIP:$$$</p>           
-                        <p><strong>Tickets available:</strong> Normal: 10, VIP: 5</p>
-                        <p>Please review your event details before submititng. You can still edit after this.</p>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                        <!-- Confirm Booking triggers Event created Modal -->
-                        <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#eventCreatedModal" data-bs-dismiss="modal">Confirm Booking</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <!-- Event created Modal -->
-        <div class="modal fade" id="eventCreatedModal" tabindex="-1" aria-labelledby="eventCreatedModalLabel" aria-hidden="true">
-            <div class="modal-dialog"> 
-                <div class="modal-content text-center">
-                    <div class="modal-body">
-                        <h5 class="mb-3">Your event has been successfully created!</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
+
 
 {% endblock %}

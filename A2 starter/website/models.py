@@ -1,23 +1,21 @@
 from . import db
 from sqlalchemy import Time
 from flask_login import UserMixin
-from datetime import datetime
+from datetime import datetime, date
 
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
-    userid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True) #PK
-    username = db.Column(db.String(100), index=True, nullable=False)
+    userid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
+    username = db.Column(db.String(100), index=True, unique=True, nullable=False)
     name = db.Column(db.String(100), index=True, nullable=False)
     password_hash = db.Column(db.String(255), nullable=False)
-    email = db.Column(db.String(100), index=True, nullable=False)
-    phoneNo = db.Column(db.Float,index=True, nullable=False)
+    email = db.Column(db.String(100), index=True, unique=True, nullable=False) 
+    phoneNo = db.Column(db.String(20), index=True, nullable=False) 
 
-    #places where there are FKs from this table
     comments = db.relationship('Comment', backref='user', lazy=True)
     events = db.relationship('Event', backref='user', lazy=True)
     orders = db.relationship('Order', backref='user', lazy=True)
    
-    # for Flask-Login
     def get_id(self):
         return str(self.userid)
     
@@ -45,6 +43,20 @@ class Event(db.Model):
     comments = db.relationship('Comment', backref='event', lazy=True)
     orders = db.relationship('Order', backref='event', lazy=True)
     
+    def update_status(self):
+        """Update event status based on date and ticket availability"""
+        # Check if event date has passed
+        if self.date < date.today():
+            self.status = 'Inactive'
+        # Check if all tickets are sold out (and event hasn't passed)
+        elif self.normalAvail == 0 and self.vipAvail == 0:
+            self.status = 'Sold out'  
+        # Event is in future with tickets available
+        else:
+            # Only update if not Available or Cancelled
+            if self.status not in ['Available', 'Cancelled']:  
+                self.status = 'Available'
+        
     def __repr__(self):
         return f'<Event {self.title}>'
 
@@ -66,7 +78,7 @@ class Order(db.Model):
     eventid = db.Column(db.Integer, db.ForeignKey('event.eventid'))
     normalQty = db.Column(db.Integer, index=True, nullable=True)
     vipQty = db.Column(db.Integer, index=True, nullable=True)
-    totalPrice  = db.Column(db.Numeric(10,2), index=True, nullable=False)
+    totalPrice = db.Column(db.Numeric(10,2), index=True, nullable=False)
     timeBooked = db.Column(db.DateTime, index=True, nullable=False)
 
     def __repr__(self):
