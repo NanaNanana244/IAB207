@@ -1,4 +1,5 @@
 from flask import Blueprint, render_template, request, redirect, url_for, session
+from flask_login import login_required, current_user
 from .forms import CreateEvent
 from . import db
 import os
@@ -7,8 +8,8 @@ from .models import Event
 
 createbp = Blueprint('create', __name__, template_folder='templates')
 
-
 @createbp.route('/create', methods=['GET', 'POST'])
+@login_required
 def create():
     print('Method type: ', request.method)
     form = CreateEvent()
@@ -19,7 +20,7 @@ def create():
         eventAdd = Event(userid= user_id,
                          artist=form.artist.data,
                       startTime=form.startTime.data, 
-                      date=form.date.data,
+                      date=form.eventdate.data,
                       location=form.location.data,
                       country=form.country.data,
                       title=form.title.data,
