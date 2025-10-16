@@ -1,5 +1,5 @@
 # import flask - from 'package' import 'Class'
-from flask import Flask 
+from flask import Flask, render_template 
 from flask_bootstrap import Bootstrap5
 from flask_sqlalchemy import SQLAlchemy
 from flask_login import LoginManager
@@ -39,5 +39,16 @@ def create_app():
 
     from .edit import editbp
     app.register_blueprint(editbp)
+    
+    
+    # Error Handling
+    @app.errorhandler(404)   #Invalid URL
+    def not_found(e):
+        return render_template('404.html', error=e, title = 'Page Not Found'), 404
+    
+    @app.errorhandler(500)  #Internal server error
+    def server_error(e):
+        return render_template('500.html', error=e, title='Internal Server Error'), 500
+        
   
     return app
