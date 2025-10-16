@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, flash 
+from flask import Blueprint, render_template, request, redirect, url_for, flash
 from flask_login import login_required, current_user
 from sqlalchemy import case
 from datetime import datetime
@@ -174,13 +174,6 @@ def booking_history():
                          user_events=user_events,
                          title='Booking History')
 
-# Error pages
-@main_bp.route('/404')
-def not_found():
-    return render_template('404.html', title='404 Not Found')
-@main_bp.route('/500')
-def server_error():
-    return render_template('500.html', title='500 Internal Server Error')
 
 # Order details page
 @main_bp.route('/order/<int:order_id>') 
