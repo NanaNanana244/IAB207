@@ -214,14 +214,14 @@
     </div>
     <!-- Row with 3-unit gutter between cards -->
     <div class="row g-3">
-        <!-- REAL EVENTS FROM DATABASE (show first) -->
+        <!-- REAL EVENTS FROM DATABASE-->
         {% for event in events %}
         <div class="col-12 col-md-4 col-lg-3 mb-4">
             <div class="card h-100" style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                 <img src="{{ event.image }}" class="card-img-top event-img">
                 <div class="card-body">
                     <h5 class="card-title text-truncate" title="{{ event.title }}">{{ event.title }}</h5>
-                    <p class="card-text" style="max-height: 60px; height: 76px; overflow: hidden">{{ event.description }}</p>
+                    <p class="card-text" style="max-height: 60px; height: 76px; overflow: auto">{{ event.description }}</p>
                     <!-- Prices -->
                     <div class="mb-1">
                         <small class="text-muted">
