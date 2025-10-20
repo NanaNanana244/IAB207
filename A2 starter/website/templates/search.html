@@ -23,55 +23,50 @@
         </div>
 
         <!-- Search Results Grid -->
-        <div class="d-flex" style="min-height: 650px;">
+        <div style="min-height: 650px;">
             {% if events %}
             <div class="row g-3">
                 {% for event in events %}
                 <!-- Event Card -->
                 <div class="col-12 col-md-4 col-lg-3 mb-4">
-                    <div class="card ml-3" style="width: 16rem; border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
+                    <div class="card h-100" style="border: solid 1px; border-color: #cd98fb; border-radius:20px; overflow: hidden">
                         <!-- Image -->
-                        <img src="{{ event.image }}" class="card-img-top event-img">
-                        <div class="card-body">
+                        <img src="{{ event.image }}" class="card-img-top event-img" style="height: 180px; object-fit: cover;">
+                        <div class="card-body d-flex flex-column">
                             <!-- Event details -->
                             <h5 class="card-title text-truncate" title="{{ event.title }}">{{ event.title }}</h5>
-                            <div class="mb-1">
+                            <div class="mb-1 flex-grow-1">
                                 <p class="card-text mb-1"><strong>Artist:</strong> {{ event.artist }}</p>
-                                <p class="card-text mb-1"><strong>Location:</strong> {{ event.location }}, {{
-                                    event.country.title()
-                                    }}</p>
+                                <p class="card-text mb-1"><strong>Location:</strong> {{ event.location }}, {{ event.country.title() }}</p>
                                 <p class="card-text mb-1" style="max-height: 60px; height: 76px; overflow: hidden">
-                                    <strong>Event Date:</strong> {{ event.date.strftime('%d/%m/%Y') if
-                                    event.date else 'TBA' }} {{ event.startTime.strftime('%I:%M %p') if event.startTime
-                                    else
-                                    'TBA'}} </p>
-                                <!-- Buttons row -->
-                                <div class="d-flex flex-row flex-md-column flex-lg-row gap-2">
-                                    <!-- Status Button -->
-                                    {% if event.status == 'Available' %}
-                                    <button class="btn btn-outline-success flex-fill" disabled>Available</button>
-                                    {% elif event.status == 'Sold out' %}
-                                    <button class="btn btn-outline-info flex-fill" disabled>Sold out</button>
-                                    {% elif event.status == 'Cancelled' %}
-                                    <button class="btn btn-outline-danger flex-fill" disabled>Cancelled</button>
-                                    {% else %}
-                                    <button class="btn btn-outline-secondary flex-fill" disabled>Inactive</button>
-                                    {% endif %}
-                                    <!-- Buy Ticket Button -->
-                                    {% if event.status == 'Available' %}
-                                    <a href="{{ url_for('main.event_detail', event_id=event.eventid) }}"
-                                        class="btn btn-success flex-fill">Buy Tickets</a>
-                                    {% else %}
-                                    <button class="btn btn-success flex-fill" disabled>Buy Tickets</button>
-                                    {% endif %}
-                                </div>
+                                    <strong>Event Date:</strong> {{ event.date.strftime('%d/%m/%Y') if event.date else 'TBA' }} {{ event.startTime.strftime('%I:%M %p') if event.startTime else 'TBA'}} 
+                                </p>
+                            </div>
+                            <!-- Buttons row -->
+                            <div class="d-flex flex-row flex-md-column flex-lg-row gap-2 mt-auto">
+                                <!-- Status Button -->
+                                {% if event.status == 'Available' %}
+                                <button class="btn btn-outline-success flex-fill" disabled>Available</button>
+                                {% elif event.status == 'Sold out' %}
+                                <button class="btn btn-outline-info flex-fill" disabled>Sold out</button>
+                                {% elif event.status == 'Cancelled' %}
+                                <button class="btn btn-outline-danger flex-fill" disabled>Cancelled</button>
+                                {% else %}
+                                <button class="btn btn-outline-secondary flex-fill" disabled>Inactive</button>
+                                {% endif %}
+                                <!-- Buy Ticket Button -->
+                                {% if event.status == 'Available' %}
+                                <a href="{{ url_for('main.event_detail', event_id=event.eventid) }}" class="btn btn-success flex-fill">Buy Tickets</a>
+                                {% else %}
+                                <button class="btn btn-success flex-fill" disabled>Buy Tickets</button>
+                                {% endif %}
                             </div>
                         </div>
                     </div>
                 </div>
-             {% endfor %}
+                {% endfor %}
             </div>
-        
+        </div>
         {% elif query %}
         <!-- No Results Message (Only shows when there are no events AND there's a query) -->
         <div class="d-flex flex-column flex-grow-1">
