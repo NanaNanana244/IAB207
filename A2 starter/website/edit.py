@@ -11,7 +11,7 @@ editbp = Blueprint('edit', __name__, template_folder='templates')
 def edit(eventid):
     event = Event.query.get_or_404(eventid)
     form = EditEvent(obj=event)  
-
+#updates all the data
     if form.validate_on_submit():
         event.artist = form.artist.data
         event.startTime = form.startTime.data 
@@ -30,6 +30,7 @@ def edit(eventid):
 
     return render_template('edit.html', form=form, event=event, title='Edit')
 
+#cancels event
 @editbp.route('/cancel/<int:eventid>', methods=['GET', 'POST'])
 def cancel(eventid):
     event = Event.query.get_or_404(eventid)
@@ -37,6 +38,7 @@ def cancel(eventid):
     db.session.commit()
     return redirect(url_for('main.index'))
 
+#turns the image into the filepath for the db
 def check_upload_file(form):
     # get file data from form  
     fp = form.image.data
@@ -49,4 +51,5 @@ def check_upload_file(form):
     db_upload_path = '/static/image/uploads/' + secure_filename(filename)
     # save the file and return the db upload path  
     fp.save(upload_path)
+
     return db_upload_path
