@@ -2,7 +2,7 @@ from . import db
 from sqlalchemy import Time
 from flask_login import UserMixin
 from datetime import datetime, date
-
+#users
 class User(db.Model, UserMixin):
     __tablename__ = 'user'
     userid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
@@ -11,7 +11,7 @@ class User(db.Model, UserMixin):
     password_hash = db.Column(db.String(255), nullable=False)
     email = db.Column(db.String(100), index=True, unique=True, nullable=False) 
     phoneNo = db.Column(db.String(20), index=True, nullable=False) 
-
+    
     comments = db.relationship('Comment', backref='user', lazy=True)
     events = db.relationship('Event', backref='user', lazy=True)
     orders = db.relationship('Order', backref='user', lazy=True)
@@ -21,7 +21,7 @@ class User(db.Model, UserMixin):
     
     def __repr__(self):
         return f'<User {self.username}>'
-    
+    #events
 class Event(db.Model):
     __tablename__ = 'event'
     eventid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
@@ -59,7 +59,7 @@ class Event(db.Model):
         
     def __repr__(self):
         return f'<Event {self.title}>'
-
+#comments
 class Comment(db.Model):
     __tablename__ = 'comment'
     commentid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
@@ -70,7 +70,7 @@ class Comment(db.Model):
     
     def __repr__(self):
         return f'<Comment {self.commentid}>'
-
+#orders
 class Order(db.Model):
     __tablename__ = 'order'
     orderid = db.Column(db.Integer, db.Sequence('seq_reg_id', start=1, increment=1), primary_key=True)
@@ -82,4 +82,5 @@ class Order(db.Model):
     timeBooked = db.Column(db.DateTime, index=True, nullable=False)
 
     def __repr__(self):
+
         return f'<Order {self.orderid}>'
