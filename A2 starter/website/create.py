@@ -17,6 +17,7 @@ def create():
         # call the function that checks and returns image
         db_file_path = check_upload_file(form)
         user_id = session.get('user_id')
+        #adds everything to the db
         eventAdd = Event(userid= user_id,
                          artist=form.artist.data,
                       startTime=form.startTime.data, 
@@ -43,6 +44,7 @@ def create():
 
     return render_template('create.html', form=form, title = 'Create')
 
+#turns the image into the filepath for the db
 def check_upload_file(form):
   # get file data from form  
   fp = form.image.data
