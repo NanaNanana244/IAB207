@@ -29,6 +29,7 @@ class RegisterForm(FlaskForm):
 
 #event creation
 class CreateEvent(FlaskForm):
+    #validates that event date hasnt passed
     def validate_eventdate(form, field):
         print("Validating date:", field.data)
         if field.data < date.today():
@@ -50,6 +51,7 @@ class CreateEvent(FlaskForm):
     submit = SubmitField('Submit')
 
 class EditEvent(FlaskForm):
+    #validates that event date hasnt passed
     def validate_eventdate(form, field):
         print("Validating date:", field.data)
         if field.data < date.today():
@@ -82,8 +84,10 @@ class OrderForm(FlaskForm):
     submit = SubmitField('Submit')
 
 class SearchForm(FlaskForm):
+    #search bar
     query = StringField('Search', validators=[InputRequired()])
     submit = SubmitField('Search')
+
 
 
 
