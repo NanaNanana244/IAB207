@@ -90,11 +90,26 @@ def search():
     return render_template('search.html', events=results, query=query, results_count=results_count)
 
 # Event detail page
-@main_bp.route('/event/<int:event_id>')
+@main_bp.route('/event/<int:event_id>', methods=['GET', 'POST'])
 def event_detail(event_id):
     event = Event.query.get_or_404(event_id)
-    event.update_status()
-    return render_template('event_details/details.html', event=event, title=event.title)
+    
+    # Handle form submission for ticket validation
+    if request.method == 'POST' and 'check_tickets' in request.form:
+        normal_qty = int(request.form.get('normal_qty', 0))
+        vip_qty = int(request.form.get('vip_qty', 0))
+        
+        # Check if no tickets selected
+        if normal_qty == 0 and vip_qty == 0:
+            return redirect(url_for('main.event_detail', event_id=event_id, no_tickets='true'))
+        
+        # Tickets selected - show confirmation modal
+        return redirect(url_for('main.event_detail', event_id=event_id, 
+                               show_confirm='true', 
+                               normal_qty=normal_qty, 
+                               vip_qty=vip_qty))
+    
+    return render_template('details.html', event=event)
 
 # Event details - Select amount of tickets and process order
 @main_bp.route('/event/<int:event_id>/purchase', methods=['POST'])

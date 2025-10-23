@@ -9,55 +9,40 @@
 <div id="eventCarousel" class="carousel slide" data-bs-ride="carousel">
     <!-- Indicators (dots) -->
     <div class="carousel-indicators">
-        <button type="button" data-bs-target="#eventCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
-        <button type="button" data-bs-target="#eventCarousel" data-bs-slide-to="1" aria-label="Slide 2"></button>
-        <button type="button" data-bs-target="#eventCarousel" data-bs-slide-to="2" aria-label="Slide 3"></button>
-        <button type="button" data-bs-target="#eventCarousel" data-bs-slide-to="3" aria-label="Slide 4"></button>
+        {% for event in events[:4] %}
+        <button type="button" data-bs-target="#eventCarousel" data-bs-slide-to="{{ loop.index0 }}" 
+                class="{% if loop.first %}active{% endif %}" 
+                aria-label="Slide {{ loop.index }}">
+        </button>
+        {% endfor %}
     </div>
     <!-- Slides -->
     <div class="carousel-inner">
-        <div class="carousel-item active position-relative">
-            <img src="{{ url_for('static', filename='Image/Display events/Twice concert.png') }}" class="d-block w-100">
+        {% for event in events[:4] %}
+        <div class="carousel-item position-relative {% if loop.first %}active{% endif %}">
+            <!-- Extract just the filename from the full path -->
+            {% set filename = event.image.split('/')[-1] %}
+            <img src="{{ url_for('static', filename='Image/uploads/' + filename) }}" 
+                 class="d-block w-100" alt="{{ event.title }}">
             <!-- Buy Now button -->
-            <button class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10" data-bs-toggle="modal" data-bs-target="#soldOutModal">
-                Buy Now
-            </button>
+            {% if event.status == 'Available' and (event.normalAvail > 0 or event.vipAvail > 0) %}
+                <!-- Link to event page for available events -->
+                <a href="{{ url_for('main.event_detail', event_id=event.eventid) }}" 
+                   class="btn btn-light btn-lg slide-button carousel-buy-btn" 
+                   style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10">
+                    Buy Now
+                </a>
+            {% else %}
+                <!-- Show sold out modal for unavailable events -->
+                <button class="btn btn-light btn-lg slide-button carousel-buy-btn" 
+                        style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10" 
+                        data-bs-toggle="modal" 
+                        data-bs-target="#soldOutModal">
+                    Buy Now
+                </button>
+            {% endif %}
         </div>
-        <div class="carousel-item position-relative">
-            <img src="{{ url_for('static', filename='Image/Display events/SKZ concert.png') }}" class="d-block w-100">
-            <!-- Buy Now button -->
-            <button class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10" data-bs-toggle="modal" data-bs-target="#soldOutModal">
-                Buy Now
-            </button>
-        </div>
-        <div class="carousel-item position-relative">
-            <img src="{{ url_for('static', filename='Image/Display events/IVE concert.png') }}" class="d-block w-100">
-            <!-- Buy Now button -->
-            <button class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10" data-bs-toggle="modal" data-bs-target="#soldOutModal">
-                Buy Now
-            </button>
-        </div>
-        <div class="carousel-item position-relative">
-            <img src="{{ url_for('static', filename='Image/Display events/BTS concert.png') }}" class="d-block w-100">
-            <!-- Buy Now button overlay -->
-            <button class="btn btn-light btn-lg slide-button carousel-buy-btn" style="background-color: #e7ccff; border: solid 1px; border-color: #cd98fb; z-index: 10" data-bs-toggle="modal" data-bs-target="#soldOutModal">
-                Buy Now
-            </button>
-        </div>
-        <!-- Sold Out Modal (add this once somewhere in your template) -->
-        <div class="modal fade" id="soldOutModal" tabindex="-1" aria-labelledby="soldOutModalLabel" aria-hidden="true">
-            <div class="modal-dialog">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="soldOutModalLabel">Ticket Unavailable</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body text-center">
-                        <p>Sorry, the tickets for this show are not available.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
+        {% endfor %}
     </div>
     <!-- Controls -->
     <button class="carousel-control-prev" type="button" data-bs-target="#eventCarousel" data-bs-slide="prev">
@@ -68,6 +53,20 @@
         <span class="carousel-control-next-icon" aria-hidden="true"></span>
         <span class="visually-hidden">Next</span>
     </button>
+</div>
+<!-- Sold Out Modal -->
+<div class="modal fade" id="soldOutModal" tabindex="-1" aria-labelledby="soldOutModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="soldOutModalLabel">Ticket Unavailable</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center">
+                <p>Sorry, the tickets for this show are not available.</p>
+            </div>
+        </div>
+    </div>
 </div>
 {% endblock %}
 
